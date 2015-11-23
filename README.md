@@ -9,7 +9,7 @@ The Semantic Alignment Tool is a portlet using the [Liferay Platform] (http://ww
 
 3)	Install the Liferay Portal and Liferay Plugins SDK in Eclipse using the following [instructions] (http://www.liferay.com/community/wiki/-/wiki/Main/Liferay+IDE+Getting+Started+Tutorial). By the end of this step you should have created a new Liferay portal (Tomcat) server in Eclipse.
 
-4)	Download the Rule Editor Portlet and import it in Eclipse. 
+4)	Download the Semantic Alignment Tool and import it in Eclipse. 
 
 5)	Add the portlet your Liferay portal (Tomcat Server) by right clicking on the server and selecting “Add and Remove” option. Start the server and the portlet will be deployed in your http://localhost:8080. 
 
