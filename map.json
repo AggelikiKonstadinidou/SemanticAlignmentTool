@@ -1,0 +1,2202 @@
+{
+  "docs": [
+    {
+      "type": "ALIAS",
+      "uniqueId": "ConfirmationFeedback",
+      "aliasOf": "confirmationFeedback",
+      "termLabel": "confirmation feedback",
+      "source": "iso24751",
+      "satId": "ISO24751_ConfirmationFeedback"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "confirmationFeedback",
+      "valueSpace": "true, false",
+      "termLabel": "Confirmation feedback",
+      "definition": "preference for a voice recognition system to provide auditory confirmation feedback for recognized commands",
+      "source": "gpii",
+      "hasId": "voiceRecognition.confirmationFeedback",
+      "hasType": "boolean",
+      "satId": "Reg_ConfirmationFeedback"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Vocabulary",
+      "aliasOf": "vocabulary",
+      "termLabel": "vocabulary",
+      "source": "iso24751",
+      "satId": "ISO24751_Vocabulary"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "vocabulary",
+      "valueSpace": "contextual, vocabulary",
+      "termLabel": "vocabulary",
+      "definition": "type of voice recognition system vocabulary to use",
+      "source": "gpii",
+      "hasId": "voiceRecognition.commandAndControl.vocabulary",
+      "hasType": "string",
+      "satId": "Reg_Vocabulary"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Language",
+      "aliasOf": "language",
+      "termLabel": "language",
+      "source": "iso24751",
+      "satId": "ISO24751_Language"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Language",
+      "aliasOf": "language",
+      "termLabel": "language",
+      "source": "nvda",
+      "satId": "NVDA_Language"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "language",
+      "valueSpace": "[ISO 639-2/T]",
+      "termLabel": "language",
+      "definition": "a preference for the language of the user interface",
+      "source": "gpii",
+      "hasId": "language",
+      "hasType": "string",
+      "satId": "Reg_Language"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "FontName",
+      "aliasOf": "fontName",
+      "termLabel": "font name",
+      "source": "iso24751",
+      "satId": "ISO24751_FontName"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "fontName",
+      "valueSpace": "characterstring",
+      "termLabel": "Font name",
+      "definition": "font by name",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.fontFace.fontName.0",
+      "hasType": "string",
+      "satId": "Reg_FontName"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "FontSize",
+      "aliasOf": "fontSize",
+      "termLabel": "font size",
+      "source": "iso24751",
+      "satId": "ISO24751_FontSize"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "fontSize",
+      "valueSpace": "real(10,4) range (0.0 .. *) excluding (0.0)",
+      "termLabel": "font size",
+      "definition": "size of a font",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.fontSize",
+      "hasType": "integer",
+      "satId": "Reg_FontSize"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brightness",
+      "termLabel": "Brightness",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_Brightness"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ForegroundColour",
+      "aliasOf": "foregroundColour",
+      "termLabel": "foreground colour",
+      "source": "iso24751",
+      "satId": "ISO24751_ForegroundColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "foregroundColour",
+      "valueSpace": "RGB plus Alpha",
+      "termLabel": "foreground colour",
+      "definition": "foreground colour in an interface that is displaying text",
+      "source": "gpii",
+      "hasId": "foregroundColour",
+      "hasType": "string",
+      "satId": "Reg_ForegroundColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "speechRecognitionOn",
+      "termLabel": "Speech Recognition On",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "-provisional-speechRecognitionOn",
+      "satId": "Reg_SpeechRecognitionOn"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BackgroundColour",
+      "aliasOf": "backgroundColour",
+      "termLabel": "background colour",
+      "source": "iso24751",
+      "satId": "ISO24751_BackgroundColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "backgroundColour",
+      "valueSpace": "RGB plus Alpha",
+      "termLabel": "background colour",
+      "definition": "background colour in an interface that is displaying text",
+      "source": "gpii",
+      "hasId": "backgroundColour",
+      "hasType": "string",
+      "satId": "Reg_BackgroundColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "contrast",
+      "termLabel": "Contrast",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_Contrast"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Dictation",
+      "aliasOf": "dictation",
+      "termLabel": "dictation",
+      "source": "iso24751",
+      "satId": "ISO24751_Dictation"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "dictation",
+      "valueSpace": "true, false",
+      "termLabel": "Dictation",
+      "definition": "preference to use dictation with a voice recognition system",
+      "source": "gpii",
+      "hasId": "voiceRecognition.dictation",
+      "hasType": "boolean",
+      "satId": "Reg_Dictation"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "MicrophoneGain",
+      "aliasOf": "microphoneGain",
+      "termLabel": "microphone gain",
+      "source": "iso24751",
+      "satId": "ISO24751_MicrophoneGain"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "microphoneGain",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "microphone gain",
+      "definition": "sensitivity of a microphone",
+      "source": "gpii",
+      "hasId": "voiceRecognition.microphoneGain",
+      "hasType": "float",
+      "satId": "Reg_MicrophoneGain"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AdaptationType",
+      "aliasOf": "adaptationType",
+      "termLabel": "adaptation type",
+      "source": "iso24751",
+      "satId": "ISO24751_AdaptationType"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "adaptationType",
+      "valueSpace": "audio representation, tactile representation, text representation, visual representation, audio description, caption, e-book, sign language",
+      "termLabel": "adaptation type",
+      "definition": "nature or genre of the adaptation[ISO 15836:2003]",
+      "source": "gpii",
+      "hasId": "adaptationType",
+      "hasType": "string",
+      "satId": "Reg_AdaptationType"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Volume",
+      "aliasOf": "volume",
+      "termLabel": "volume",
+      "source": "iso24751",
+      "satId": "ISO24751_Volume"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Volume",
+      "aliasOf": "volume",
+      "termLabel": "CurrentVolume",
+      "source": "win7builtinnarrator",
+      "satId": "Win7BuiltInNarrator_Volume"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Volume",
+      "aliasOf": "volume",
+      "termLabel": "volume",
+      "source": "atwikiiso24751",
+      "satId": "ATWikiISO24751_Volume"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Volume",
+      "aliasOf": "volume",
+      "termLabel": "volume",
+      "source": "nvda",
+      "satId": "NVDA_Volume"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "volume",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "volume",
+      "definition": "volume of a speech synthesizer",
+      "source": "gpii",
+      "hasId": "volume",
+      "hasType": "float",
+      "satId": "Reg_Volume"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ApplicationPriority",
+      "aliasOf": "applicationPriority",
+      "termLabel": "application priority",
+      "source": "iso24751",
+      "satId": "ISO24751_ApplicationPriority"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "applicationPriority",
+      "valueSpace": "(0 .. *)",
+      "termLabel": "application priority",
+      "definition": "priority of usage of an application with respect to other applications listed",
+      "source": "gpii",
+      "hasId": "applicationPriority",
+      "hasType": "integer",
+      "satId": "Reg_ApplicationPriority"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "InvertImages",
+      "aliasOf": "invertImages",
+      "termLabel": "invert images",
+      "source": "iso24751",
+      "satId": "ISO24751_InvertImages"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "invertImages",
+      "valueSpace": "true, false",
+      "termLabel": "invert images",
+      "definition": "AfA preference to invert the colours of images",
+      "source": "gpii",
+      "hasId": "invertImages",
+      "hasType": "boolean",
+      "satId": "Reg_InvertImages"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ReadingRate",
+      "aliasOf": "readingRate",
+      "termLabel": "reading rate",
+      "source": "iso24751",
+      "satId": "ISO24751_ReadingRate"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "readingRate",
+      "valueSpace": "(1 .. 300)",
+      "termLabel": "reading rate",
+      "definition": "rate of presentation of text that is automatically scrolled, as in captions for a film",
+      "source": "gpii",
+      "hasId": "readingRate",
+      "hasType": "integer",
+      "satId": "Reg_ReadingRate"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseEmulation_CursorSpeed",
+      "termLabel": "Mouse emulation - cursor speed",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.mouseEmulation.cursorSpeed",
+      "satId": "Reg_MouseEmulation_CursorSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "dUMMY",
+      "termLabel": "NULL registry term",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_DUMMY"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "highContrast",
+      "valueSpace": "true, false",
+      "termLabel": "HighContrast",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.highContrast",
+      "hasType": "boolean",
+      "satId": "Reg_HighContrast"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AuditoryOutLanguage",
+      "aliasOf": "auditoryOutLanguage",
+      "termLabel": "Language",
+      "source": "satogo",
+      "satId": "SAToGo_AuditoryOutLanguage"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "auditoryOutLanguage",
+      "valueSpace": "EN,GR,DE,US",
+      "termLabel": "AuditoryOutLanguage",
+      "definition": "default language for text-to-speech rendering, especially in a screen reader or a self-voicing application",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-auditoryOutLanguage",
+      "hasType": "string",
+      "satId": "Reg_AuditoryOutLanguage"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "selfVoicingApplicationTTSEnabled",
+      "valueSpace": "true,false",
+      "termLabel": "SelfVoicingApplicationTTSEnabled",
+      "definition": "enable text-to-speech rendering in an application with self-voicing capabilities (as opposed to text-to-speech rendering in a screen reader)",
+      "source": "gpii",
+      "hasType": "boolean",
+      "satId": "Reg_SelfVoicingApplicationTTSEnabled"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "volumeTTS",
+      "termLabel": "Volume TTS",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_VolumeTTS"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "EducationLevel",
+      "aliasOf": "educationLevel",
+      "termLabel": "education level",
+      "source": "iso24751",
+      "satId": "ISO24751_EducationLevel"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "educationLevel",
+      "valueSpace": "characterstring",
+      "termLabel": "education level",
+      "definition": "audience education level [DCMI MT]",
+      "source": "gpii",
+      "hasId": "educationLevel",
+      "hasType": "string",
+      "satId": "Reg_EducationLevel"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ParameterValue",
+      "aliasOf": "parameterValue",
+      "termLabel": "parameter  Value",
+      "source": "iso24751",
+      "satId": "ISO24751_ParameterValue"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "parameterValue",
+      "valueSpace": "characterstring",
+      "termLabel": "parameter value",
+      "definition": "Value of a parameter",
+      "source": "gpii",
+      "hasId": "parameterValue",
+      "hasType": "string",
+      "satId": "Reg_ParameterValue"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Hazard",
+      "aliasOf": "hazard",
+      "termLabel": "hazard",
+      "source": "iso24751",
+      "satId": "ISO24751_Hazard"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "hazard",
+      "valueSpace": "flashing, sound, olfactory, motion simulation",
+      "termLabel": "hazard",
+      "definition": "a characteristic of a digital resource that may be specified as being dangerous to a user",
+      "source": "gpii",
+      "hasId": "hazard",
+      "hasType": "string",
+      "satId": "Reg_Hazard"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SystemSoundsCaption",
+      "aliasOf": "systemSoundCaption",
+      "termLabel": "system sounds caption",
+      "source": "iso24751",
+      "satId": "ISO24751_SystemSoundsCaption"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "systemSoundCaption",
+      "valueSpace": "true, false",
+      "termLabel": "system sound caption",
+      "definition": "preference to use a textual message for any system-generated audio",
+      "source": "gpii",
+      "hasId": "systemSoundCaption",
+      "hasType": "boolean",
+      "satId": "Reg_SystemSoundCaption"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AlphanumericKeyboardLayoutCustom",
+      "aliasOf": "alphanumericKeyboardLayoutCustom",
+      "termLabel": "alphanumeric keyboard layout custom",
+      "source": "iso24751",
+      "satId": "ISO24751_AlphanumericKeyboardLayoutCustom"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "alphanumericKeyboardLayoutCustom",
+      "valueSpace": "URI",
+      "termLabel": "alphanumeric keyboard layout custom",
+      "definition": "data element identifying a document containing a specification of a custom spatial arrangement of keys of an alphanumeric keyboard",
+      "source": "gpii",
+      "hasId": "alphanumericKeyboardLayoutCustom",
+      "hasType": "string",
+      "satId": "Reg_AlphanumericKeyboardLayoutCustom"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "defaultSounds",
+      "termLabel": "DefaultSounds",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_DefaultSounds"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyHeightAbsolute",
+      "aliasOf": "keyHeightAbsolute",
+      "termLabel": "key height absolute",
+      "source": "iso24751",
+      "satId": "ISO24751_KeyHeightAbsolute"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keyHeightAbsolute",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "key height absolute",
+      "definition": "height, in millimetres, of a key in an alternative keyboard",
+      "source": "gpii",
+      "hasId": "keyHeightAbsolute",
+      "hasType": "integer",
+      "satId": "Reg_KeyHeightAbsolute"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Code",
+      "aliasOf": "code",
+      "termLabel": "code",
+      "source": "iso24751",
+      "satId": "ISO24751_Code"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "code",
+      "valueSpace": "morse, quartering, eight cell, chordic",
+      "termLabel": "code",
+      "definition": "what code to use to represent possible inputs",
+      "source": "gpii",
+      "hasId": "code",
+      "hasType": "string",
+      "satId": "Reg_Code"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "punctuationVerbosity",
+      "valueSpace": "none,some,most,all",
+      "termLabel": "punctuation verbosity",
+      "definition": "level of verbosity for punctuation: announce no punctuation, some punctuation, most punctuation or all punctuation",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-punctuationVerbosity",
+      "hasType": "string",
+      "satId": "Reg_PunctuationVerbosity"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "CursorSize",
+      "aliasOf": "cursorSize",
+      "termLabel": "cursor size",
+      "source": "iso24751",
+      "satId": "ISO24751_CursorSize"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "cursorSize",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "cursor size",
+      "definition": "size of a cursor",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.cursorSize",
+      "hasType": "integer",
+      "satId": "Reg_CursorSize"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "NumberOfBrailleCells",
+      "aliasOf": "numberOfBrailleCells",
+      "termLabel": "number of braille cells",
+      "source": "iso24751",
+      "satId": "ISO24751_NumberOfBrailleCells"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "numberOfBrailleCells",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "number of Braille cells",
+      "definition": "number of active Braille cells in a Braille display",
+      "source": "gpii",
+      "hasId": "numberOfBrailleCells",
+      "hasType": "integer",
+      "satId": "Reg_NumberOfBrailleCells"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ComponentsShown",
+      "aliasOf": "componentsShown",
+      "termLabel": "components shown",
+      "source": "iso24751",
+      "satId": "ISO24751_ComponentsShown"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "componentsShown",
+      "valueSpace": "list of links, annotations",
+      "termLabel": "components shown",
+      "definition": "which components of a user interface to display",
+      "source": "gpii",
+      "hasId": "componentsShown",
+      "hasType": "string",
+      "satId": "Reg_ComponentsShown"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "CursorSpeed",
+      "aliasOf": "cursorSpeed",
+      "termLabel": "cursor speed",
+      "source": "iso24751",
+      "satId": "ISO24751_CursorSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "cursorSpeed",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "cursor speed",
+      "definition": "speed at which a “mouse” cursor or relative pointing device moves across the screen",
+      "source": "gpii",
+      "hasId": "cursorSpeed",
+      "hasType": "float",
+      "satId": "Reg_CursorSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "followFocus",
+      "termLabel": "FollowFocus",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_FollowFocus"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "NavigationStrategy",
+      "aliasOf": "navigationStrategy",
+      "termLabel": "navigation strategy",
+      "source": "iso24751",
+      "satId": "ISO24751_NavigationStrategy"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "navigationStrategy",
+      "valueSpace": "breadth first, depth first",
+      "termLabel": "navigation strategy",
+      "definition": "how focus should move through a navigation structure",
+      "source": "gpii",
+      "hasId": "navigationStrategy",
+      "hasType": "string",
+      "satId": "Reg_NavigationStrategy"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SwitchDelay",
+      "aliasOf": "switchDelay",
+      "termLabel": "switch delay",
+      "source": "iso24751",
+      "satId": "ISO24751_SwitchDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "switchDelay",
+      "valueSpace": "real(10,4) range (0.0 .. *)",
+      "termLabel": "switch delay",
+      "definition": "delay in seconds before recognizing a switch press",
+      "source": "gpii",
+      "hasId": "switchDelay",
+      "hasType": "float",
+      "satId": "Reg_SwitchDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "deviceHandedness",
+      "valueSpace": "left, right",
+      "termLabel": "device handedness",
+      "definition": "either a left-handed or right-handed pointing device",
+      "source": "gpii",
+      "hasId": "deviceHandedness",
+      "hasType": "string",
+      "satId": "Reg_DeviceHandedness"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechRate",
+      "aliasOf": "speechRate",
+      "termLabel": "speech_speed",
+      "source": "androidgooglesmartphone",
+      "satId": "AndroidGoogleSmartphone_SpeechRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechRate",
+      "aliasOf": "speechRate",
+      "termLabel": "CurrentSpeed",
+      "source": "win7builtinnarrator",
+      "satId": "Win7BuiltInNarrator_SpeechRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechRate",
+      "aliasOf": "speechRate",
+      "termLabel": "speech rate",
+      "source": "iso24751",
+      "satId": "ISO24751_SpeechRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechRate",
+      "aliasOf": "speechRate",
+      "termLabel": "Speech rate",
+      "source": "atwikiiso24751",
+      "satId": "ATWikiISO24751_SpeechRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechRate",
+      "aliasOf": "speechRate",
+      "termLabel": "Speech Rate",
+      "source": "mobileaccesscf",
+      "satId": "MobileAccessCF_SpeechRate"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "speechRate",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "speech rate",
+      "definition": "rate of speech of a speech synthesizer",
+      "source": "gpii",
+      "hasId": "display.screenReader.speechRate",
+      "hasType": "integer",
+      "satId": "Reg_SpeechRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "Pitch",
+      "source": "mobileaccesscf",
+      "satId": "MobileAccessCF_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "speech_pitch",
+      "source": "androidgooglesmartphone",
+      "satId": "AndroidGoogleSmartphone_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "pitch",
+      "source": "iso24751",
+      "satId": "ISO24751_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "Average Pitch:",
+      "source": "satogo",
+      "satId": "SAToGo_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "CurrentPitch",
+      "source": "win7builtinnarrator",
+      "satId": "Win7BuiltInNarrator_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "pitch",
+      "source": "nvda",
+      "satId": "NVDA_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Pitch",
+      "aliasOf": "pitch",
+      "termLabel": "pitch",
+      "source": "atwikiiso24751",
+      "satId": "ATWikiISO24751_Pitch"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "pitch",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "pitch",
+      "definition": "pitch of a speech synthesizer",
+      "source": "gpii",
+      "hasId": "pitch",
+      "hasType": "float",
+      "satId": "Reg_Pitch"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SystemSounds",
+      "aliasOf": "systemSounds",
+      "termLabel": "system sounds",
+      "source": "iso24751",
+      "satId": "ISO24751_SystemSounds"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "systemSounds",
+      "valueSpace": "desktop, window, caption bar",
+      "termLabel": "system sounds",
+      "definition": "what to use as a visual alternative to system alert sounds",
+      "source": "gpii",
+      "hasId": "systemSounds",
+      "hasType": "string",
+      "satId": "Reg_SystemSounds"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "MagnificationPosition",
+      "aliasOf": "magnificationPosition",
+      "termLabel": "screen-position",
+      "source": "linuxbuiltinmagnifier",
+      "satId": "LinuxBuiltInMagnifier_MagnificationPosition"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "magnificationPosition",
+      "valueSpace": "FullScreen,LeftHalf,RightHalf,TopHalf,BottomHalf,Custom",
+      "termLabel": "magnification position",
+      "definition": "position of the magnifier or lens on the screen",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.-provisional-magnifierPosition",
+      "hasType": "string",
+      "satId": "Reg_MagnificationPosition"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "automaticDelay",
+      "valueSpace": "real (10,4) range (0.0 .. 1.0)",
+      "termLabel": "automatic delay",
+      "definition": "how long a system using repeat keys should wait before auto-repeat engages",
+      "source": "gpii",
+      "hasId": "automaticDelay",
+      "hasType": "float",
+      "satId": "Reg_AutomaticDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "followCaret",
+      "termLabel": "FollowCaret",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_FollowCaret"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "magnificationMode",
+      "termLabel": "MagnificationMode",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_MagnificationMode"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Magnification",
+      "aliasOf": "magnification",
+      "termLabel": "org.gnome.desktop.a11y.magnifier.mag-factor",
+      "source": "gnome",
+      "satId": "GNOME_Magnification"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Magnification",
+      "aliasOf": "magnification",
+      "termLabel": "Zoom Level",
+      "source": "mobileaccesscf",
+      "satId": "MobileAccessCF_Magnification"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Magnification",
+      "aliasOf": "magnification",
+      "termLabel": "ZoomIncrement",
+      "source": "windowsbuiltinmagnifier",
+      "satId": "WindowsBuiltInMagnifier_Magnification"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "magnification",
+      "valueSpace": "real(10,4) range (1.0 .. *)",
+      "termLabel": "magnification",
+      "definition": "preferred magnification of the screen as a factor of a screen&apos;s original size",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.magnification",
+      "hasType": "float",
+      "satId": "Reg_Magnification"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Tracking",
+      "aliasOf": "tracking",
+      "termLabel": "mouse-tracking",
+      "source": "linuxbuiltinmagnifier",
+      "satId": "LinuxBuiltInMagnifier_Tracking"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Tracking",
+      "aliasOf": "tracking",
+      "termLabel": "org.gnome.desktop.a11y.magnifier.mouse-tracking",
+      "source": "gnome",
+      "satId": "GNOME_Tracking"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Tracking",
+      "aliasOf": "tracking",
+      "termLabel": "followCaret",
+      "source": "nvda",
+      "satId": "NVDA_Tracking"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Tracking",
+      "aliasOf": "tracking",
+      "termLabel": "tracking",
+      "source": "iso24751",
+      "satId": "ISO24751_Tracking"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Tracking",
+      "aliasOf": "tracking",
+      "termLabel": "FollowMouse",
+      "source": "windowsbuiltinmagnifier",
+      "satId": "WindowsBuiltInMagnifier_Tracking"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "tracking",
+      "valueSpace": "mouse, caret, focus",
+      "termLabel": "tracking",
+      "definition": "an area of the screen to display (e.g. the area around the “mouse”, the cursor, or the point of focus)",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.tracking",
+      "hasType": "string",
+      "satId": "Reg_Tracking"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "showCrosshairs",
+      "termLabel": "Show crosshairs",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.-provisional-showCrosshairs",
+      "satId": "Reg_ShowCrosshairs"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "TableOfContents",
+      "aliasOf": "tableOfContents",
+      "termLabel": "table of contents",
+      "source": "iso24751",
+      "satId": "ISO24751_TableOfContents"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "tableOfContents",
+      "valueSpace": "true, false",
+      "termLabel": "table of contents",
+      "definition": "preference to use a table of contents for navigation",
+      "source": "gpii",
+      "hasId": "tableOfContents",
+      "hasType": "boolean",
+      "satId": "Reg_TableOfContents"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseEmulationEnabled",
+      "termLabel": "Enable mouse emulation",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.mouseEmulation.-provisional-mouseEmulationEnabled",
+      "satId": "Reg_MouseEmulationEnabled"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "debounceKeysInterval",
+      "termLabel": "Debounce keys interval",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.keyboardEnhancement.debounceKeys.debounceInterval",
+      "satId": "Reg_DebounceKeysInterval"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseEmulation_CursorAcceleration",
+      "termLabel": "Mouse emulation - cursor acceleration",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.mouseEmulation.cursorAcceleration",
+      "satId": "Reg_MouseEmulation_CursorAcceleration"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "debounceKeysEnable",
+      "termLabel": "Enable debounce keys",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.keyboardEnhancement.debounceKeys.-provisional-debounceEnable",
+      "satId": "Reg_DebounceKeysEnable"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "stickyKeys",
+      "termLabel": "Sticky keys",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.keyboardEnhancement.stickyKeys",
+      "satId": "Reg_StickyKeys"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "slowKeysEnable",
+      "termLabel": "Enable slow keys",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.keyboardEnhancement.slowKeys.-provisional-slowKeysEnable",
+      "satId": "Reg_SlowKeysEnable"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseEmulation_InitDelay",
+      "termLabel": "Mouse emulation - init delay",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "control.mouseEmulation.-provisional-initDelay",
+      "satId": "Reg_MouseEmulation_InitDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "magnifierEnabled",
+      "valueSpace": "true,false",
+      "termLabel": "magnifier enabled",
+      "definition": "enable the magnifier",
+      "source": "gpii",
+      "hasId": "magnifierEnabled",
+      "hasType": "boolean",
+      "satId": "Reg_MagnifierEnabled"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SlowKeysInterval",
+      "aliasOf": "slowKeysInterval",
+      "termLabel": "slow keys interval",
+      "source": "iso24751",
+      "satId": "ISO24751_SlowKeysInterval"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "slowKeysInterval",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "slow keys interval",
+      "definition": "interval before a key press is detected when slow keys is being used",
+      "source": "gpii",
+      "hasId": "control.keyboardEnhancement.slowKeys.slowKeysInterval",
+      "hasType": "float",
+      "satId": "Reg_SlowKeysInterval"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ScreenReaderTTSEnabled",
+      "aliasOf": "screenReaderTTSEnabled",
+      "termLabel": "org.gnome.desktop.a11y.applications.screen-reader-enabled",
+      "source": "gnome",
+      "satId": "GNOME_ScreenReaderTTSEnabled"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "screenReaderTTSEnabled",
+      "valueSpace": "true,false",
+      "termLabel": "ScreenReaderTTSEnabled",
+      "definition": "enable text-to-speech rendering in a screen reader (as opposed to text-to-speech rendering in an application with self-voicing capabilities)",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-screenReaderTTSEnabled",
+      "hasType": "boolean",
+      "satId": "Reg_ScreenReaderTTSEnabled"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BeepForCapitals",
+      "aliasOf": "beepForCapitals",
+      "termLabel": "beepForCapitals",
+      "source": "nvda",
+      "satId": "NVDA_BeepForCapitals"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BeepForCapitals",
+      "aliasOf": "beepForCapitals",
+      "termLabel": "Beep when reading a capital letter",
+      "source": "satogo",
+      "satId": "SAToGo_BeepForCapitals"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "beepForCapitals",
+      "valueSpace": "true,false",
+      "termLabel": "beep for capitals",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "beepForCapitals",
+      "hasType": "boolean",
+      "satId": "Reg_BeepForCapitals"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AnnounceCapitals",
+      "aliasOf": "announceCapitals",
+      "termLabel": "sayCapForCapitals",
+      "source": "nvda",
+      "satId": "NVDA_AnnounceCapitals"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AnnounceCapitals",
+      "aliasOf": "announceCapitals",
+      "termLabel": "Say the word &quot;cap&quot; when reading a capital letter",
+      "source": "satogo",
+      "satId": "SAToGo_AnnounceCapitals"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "announceCapitals",
+      "valueSpace": "true,false",
+      "termLabel": "AnnounceCapitals",
+      "definition": "announce uppercase letters as &quot;cap x&quot;",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-announceCapitals",
+      "hasType": "boolean",
+      "satId": "Reg_AnnounceCapitals"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyEcho",
+      "aliasOf": "keyEcho",
+      "termLabel": "EchoChars",
+      "source": "win7builtinnarrator",
+      "satId": "Win7BuiltInNarrator_KeyEcho"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyEcho",
+      "aliasOf": "keyEcho",
+      "termLabel": "speakTypedCharacters",
+      "source": "nvda",
+      "satId": "NVDA_KeyEcho"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyEcho",
+      "aliasOf": "keyEcho",
+      "termLabel": "(general.enableEchoByCharacter)",
+      "source": "gnome",
+      "satId": "GNOME_KeyEcho"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keyEcho",
+      "valueSpace": "true,false",
+      "termLabel": "KeyEcho",
+      "definition": "echo each character as it is typed",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-keyEcho",
+      "hasType": "boolean",
+      "satId": "Reg_KeyEcho"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ScanSwitchDelay",
+      "aliasOf": "scanSwitchDelay",
+      "termLabel": "scan switch delay",
+      "source": "iso24751",
+      "satId": "ISO24751_ScanSwitchDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "scanSwitchDelay",
+      "valueSpace": "real(10,4) range (0.0 .. *)",
+      "termLabel": "scan switch delay",
+      "definition": "delay, in seconds, before a switch activation is recognized",
+      "source": "gpii",
+      "hasId": "scanSwitchDelay",
+      "hasType": "float",
+      "satId": "Reg_ScanSwitchDelay"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyWidthRelative",
+      "aliasOf": "keyWidthRelative",
+      "termLabel": "key width relative",
+      "source": "iso24751",
+      "satId": "ISO24751_KeyWidthRelative"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keyWidthRelative",
+      "valueSpace": "[0 to 100]",
+      "termLabel": "key width relative",
+      "definition": "width of a key in an onscreen keyboard as a percentage of the screen width",
+      "source": "gpii",
+      "hasId": "keyWidthRelative",
+      "hasType": "integer",
+      "satId": "Reg_KeyWidthRelative"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ContentDensity",
+      "aliasOf": "contentDensity",
+      "termLabel": "content density",
+      "source": "iso24751",
+      "satId": "ISO24751_ContentDensity"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "contentDensity",
+      "valueSpace": "overview, detailed",
+      "termLabel": "content density",
+      "definition": "amount of detail to provide at any given time",
+      "source": "gpii",
+      "hasId": "contentDensity",
+      "hasType": "string",
+      "satId": "Reg_ContentDensity"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "lineSpacing",
+      "termLabel": "LineSpacing",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_LineSpacing"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeySpacingAbsolute",
+      "aliasOf": "keySpacingAbsolute",
+      "termLabel": "key spacing absolute",
+      "source": "iso24751",
+      "satId": "ISO24751_KeySpacingAbsolute"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keySpacingAbsolute",
+      "valueSpace": "(0 .. *)",
+      "termLabel": "key spacing absolute",
+      "definition": "spacing, in millimetres, between keys in an alternative keyboard",
+      "source": "gpii",
+      "hasId": "keySpacingAbsolute",
+      "hasType": "integer",
+      "satId": "Reg_KeySpacingAbsolute"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BrailleGrade",
+      "aliasOf": "brailleGrade",
+      "termLabel": "braille grade",
+      "source": "iso24751",
+      "satId": "ISO24751_BrailleGrade"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BrailleGrade",
+      "aliasOf": "brailleGrade",
+      "termLabel": "Input Braille Grade",
+      "source": "mobileaccesscf",
+      "satId": "MobileAccessCF_BrailleGrade"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brailleGrade",
+      "valueSpace": "uncontracted, contracted",
+      "termLabel": "braille grade",
+      "definition": "grade of Braille to use when using a Braille display",
+      "source": "gpii",
+      "hasId": "brailleGrade",
+      "hasType": "string",
+      "satId": "Reg_BrailleGrade"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseTrailing",
+      "termLabel": "Mouse Trailing",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_MouseTrailing"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "InvertColourChoice",
+      "aliasOf": "invertColourChoice",
+      "termLabel": "Invert",
+      "source": "windowsbuiltinmagnifier",
+      "satId": "WindowsBuiltInMagnifier_InvertColourChoice"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "invertColourChoice",
+      "valueSpace": "true, false",
+      "termLabel": "invert colour choice",
+      "definition": "AfA preference to invert the foreground and background colours",
+      "source": "gpii",
+      "hasId": "invertColourChoice",
+      "hasType": "boolean",
+      "satId": "Reg_InvertColourChoice"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeechComponent",
+      "aliasOf": "speechComponent",
+      "termLabel": "speech component",
+      "source": "atwikiiso24751",
+      "satId": "ATWikiISO24751_SpeechComponent"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "speechComponent",
+      "valueSpace": "alternative text, controls when tabbing",
+      "termLabel": "speech component",
+      "definition": "what components of the user interface should be spoken",
+      "source": "gpii",
+      "hasId": "speechComponent",
+      "hasType": "string",
+      "satId": "Reg_SpeechComponent"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "KeyHeightRelative",
+      "aliasOf": "keyHeightRelative",
+      "termLabel": "key height relative",
+      "source": "iso24751",
+      "satId": "ISO24751_KeyHeightRelative"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keyHeightRelative",
+      "valueSpace": "[0 to 100]",
+      "termLabel": "key height relative",
+      "definition": "height of a key in an onscreen keyboard as a percentage of the screen height",
+      "source": "gpii",
+      "hasId": "keyHeightRelative",
+      "hasType": "integer",
+      "satId": "Reg_KeyHeightRelative"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "WordEcho",
+      "aliasOf": "wordEcho",
+      "termLabel": "speakTypedWords",
+      "source": "nvda",
+      "satId": "NVDA_WordEcho"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "WordEcho",
+      "aliasOf": "wordEcho",
+      "termLabel": "(general.enableEchoByWord)",
+      "source": "gnome",
+      "satId": "GNOME_WordEcho"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "wordEcho",
+      "valueSpace": "true,false",
+      "termLabel": "WordEcho",
+      "definition": "echo each word as it is typed",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-wordEcho",
+      "hasType": "boolean",
+      "satId": "Reg_WordEcho"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ReadingUnit",
+      "aliasOf": "readingUnit",
+      "termLabel": "reading unit",
+      "source": "atwikiiso24751",
+      "satId": "ATWikiISO24751_ReadingUnit"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "readingUnit",
+      "valueSpace": "word, line, sentence, paragraph",
+      "termLabel": "reading unit",
+      "definition": "unit of reading to be spoken",
+      "source": "gpii",
+      "hasId": "display.textReadingHighlight.readingUnit",
+      "hasType": "string",
+      "satId": "Reg_ReadingUnit"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeakTutorialMessages",
+      "aliasOf": "speakTutorialMessages",
+      "termLabel": "reportHelpBalloons",
+      "source": "nvda",
+      "satId": "NVDA_SpeakTutorialMessages"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SpeakTutorialMessages",
+      "aliasOf": "speakTutorialMessages",
+      "termLabel": "(general.enableTutorialMessages)",
+      "source": "gnome",
+      "satId": "GNOME_SpeakTutorialMessages"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "speakTutorialMessages",
+      "valueSpace": "true,false",
+      "termLabel": "SpeakTutorialMessages",
+      "definition": "provide additional information as the user moves among objects in an interface, such as how to interact with the currently-focused object",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-speakTutorialMessages",
+      "hasType": "boolean",
+      "satId": "Reg_SpeakTutorialMessages"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ScreenReaderBrailleOutput",
+      "aliasOf": "screenReaderBrailleOutput",
+      "termLabel": "(general.enableBraille)",
+      "source": "gnome",
+      "satId": "GNOME_ScreenReaderBrailleOutput"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "screenReaderBrailleOutput",
+      "valueSpace": "true,false",
+      "termLabel": "ScreenReaderBrailleOutput",
+      "definition": "enable Braille output in the screen reader (as opposed to the self-brailling capability in an application)",
+      "source": "gpii",
+      "hasId": "display.screenReader.-provisional-screenReaderBrailleOutput",
+      "hasType": "boolean",
+      "satId": "Reg_ScreenReaderBrailleOutput"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "DebounceInterval",
+      "aliasOf": "debounceInterval",
+      "termLabel": "debounce interval",
+      "source": "iso24751",
+      "satId": "ISO24751_DebounceInterval"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "debounceInterval",
+      "valueSpace": "real(10,4) range (0.0 .. *) excluding (0.0)",
+      "termLabel": "debounce interval",
+      "definition": "interval, in seconds, when repeated keystrokes presses of the same character key are ignored when debounce is being used",
+      "source": "gpii",
+      "hasId": "debounceInterval",
+      "hasType": "float",
+      "satId": "Reg_DebounceInterval"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "fontFamily",
+      "termLabel": "FontFamily",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_FontFamily"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "AbsolutePointing",
+      "aliasOf": "absolutePointing",
+      "termLabel": "absolute pointing",
+      "source": "iso24751",
+      "satId": "ISO24751_AbsolutePointing"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "absolutePointing",
+      "valueSpace": "true, false",
+      "termLabel": "absolute pointing",
+      "definition": "preference to use an absolute pointing device instead of a relative pointing device",
+      "source": "gpii",
+      "hasId": "absolutePointing",
+      "hasType": "boolean",
+      "satId": "Reg_AbsolutePointing"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "Lexicon",
+      "aliasOf": "lexicon",
+      "source": "iso24751",
+      "satId": "ISO24751_Lexicon"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "lexicon",
+      "valueSpace": "URI",
+      "termLabel": "lexicon",
+      "definition": "a data element identifying an external user defined lexicon file",
+      "source": "gpii",
+      "hasId": "lexicon",
+      "hasType": "string",
+      "satId": "Reg_Lexicon"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "audioDescription",
+      "termLabel": "AudioDescription",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_AudioDescription"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "highlightColour",
+      "valueSpace": "RGB plus Alpha",
+      "termLabel": "highlight colour",
+      "definition": "the highlight colour in an interface that is displaying text",
+      "source": "gpii",
+      "hasId": "highlightColour",
+      "hasType": "string",
+      "satId": "Reg_HighlightColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "selectionMethod",
+      "valueSpace": "point-and-dwell, point-and-click",
+      "termLabel": "selection method",
+      "definition": "selection method to use to activate a key",
+      "source": "gpii",
+      "hasId": "selectionMethod",
+      "hasType": "string",
+      "satId": "Reg_SelectionMethod"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "DoubleClickSpeed",
+      "aliasOf": "doubleClickSpeed",
+      "termLabel": "double-click speed",
+      "source": "iso24751",
+      "satId": "ISO24751_DoubleClickSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "doubleClickSpeed",
+      "valueSpace": "real(10,4) range (0.0 .. *) excluding (0.0)",
+      "termLabel": "double-click speed",
+      "definition": "time, in seconds, in which two successive clicks must occur in order to be registered as a double-click",
+      "source": "gpii",
+      "hasId": "doubleClickSpeed",
+      "hasType": "float",
+      "satId": "Reg_DoubleClickSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "trackingTTS",
+      "valueSpace": "true,false",
+      "termLabel": "Tracking TTS",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "display.screenEnhancement.trackingTTS",
+      "hasType": "boolean",
+      "satId": "Reg_TrackingTTS"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "ReducedReadingLevelFalse",
+      "aliasOf": "representationForm",
+      "termLabel": "reduced reading level false",
+      "source": "iso24751",
+      "satId": "ISO24751_ReducedReadingLevelFalse"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "representationForm",
+      "valueSpace": "enhanced, verbatim, reduced, real-time, transcript, alternative text, long description, talking",
+      "termLabel": "representation form",
+      "definition": "additional details about the adaptation type",
+      "source": "gpii",
+      "hasId": "representationForm",
+      "hasType": "string",
+      "satId": "Reg_RepresentationForm"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "scanSpeed",
+      "valueSpace": "real(10,4) range (0.0 .. *) excluding (0.0)",
+      "termLabel": "scan speed",
+      "definition": "scanning speed, in seconds, before a system moves on to the next item or row",
+      "source": "gpii",
+      "hasId": "scanSpeed",
+      "hasType": "float",
+      "satId": "Reg_ScanSpeed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "voiceProfile",
+      "valueSpace": "URI",
+      "termLabel": "voice profile",
+      "definition": "data element identifying an external file containing a voice recognition system voice profile",
+      "source": "gpii",
+      "hasId": "voiceProfile",
+      "hasType": "string",
+      "satId": "Reg_VoiceProfile"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "automaticScanInitialDelay",
+      "valueSpace": "real(10,4) range (0.0 .. *)",
+      "termLabel": "automatic scan initial delay",
+      "definition": "delay, in seconds, after a switch activation is recognized before a scan is initiated",
+      "source": "gpii",
+      "hasId": "automaticScanInitialDelay",
+      "hasType": "float",
+      "satId": "Reg_AutomaticScanInitialDelay"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "linkColour",
+      "valueSpace": "RGB plus Alpha",
+      "termLabel": "link colour",
+      "definition": "link colour in an interface that is displaying text with hyperlinks",
+      "source": "gpii",
+      "hasId": "linkColour",
+      "hasType": "string",
+      "satId": "Reg_LinkColour"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "PredictionType",
+      "aliasOf": "predictionType",
+      "termLabel": "prediction type",
+      "source": "iso24751",
+      "satId": "ISO24751_PredictionType"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "predictionType",
+      "valueSpace": "letter, word, word completion, command",
+      "termLabel": "prediction type",
+      "definition": "type of prediction to use",
+      "source": "gpii",
+      "hasId": "predictionType",
+      "hasType": "string",
+      "satId": "Reg_PredictionType"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "personalStylesheet",
+      "valueSpace": "URI",
+      "termLabel": "personal stylesheet",
+      "definition": "a data element identifying a style sheet",
+      "source": "gpii",
+      "hasId": "personalStylesheet",
+      "hasType": "string",
+      "satId": "Reg_PersonalStylesheet"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keyWidthAbsolute",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "key width absolute",
+      "definition": "width, in millimetres, of a key in an alternative keyboard",
+      "source": "gpii",
+      "hasId": "keyWidthAbsolute",
+      "hasType": "integer",
+      "satId": "Reg_KeyWidthAbsolute"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseControl",
+      "valueSpace": "true, false",
+      "termLabel": "mouse control",
+      "definition": "preference to use voice commands to control “mouse” movements",
+      "source": "gpii",
+      "hasId": "mouseControl",
+      "hasType": "boolean",
+      "satId": "Reg_MouseControl"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "WindowLayout",
+      "aliasOf": "windowLayout",
+      "termLabel": "window layout",
+      "source": "iso24751",
+      "satId": "ISO24751_WindowLayout"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "windowLayout",
+      "valueSpace": "tiled, overlap",
+      "termLabel": "window layout",
+      "definition": "spatial arrangement of application windows displayed on a screen",
+      "source": "gpii",
+      "hasId": "windowLayout",
+      "hasType": "string",
+      "satId": "Reg_WindowLayout"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "name",
+      "valueSpace": "characterstring",
+      "termLabel": "name",
+      "definition": "name of an application",
+      "source": "gpii",
+      "hasId": "name",
+      "hasType": "string",
+      "satId": "Reg_Name"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "controllerWindow",
+      "valueSpace": "hide, show",
+      "termLabel": "controller window",
+      "definition": "display of a voice recognition system controller window",
+      "source": "gpii",
+      "hasId": "controllerWindow",
+      "hasType": "string",
+      "satId": "Reg_ControllerWindow"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "RaisePitchForCapitals",
+      "aliasOf": "raisePitchForCapitals",
+      "termLabel": "capPitchChange",
+      "source": "nvda",
+      "satId": "NVDA_RaisePitchForCapitals"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "RaisePitchForCapitals",
+      "aliasOf": "raisePitchForCapitals",
+      "termLabel": "Raise the pitch when reading a capital letter",
+      "source": "satogo",
+      "satId": "SAToGo_RaisePitchForCapitals"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "raisePitchForCapitals",
+      "termLabel": "raise pitch for capitals",
+      "definition": "",
+      "source": "gpii",
+      "hasId": "raisePitchForCapitals",
+      "satId": "Reg_RaisePitchForCapitals"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brailleMode",
+      "valueSpace": "line,structured,speechHistory",
+      "termLabel": "Braille mode",
+      "definition": "type of representation in Braille: exact representation of what is on the screen (line mode), strict representation of the output of the speech synthesiser (speech box or speech history mode), or more descriptive (structured mode)",
+      "source": "gpii",
+      "hasId": "brailleMode",
+      "hasType": "string",
+      "satId": "Reg_BrailleMode"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "CodeRate",
+      "aliasOf": "codeRate",
+      "termLabel": "code rate",
+      "source": "iso24751",
+      "satId": "ISO24751_CodeRate"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "codeRate",
+      "valueSpace": "real(10,4) range (0.5 .. 20.0)",
+      "termLabel": "code rate",
+      "definition": "time, in seconds, available to enter a code",
+      "source": "gpii",
+      "hasId": "codeRate",
+      "hasType": "float",
+      "satId": "Reg_CodeRate"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "switchFunction",
+      "valueSpace": "select, cancel, scan",
+      "termLabel": "switch function",
+      "definition": "function to assign to a particular switch number",
+      "source": "gpii",
+      "hasId": "switchFunction",
+      "hasType": "string",
+      "satId": "Reg_SwitchFunction"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "NumberOfInputs",
+      "aliasOf": "numberOfInputs",
+      "termLabel": "number of inputs",
+      "source": "iso24751",
+      "satId": "ISO24751_NumberOfInputs"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "numberOfInputs",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "number of inputs",
+      "definition": "number of switches, keys or cells available to enter a code",
+      "source": "gpii",
+      "hasId": "numberOfInputs",
+      "hasType": "integer",
+      "satId": "Reg_NumberOfInputs"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "automaticScanRepeat",
+      "valueSpace": "1, 2, 3, 4, 5, infinity",
+      "termLabel": "automatic scan repeat",
+      "definition": "number of times an automatic scanning interface should repeat a row before escaping to a higher level and continuing a scan",
+      "source": "gpii",
+      "hasId": "automaticScanRepeat",
+      "hasType": "integer",
+      "satId": "Reg_AutomaticScanRepeat"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "BrailleStatusCell",
+      "aliasOf": "brailleStatusCell",
+      "termLabel": "braille status cell",
+      "source": "iso24751",
+      "satId": "ISO24751_BrailleStatusCell"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brailleStatusCell",
+      "valueSpace": "off, left, right",
+      "termLabel": "braille status cell",
+      "definition": "the presence or location of a Braille display status cell",
+      "source": "gpii",
+      "hasId": "brailleStatusCell",
+      "hasType": "string",
+      "satId": "Reg_BrailleStatusCell"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "inputRequirements",
+      "valueSpace": "full keyboard control, full “mouse” control",
+      "termLabel": "input requirements",
+      "definition": "single input system that is sufficient to control a resource",
+      "source": "gpii",
+      "hasId": "inputRequirements",
+      "hasType": "string",
+      "satId": "Reg_InputRequirements"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "supportTool",
+      "valueSpace": "dictionary, calculator, note taking, peer interaction, thesaurus, abacus, spell checker,homophone checker, mind mapping software, outline tool",
+      "termLabel": "support tool",
+      "definition": "electronic tool associated with a resource",
+      "source": "gpii",
+      "hasId": "supportTool",
+      "hasType": "string",
+      "satId": "Reg_SupportTool"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "genericFontName",
+      "valueSpace": "serif, sans serif, monospaced, cursive, fantasy",
+      "termLabel": "generic font name",
+      "definition": "name of a generic font",
+      "source": "gpii",
+      "hasId": "genericFontName",
+      "hasType": "string",
+      "satId": "Reg_GenericFontName"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "codeTerminationSignal",
+      "valueSpace": "switch, timed",
+      "termLabel": "code termination signal",
+      "definition": "signal to use at the end of a code for variable-length codes",
+      "source": "gpii",
+      "hasId": "codeTerminationSignal",
+      "hasType": "string",
+      "satId": "Reg_CodeTerminationSignal"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "cursorTrail",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "cursor trail",
+      "definition": "length of cursor trail",
+      "source": "gpii",
+      "hasId": "cursorTrail",
+      "hasType": "float",
+      "satId": "Reg_CursorTrail"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseTracking",
+      "termLabel": "MouseTracking",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_MouseTracking"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "followMouse",
+      "termLabel": "FollowMouse",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_FollowMouse"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "cursorColour",
+      "valueSpace": "RGB plus Alpha",
+      "termLabel": "cursor colour",
+      "definition": "colour of a cursor",
+      "source": "gpii",
+      "hasId": "cursorColour",
+      "hasType": "string",
+      "satId": "Reg_CursorColour"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brailleMark",
+      "valueSpace": "highlight, bold, underline, italic, strikeout, colour",
+      "termLabel": "braille mark",
+      "definition": "what textual properties to mark when using a Braille display",
+      "source": "gpii",
+      "hasId": "brailleMark",
+      "hasType": "string",
+      "satId": "Reg_BrailleMark"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "modifierIndication",
+      "valueSpace": "true, false",
+      "termLabel": "modifier indication",
+      "definition": "preference to play a sound when a modifier key is pressed",
+      "source": "gpii",
+      "hasId": "modifierIndication",
+      "hasType": "boolean",
+      "satId": "Reg_ModifierIndication"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "automaticRepeatRate",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "automatic repeat rate",
+      "definition": "rate at which keys should be repeated when repeat keys is being used",
+      "source": "gpii",
+      "hasId": "automaticRepeatRate",
+      "hasType": "float",
+      "satId": "Reg_AutomaticRepeatRate"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "NumberOfBrailleDots",
+      "aliasOf": "numberOfBrailleDots",
+      "termLabel": "number of braille dots",
+      "source": "iso24751",
+      "satId": "ISO24751_NumberOfBrailleDots"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "numberOfBrailleDots",
+      "valueSpace": "Value Space: 6, 8",
+      "termLabel": "number of Braille dots",
+      "definition": "number of dots in a Braille cell",
+      "source": "gpii",
+      "hasId": "numberOfBrailleDots",
+      "hasType": "integer",
+      "satId": "Reg_NumberOfBrailleDots"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "fontWeight",
+      "valueSpace": "normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900",
+      "termLabel": "font weight",
+      "definition": "thinner or bolder font weight for text",
+      "source": "gpii",
+      "hasId": "fontWeight",
+      "hasType": "string",
+      "satId": "Reg_FontWeight"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "usage",
+      "valueSpace": "required, preferred, optionally use, prohibited",
+      "termLabel": "usage",
+      "definition": "rating for the collection of AfA needs and preferences",
+      "source": "gpii",
+      "hasId": "usage",
+      "hasType": "string",
+      "satId": "Reg_Usage"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SwitchSelect",
+      "aliasOf": "switchSelect",
+      "termLabel": "switch select",
+      "source": "iso24751",
+      "satId": "ISO24751_SwitchSelect"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "switchSelect",
+      "valueSpace": "true, false",
+      "termLabel": "switch select",
+      "definition": "preference to use a click for selection when using an alternative pointing device",
+      "source": "gpii",
+      "hasId": "switchSelect",
+      "hasType": "boolean",
+      "satId": "Reg_SwitchSelect"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "themes",
+      "termLabel": "Themes",
+      "definition": "",
+      "source": "gpii",
+      "satId": "Reg_Themes"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keySelectionSoundFeedback",
+      "valueSpace": "true, false",
+      "termLabel": "key selection sound feedback",
+      "definition": "preference for sound feedback when a key is selected",
+      "source": "gpii",
+      "hasId": "keySelectionSoundFeedback",
+      "hasType": "boolean",
+      "satId": "Reg_KeySelectionSoundFeedback"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "colourCodingAvoidance",
+      "valueSpace": "true, false",
+      "termLabel": "colour coding avoidance",
+      "definition": "preference for avoiding the communication of information by use of colour alone",
+      "source": "gpii",
+      "hasId": "colourCodingAvoidance",
+      "hasType": "boolean",
+      "satId": "Reg_ColourCodingAvoidance"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "CustomMode",
+      "aliasOf": "customCode",
+      "termLabel": "custom code",
+      "source": "iso24751",
+      "satId": "ISO24751_CustomMode"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "customCode",
+      "valueSpace": "URI",
+      "termLabel": "custom code",
+      "definition": "data element identifying an external document containing a specification of a custom code scheme",
+      "source": "gpii",
+      "hasId": "customCode",
+      "hasType": "string",
+      "satId": "Reg_CustomCode"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "cursorAcceleration",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "cursor acceleration",
+      "definition": "initial value for the acceleration of a “mouse” cursor or relative pointing device from rest to its closing speed",
+      "source": "gpii",
+      "hasId": "cursorAcceleration",
+      "hasType": "float",
+      "satId": "Reg_CursorAcceleration"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "originalAccessMode",
+      "valueSpace": "auditory, tactile, textual, visual, olfactory",
+      "termLabel": "original access mode",
+      "definition": "original access mode of a resource which should be matched or adapted",
+      "source": "gpii",
+      "hasId": "originalAccessMode",
+      "hasType": "string",
+      "satId": "Reg_OriginalAccessMode"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "dwellTime",
+      "valueSpace": "real(10,4) range (0.0 .. *) excluding (0.0)",
+      "termLabel": "dwell time",
+      "definition": "time in seconds to dwell in order to deem that a selection has been made when point-and-dwell is being used",
+      "source": "gpii",
+      "hasId": "dwellTime",
+      "hasType": "float",
+      "satId": "Reg_DwellTime"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "numberOfPredictionChoicesDisplayed",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "number of prediction choices displayed",
+      "definition": "number of predicted elements to display",
+      "source": "gpii",
+      "hasId": "numberOfPredictionChoicesDisplayed",
+      "hasType": "integer",
+      "satId": "Reg_NumberOfPredictionChoicesDisplayed"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "switchNumber",
+      "valueSpace": "(1 .. *)",
+      "termLabel": "switch number",
+      "definition": "switch number bound to the switch function",
+      "source": "gpii",
+      "hasId": "switchNumber",
+      "hasType": "integer",
+      "satId": "Reg_SwitchNumber"
+    },
+    {
+      "type": "ALIAS",
+      "uniqueId": "SwitchPort",
+      "aliasOf": "switchPort",
+      "termLabel": "switch port",
+      "source": "iso24751",
+      "satId": "ISO24751_SwitchPort"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "switchPort",
+      "valueSpace": "ps/2, game, serial, usb, firewire, infrared, bluetooth",
+      "termLabel": "switch port",
+      "definition": "port used by a switch input",
+      "source": "gpii",
+      "hasId": "switchPort",
+      "hasType": "string",
+      "satId": "Reg_SwitchPort"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "linkIndication",
+      "valueSpace": "speak link, different voice, sound effect, none",
+      "termLabel": "link indication",
+      "definition": "the characteristics of presentation for a hyperlink when using a screen reader",
+      "source": "gpii",
+      "hasId": "linkIndication",
+      "hasType": "string",
+      "satId": "Reg_LinkIndication"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "brailleDotPressure",
+      "valueSpace": "real(10,4) range (0.0 .. 1.0)",
+      "termLabel": "braille dot pressure",
+      "definition": "resistance pressure of Braille display pinsNOTE Use 0.0 = &quot;low,&quot; 0.5 = &quot;medium,&quot; 1.0 = &quot;high&quot;",
+      "source": "gpii",
+      "hasId": "brailleDotPressure",
+      "hasType": "float",
+      "satId": "Reg_BrailleDotPressure"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "highlight",
+      "valueSpace": "word, line, sentence, paragraph",
+      "termLabel": "highlight",
+      "definition": "what a text reader/highlighter should highlight",
+      "source": "gpii",
+      "hasId": "highlight",
+      "hasType": "string",
+      "satId": "Reg_Highlight"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "mouseEmulationDevice",
+      "valueSpace": "keypad, keyboard, switch, voice",
+      "termLabel": "mouse emulation device",
+      "definition": "device to use to emulate a mouse",
+      "source": "gpii",
+      "hasId": "mouseEmulationDevice",
+      "hasType": "string",
+      "satId": "Reg_MouseEmulationDevice"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "alphanumericKeyboardLayout",
+      "valueSpace": "standard, sequential, frequency",
+      "termLabel": "alphanumeric keyboard layout",
+      "definition": "spatial arrangement of the keys of an alphanumeric keyboard",
+      "source": "gpii",
+      "hasId": "alphanumericKeyboardLayout",
+      "hasType": "string",
+      "satId": "Reg_AlphanumericKeyboardLayout"
+    },
+    {
+      "type": "GENERAL",
+      "uniqueId": "keySpacingRelative",
+      "valueSpace": "[0 to 100]",
+      "termLabel": "key spacing relative",
+      "definition": "spacing between keys in an onscreen keyboard as a percentage of the screen width",
+      "source": "gpii",
+      "hasId": "keySpacingRelative",
+      "hasType": "integer",
+      "satId": "Reg_KeySpacingRelative"
+    }
+  ]
+}

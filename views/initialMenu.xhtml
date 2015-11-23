@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form id="form">
+			<h:outputLabel for="name" value="Please select an option"
+				style="font-size: 18px; font-weight:bold" />
+			<br />
+			<br />
+			<p:commandButton
+				oncomplete="exportDialog.show()"
+				value="Export applications"
+				rendered="#{userBean.admin}">
+			</p:commandButton> 
+			<br />
+			<br />
+			<p:commandButton id="Synchronization" rendered="#{userBean.admin}"
+				title="Synchronize automatically solutions
+			     of the Cloud4all SEMA ontological framework with the Unified Listing."
+				value="Synchronize applications" oncomplete="syncFinished.show()"
+				action="#{utils.synchronizeSolutions}">
+			</p:commandButton>
+			<p:blockUI block="form" trigger="Synchronization">  
+					LOADING<br />
+				<p:graphicImage value="/loading.gif" />
+			</p:blockUI>
+			<br />
+			<br />
+			<p:commandButton
+				action="/views/addNewApplication.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				actionListener="#{step1Bean.test}" ajax="false"
+				value="Enter new Application"
+				disabled="#{!userBean.admin and !userBean.vendor}">
+			</p:commandButton>
+			<br />
+			<br />
+			<p:commandButton
+				action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				actionListener="#{viewSolutionsBean.clearPageSelections}"
+				ajax="false" value="View/Edit Applications"
+				rendered="#{userBean.admin or userBean.vendor}">
+			</p:commandButton>
+			<p:commandButton
+				action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				actionListener="#{viewSolutionsBean.clearPageSelections}"
+				ajax="false" value="View Applications"
+				rendered="#{userBean.user and !userBean.admin}">
+			</p:commandButton>
+			<br />
+			<br />
+			<p:commandButton
+				action="/views/manageRegistryView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				ajax="false" value="Manage the registry of common terms"
+				rendered="#{userBean.admin}">
+			</p:commandButton>
+			<p:commandButton
+				action="/views/manageRegistryView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				ajax="false" value="View the registry of common terms"
+				rendered="#{!userBean.admin}">
+			</p:commandButton>
+			<br />
+			<br />
+			<p:commandButton
+				action="/views/manageEASTINProposalsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				actionListener="#{manageEASTINProposalsBean.init}" ajax="false"
+				value="Manage proposals" rendered="#{userBean.admin}">
+			</p:commandButton>
+			<br />
+			<br />
+			<p:commandButton
+				action="/views/profileView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				ajax="false" value="View/Edit my Profile"
+				rendered="#{userBean.vendor}">
+			</p:commandButton>
+			<p:commandButton
+				actionListener="#{ontologyInstance.requestVendorRole}"
+				id="requestRole" value="Request vendor role"
+				rendered="#{userBean.user and !userBean.admin}"
+				oncomplete="mailSent.show()">
+			</p:commandButton>
+
+			<p:blockUI block="form" trigger="requestRole">  
+				CONTACTING ADMINISTRATOR<br />
+				<p:graphicImage value="/loading.gif" />
+			</p:blockUI>
+			<p:dialog widgetVar="mailSent" id="mailSent" modal="true"
+				header="Vendor role requested" showEffect="clip" hideEffect="fold"
+				position="center,center" resizable="false">
+				<h:outputText
+					value="Your request has been submitted to the administrator." />
+				<p:commandButton value="OK" oncomplete="mailSent.hide()"></p:commandButton>
+			</p:dialog>
+			
+			<p:dialog widgetVar="syncFinished" id="syncFinished" modal="true"
+				header="Synchronization"
+				showEffect="clip" hideEffect="fold" position="center,center"
+				resizable="false">
+				<h:outputText value="Synchronization finished successfully" />
+				<br/>
+				<p:commandButton value="OK" oncomplete="syncFinished.hide()"></p:commandButton>
+			</p:dialog>
+
+			<p:dialog widgetVar="exportDialog" id="exportDialog" modal="true"
+				header="Select an export option" showEffect="clip" hideEffect="fold"
+				position="center,center" resizable="false">
+
+				<p:commandButton value="Export Solutions" ajax="false"
+					actionListener="#{fileDownloadController.exportJsonSchema('cloud4All_solutions.json',false)}"
+					oncomplete="exportDialog.hide()" update=":#{p:component('form')}">
+					<p:ajax event="click" listener="#{ontologyInstance.hideDialog}" />
+				</p:commandButton>
+				<p:commandButton value="Export Solutions and Solutions Settings"
+					ajax="false"
+					actionListener="#{fileDownloadController.exportJsonSchema('cloud4All_solutions_full.json',true)}"
+					oncomplete="exportDialog.hide()" update=":#{p:component('form')}">
+					<p:ajax event="click" listener="#{ontologyInstance.hideDialog}" />
+				</p:commandButton>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>

@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body id="form">
+
+		<h:form id="test">
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+			<p:panel header="Step 3: Application access information">
+				<p:panel header="Application access information for Vendors">
+
+					<h:panelGrid columns="2" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText value="Solution URL: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{step2bBean.accessInfoForVendors.URLForAccess}" />
+						<h:outputText value="Solution Access Description: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{step2bBean.accessInfoForVendors.description}" />
+
+
+					</h:panelGrid>
+					<p:panel header="License">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Name: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForVendors.license.licenseName}" />
+							<h:outputText value="Description: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForVendors.license.licenseDescription}" />
+
+							<h:outputText value="Is proprietary: " />
+							<p:selectBooleanCheckbox
+								value="#{step2bBean.accessInfoForVendors.license.proprietary}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Commercial Cost Schema">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Cost: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForVendors.commercialCostSchema.commercialCost}">
+
+							</p:inputText>
+							<h:outputText value="Cost Currency: " />
+							<p:selectOneMenu
+								value="#{step2bBean.accessInfoForVendors.commercialCostSchema.commercialCostCurrency}">
+								<f:selectItems
+									value="#{ontologyInstance.commercialCostCurrency}" />
+
+							</p:selectOneMenu>
+							<h:outputText value="Cost Payment charge type: " />
+							<p:selectOneMenu
+								value="#{step2bBean.accessInfoForVendors.commercialCostSchema.costPaymentChargeType}">
+								<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:panel header="Trial Schema">
+							<h:panelGrid columns="3" columnClasses="label, value"
+								styleClass="grid">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Duration in days: " />
+									<p:spinner style="width: 150px;"
+										value="#{step2bBean.accessInfoForVendors.commercialCostSchema.trialSchema.durationInDays}" />
+									<h:outputText value="Duration in usages: " />
+									<p:spinner style="width: 150px;"
+										value="#{step2bBean.accessInfoForVendors.commercialCostSchema.trialSchema.durationInUsages}" />
+									<h:outputText value="Offers full functionality during trial: " />
+									<p:selectBooleanCheckbox
+										value="#{step2bBean.accessInfoForVendors.commercialCostSchema.trialSchema.offersFullFunctionalityDuringTrial}" />
+								</h:panelGrid>
+								<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Limited Functionality Description: " />
+									<p:inputTextarea rows="5" cols="30" maxlength="1000"
+										autoResize="false"
+										value="#{step2bBean.accessInfoForVendors.commercialCostSchema.trialSchema.limitedFunctionalityDescription}" />
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel header="Default Discount Schemas">
+							<p:commandButton value="Add discount schema"
+								actionListener="#{step2bBean.addDiscountSchema}"
+								update=":#{p:component('discounts2')}" />
+							<p:panel id="discounts2">
+								<c:forEach
+									items="#{step2bBean.accessInfoForVendors.commercialCostSchema.discountIfUsedWithOtherSolution}"
+									var="item" varStatus="status">
+									<p:panel header="Discount Schema  #{(status.index+1)}">
+										<h:panelGrid columns="2" columnClasses="label, value"
+											styleClass="grid">
+											<h:outputText value="Paired solution: " />
+											<p:selectOneMenu value="#{item.pairedSolution}">										
+												<f:selectItems value="#{item.selectItems}" />
+												<f:converter converterId="solutionsConverter" />
+											</p:selectOneMenu>
+											<h:outputText value="Discount Reason: " />
+											<p:inputText style="width: 300px;" autocomplete="off"
+												value="#{item.discountReason}" />
+											<h:outputText value="Discount (%): " />
+											<h:panelGrid columns="3">
+												<h:outputText id="output#{(status.index+1)}"
+													value="#{item.discount}%" />
+												<h:inputHidden id="txt#{(status.index+1)}"
+													value="#{item.discount}" />
+												<p:slider for="txt#{(status.index+1)}"
+													display="output#{(status.index+1)}" style="width:150px"
+													displayTemplate="{value}%">
+
+												</p:slider>
+											</h:panelGrid>
+										</h:panelGrid>
+									</p:panel>
+
+								</c:forEach>
+							</p:panel>
+
+
+
+							<!-- 			<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Total discount: " />
+							<h:outputText value="#{step2bBean.totalDiscount}%"
+								id="totalDiscount" />
+							<h:outputText value="Cost after discount: " />
+							<h:outputText
+								value="#{step2bBean.costAfterDiscount} #{step2bBean.accessInfoForVendors.commercialCostSchema.commercialCostCurrency}"
+								id="costAferDiscount" />
+						</h:panelGrid>
+-->
+						</p:panel>
+					</p:panel>
+
+				</p:panel>
+
+
+
+
+
+
+
+				<p:panel header="Application access information for users">
+
+					<h:panelGrid columns="2" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText value="Solution URL: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{step2bBean.accessInfoForUsers.URLForAccess}" />
+						<h:outputText value="Solution Access Description: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{step2bBean.accessInfoForUsers.description}" />
+
+						<h:outputText value="Is accessible to countries: " />
+						<p:selectManyMenu
+							value="#{step2bBean.accessInfoForUsers.validForCountries}"
+							id="countries" style="width:150px;height:100px">
+							<f:selectItems value="#{ontologyInstance.countriesList}" />
+						</p:selectManyMenu>
+						<p:tooltip for="countries"
+							value="For multiple selections press Ctrl button on your keyboard"
+							showEffect="fade" hideEffect="fade" />
+					</h:panelGrid>
+					<p:panel header="License">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Name: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForUsers.license.licenseName}" />
+							<h:outputText value="Description: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForUsers.license.licenseDescription}" />
+
+							<h:outputText value="Is proprietary: " />
+							<p:selectBooleanCheckbox
+								value="#{step2bBean.accessInfoForUsers.license.proprietary}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Commercial Cost Schema">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Cost: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{step2bBean.accessInfoForUsers.commercialCostSchema.commercialCost}">
+
+							</p:inputText>
+							<h:outputText value="Cost Currency: " />
+							<p:selectOneMenu
+								value="#{step2bBean.accessInfoForUsers.commercialCostSchema.commercialCostCurrency}">
+								<f:selectItems
+									value="#{ontologyInstance.commercialCostCurrency}" />
+
+							</p:selectOneMenu>
+							<h:outputText value="Cost Payment charge type: " />
+							<p:selectOneMenu
+								value="#{step2bBean.accessInfoForUsers.commercialCostSchema.costPaymentChargeType}">
+								<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:panel header="Trial Schema">
+							<h:panelGrid columns="3" columnClasses="label, value"
+								styleClass="grid">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Duration in days: " />
+									<p:spinner style="width: 150px;"
+										value="#{step2bBean.accessInfoForUsers.commercialCostSchema.trialSchema.durationInDays}" />
+									<h:outputText value="Duration in usages: " />
+									<p:spinner style="width: 150px;"
+										value="#{step2bBean.accessInfoForUsers.commercialCostSchema.trialSchema.durationInUsages}" />
+									<h:outputText value="Offers full functionality during trial: " />
+									<p:selectBooleanCheckbox
+										value="#{step2bBean.accessInfoForUsers.commercialCostSchema.trialSchema.offersFullFunctionalityDuringTrial}" />
+								</h:panelGrid>
+								<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Limited Functionality Description: " />
+									<p:inputTextarea rows="5" cols="30" maxlength="1000"
+										autoResize="false"
+										value="#{step2bBean.accessInfoForUsers.commercialCostSchema.trialSchema.limitedFunctionalityDescription}" />
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel header="Default Discount Schemas">
+							<p:commandButton value="Add discount schema"
+								actionListener="#{step2bBean.addDiscountSchemaForUsers}"
+								update=":#{p:component('discounts3')}" />
+							<p:panel id="discounts3">
+								<c:forEach
+									items="#{step2bBean.accessInfoForUsers.commercialCostSchema.discountIfUsedWithOtherSolution}"
+									var="item" varStatus="status">
+									<p:panel header="Discount Schema  #{(status.index+1)}">
+										<h:panelGrid columns="2" columnClasses="label, value"
+											styleClass="grid">
+											<h:outputText value="Paired solution: " />
+											<p:selectOneMenu value="#{item.pairedSolution}">
+												<f:selectItems value="#{item.solutionsListAsStrings}" />
+												<f:converter converterId="solutionsConverter" />
+											</p:selectOneMenu>
+											<h:outputText value="Discount Reason: " />
+											<p:inputText style="width: 300px;" autocomplete="off"
+												value="#{item.discountReason}" />
+											<h:outputText value="Discount (%): " />
+											<h:panelGrid columns="3">
+												<h:outputText id="outputb#{(status.index+1)}"
+													value="#{item.discount}%" />
+												<h:inputHidden id="txtb#{(status.index+1)}"
+													value="#{item.discount}" />
+												<p:slider for="txtb#{(status.index+1)}"
+													display="outputb#{(status.index+1)}" style="width:150px"
+													displayTemplate="{value}%">
+
+												</p:slider>
+											</h:panelGrid>
+										</h:panelGrid>
+									</p:panel>
+
+								</c:forEach>
+							</p:panel>
+
+
+
+
+							<!-- 			<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Total discount: " />
+							<h:outputText value="#{step2bBean.totalDiscount}%"
+								id="totalDiscount2" />
+							<h:outputText value="Cost after discount: " />
+							<h:outputText
+								value="#{step2bBean.costAfterDiscount} #{step2bBean.accessInfoForUsers.commercialCostSchema.commercialCostCurrency}"
+								id="costAferDiscount2" />
+						</h:panelGrid>
+ -->
+						</p:panel>
+					</p:panel>
+				</p:panel>
+
+
+
+
+
+
+
+			</p:panel>
+			<p:commandButton value="Previous" id="prevBut" ajax="false"
+				action="/views/step2View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+			<p:commandButton value="Next" id="nextBut"
+				actionListener="#{step2bBean.nextPressed}"
+				action="/views/step3View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+		</h:form>
+	</h:body>
+</f:view>

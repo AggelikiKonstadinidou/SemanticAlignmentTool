@@ -1,0 +1,1704 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+
+			<p:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="Edit Application #{viewSolutionsBean.selectedSolution.name}"
+						title="Edit and view the application" />
+				</f:facet>
+				<p:messages for="applicationName" showDetail="true"
+					autoUpdate="true" closable="true" ajax="false" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<p:column headerText="Appname" width="100" styleClass="wrap">
+						<h:outputText value="Application name:  *" id="Appname"
+							title="The name of the application/solution in a human readable format" />
+					</p:column>
+					<p:inputText value="#{viewSolutionsBean.selectedSolution.name}"
+						style="width: 300px;" autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+					<p:commandButton value="Load Eastin Properties" id="loadEastin2"
+						actionListener="#{editSolutionBean.loadEastinProperties}"
+						oncomplete="eastinDialog2.show()"
+						update=":#{p:component('eastinDialog2')}"
+						title="Communication with external repositories like the EASTIN database
+							 in order to provide more concrete information for the application"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+					<br />
+
+					<p:column headerText="unifiedlistingid" width="100"
+						styleClass="wrap">
+						<h:outputText value="Unified Listing ID:  *" id="UnLId"
+							title="The id should be a unique ID for the application.
+								 The general format used is eg. 'com.microsoft.win7.magnifier'" />
+					</p:column>
+
+					<p:inputText style="width: 300px;"
+						value="#{viewSolutionsBean.selectedSolution.id}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+					<h:outputText value="Category:  "
+						title="Selected or proposed application category" />
+					<h:panelGrid columns="3" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText
+							value="#{viewSolutionsBean.selectedSolution.ontologyCategory}" />
+						<h:outputText value=" (proposed) "
+							rendered="#{editSolutionBean.categoryProposed}" />
+						<p:commandButton value="Change category" id="changeCategoryBut"
+							actionListener="#{editSolutionBean.calculateCategoriesTree}"
+							oncomplete="changeCategoryDialog.show()"
+							update=":#{p:component('changeCategoryDialog')}"
+							title="Change the category of the application"
+							disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+					</h:panelGrid>
+					<p:column headerText="otherCategories" width="100"
+						styleClass="wrap">
+						<h:outputText value="Other categories:  "
+							title="Other application categories" />
+					</p:column>
+
+					<p:selectCheckboxMenu
+						value="#{viewSolutionsBean.selectedSolution.categories}"
+						label="Select categories" filter="true" filterText="Filter"
+						filterMatchMode="startsWith" panelStyle="width:220px">
+						<f:selectItems value="#{ontologyInstance.categoriesNames}" />
+					</p:selectCheckboxMenu>
+					<p:column headerText="applicationdescription" width="100"
+						styleClass="wrap">
+						<h:outputText value="Description:  " id="Appdescription"
+							title="Brief description of the application" />
+					</p:column>
+					<h:inputTextarea label="ApplicationDescription" required="false"
+						id="ApplicationDescription" style="width: 300px;"
+						autocomplete="off"
+						value="#{viewSolutionsBean.selectedSolution.description}"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</h:inputTextarea>
+
+					<p:column headerText="constraintslimitations" width="100"
+						styleClass="wrap">
+						<h:outputText value="Constraints/limitations:  "
+							id="constraintslimit" title="Any constraints of the application" />
+					</p:column>
+
+					<p:inputText style="width: 300px;"
+						value="#{viewSolutionsBean.selectedSolution.constraints}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+					<p:column headerText="insertdate" width="100" styleClass="wrap">
+						<h:outputText value="Insert date: " id="Indate"
+							title="The insert date of the application" />
+					</p:column>
+
+					<p:calendar value="#{viewSolutionsBean.selectedSolution.date}"
+						id="date"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+					<p:column headerText="latestUpdatedate" width="100"
+						styleClass="wrap">
+						<h:outputText value="Latest update date: " id="latestUpdate"
+							title="The last update date of the application" />
+					</p:column>
+
+					<p:calendar
+						value="#{viewSolutionsBean.selectedSolution.updateDate}"
+						id="updateDate"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+					<p:column headerText="manufacturer" width="100" styleClass="wrap">
+						<h:outputText value="Manufacturer Name: " id="manuName"
+							title="The name of the application's manufacturer" />
+					</p:column>
+
+					<p:inputText label="manufacturerName" required="false"
+						id="manufacturerName" style="width: 300px;"
+						value="#{viewSolutionsBean.selectedSolution.manufacturerName}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</p:inputText>
+					<p:column headerText="manuCountry" width="100" styleClass="wrap">
+						<h:outputText value="Manufacturer Country: " id="manuCountry"
+							titile="The country of the application's manufacturer" />
+					</p:column>
+
+					<p:selectOneMenu
+						value="#{viewSolutionsBean.selectedSolution.manufacturerCountry}"
+						autocomplete="off" style="width: 300px;"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+						<f:selectItems value="#{ontologyInstance.countriesList}" />
+					</p:selectOneMenu>
+
+					<p:column headerText="manufacturerweb" width="100"
+						styleClass="wrap">
+						<h:outputText value="Manufacturer Website: " id="manuWebsite"
+							title="The Website URL of the application's manufacturer" />
+					</p:column>
+
+					<p:inputText label="manufacturerWebsite" required="false"
+						id="manufacturerWebsite" style="width: 300px;"
+						value="#{viewSolutionsBean.selectedSolution.manufacturerWebsite}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</p:inputText>
+
+					<p:column headerText="thumb" width="100" styleClass="wrap">
+						<h:outputText value="Thumbnail: " id="thumbnail"
+							title="URL of the small format picture of the application" />
+					</p:column>
+
+					<img src="#{viewSolutionsBean.selectedSolution.imageUrl}"
+						class="thumbnail" />
+
+					<p:column headerText="SourceInformation" width="100"
+						styleClass="wrap">
+						<h:outputText value="Download/purchase web page: " id="Source"
+							title="Fill in the Download/purchase web page" />
+					</p:column>
+
+					<p:inputText label="downloadPage" required="false"
+						id="downloadPage" style="width: 300px;"
+						value="#{viewSolutionsBean.selectedSolution.downloadPage}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+
+					</p:inputText>
+
+					<p:column headerText="startCommand" width="100" styleClass="wrap">
+						<h:outputText value="Start command: " id="startCommand"
+							title="Command that System Exec lifecycle handler executes in order to start user session" />
+					</p:column>
+					<p:inputText label="commandForStart" required="false"
+						id="commandForStart" style="width: 300px;" autocomplete="off"
+						value="#{viewSolutionsBean.selectedSolution.startCommand}"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</p:inputText>
+
+					<p:column headerText="stopCommand" width="100" styleClass="wrap">
+						<h:outputText value="Stop command: " id="stopCommand"
+							title="Command that System Exec lifecycle handler executes on log out" />
+					</p:column>
+					<p:inputText label="commandForStop" required="false"
+						id="commandForStop" style="width: 300px;" autocomplete="off"
+						value="#{viewSolutionsBean.selectedSolution.stopCommand}"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</p:inputText>
+
+					<p:column headerText="capabilities" width="100" styleClass="wrap">
+						<h:outputText value="Capabilities: " id="capabilities"
+							title="Description of what needs and preferences the application can handle (in JSON format)" />
+					</p:column>
+					<h:inputTextarea label="capabilitiesArea" required="false"
+						id="capabilitiesArea" style="width: 300px;" autocomplete="off"
+						value="#{viewSolutionsBean.selectedSolution.capabilities}"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</h:inputTextarea>
+
+					<p:column headerText="capabilitiesTransformations" width="100"
+						styleClass="wrap">
+						<h:outputText value="Capabilities Transformations: "
+							id="capabilitiesTransformations"
+							title="Description of how application settings are transformed into common terms and vice versa (in JSON format)" />
+					</p:column>
+					<h:inputTextarea label="capabilitiesTransArea" required="false"
+						id="capabilitiesTransArea" style="width: 300px;"
+						autocomplete="off"
+						value="#{viewSolutionsBean.selectedSolution.capabilitiesTransformations}"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					</h:inputTextarea>
+
+					<p:column headerText="handlerType" width="100" styleClass="wrap">
+						<h:outputText value="Setting Handler Type: " id="handlerTypeid"
+							title="Settings Handlers are a type of Lifecycle Handler that
+								 are responsible for configuring the settings of an application,
+								  access feature, or assistive technology. They are often,
+								   but not always, specific to a particular platform.
+								    Platform-specific Settings Handlers typically
+								     interface with the operating system's built
+								      in APIs for storing settings (such as the Registry
+								       on Windows and GSettings on Linux). Others are capable
+								        of configuring standard formats such as XML and JSON files." />
+					</p:column>
+
+					<p:selectOneMenu
+						value="#{viewSolutionsBean.selectedSolution.handlerType}"
+						autocomplete="off"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+						<f:selectItems value="#{ontologyInstance.settingsHandlersNames}" />
+					</p:selectOneMenu>
+
+					<p:blockUI block="form" trigger="loadEastin2">  
+				LOADING<br />
+						<p:graphicImage value="/loading.gif" />
+						<br />
+						<p:commandButton value="Cancel loading" ajax="false"
+							action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+							oncomplete="eastinDialog2.hide()" />
+					</p:blockUI>
+				</h:panelGrid>
+
+				<p:panel id="options" style="margin-top:10px">
+					<f:facet name="header">
+						<h:outputText
+							value="Specify options for the selected handler type"
+							id="options1"
+							title="Describe information about how and where to locate the settings of handler,
+								 by declaring a filename, a registry location, etc.Each Settings Handler requires certain
+								  options to be set e.g. Option Name: Path, Option Value: Software\\Microsoft\\ScreenMagnifier.
+								  Note that each option requires name and value to be valid." />
+					</f:facet>
+
+					<c:forEach items="#{viewSolutionsBean.selectedSolution.options}"
+						var="item" varStatus="status">
+
+						<p:panelGrid style="width:100%;margin-bottom:5px">
+
+							<p:row>
+								<p:column style="font-weight: bold;">Option name
+								<p:inputText value="#{item.optionName}" style="width: 300px;"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</p:column>
+								<p:column style="font-weight: bold;">Option value
+								<p:inputText value="#{item.optionValue}" style="width: 300px;"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</p:column>
+								<p:column style="font-weight: bold;">
+									<p:commandButton value="Remove option"
+										rendered="#{viewSolutionsBean.selectedSolution.options.size() > 1}"
+										action="#{viewSolutionsBean.removeOptionFromList}"
+										update="options" icon="ui-icon-close"
+										title="Remove the option"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+
+										<f:setPropertyActionListener value="#{item}"
+											target="#{viewSolutionsBean.elementForRemove}" />
+									</p:commandButton>
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+
+					</c:forEach>
+					<p:commandButton value="Add another option"
+						actionListener="#{viewSolutionsBean.addOptionToList}"
+						update="options" icon="ui-icon-plus"
+						title="Add another option for the selected handler type"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+				</p:panel>
+
+				<br />
+				<p:dataTable id="settings" var="setting"
+					value="#{viewSolutionsBean.selectedSolution.settings}"
+					rowKey="#{setting.name}" emptyMessage="No settings found"
+					paginator="true" rows="10" width="85%" scrollable="true">
+					<f:facet name="header">  
+			            Application settings
+			        </f:facet>
+					<p:column headerText="Name" width="30" styleClass="breakWord"
+						sortBy="name">
+						<h:outputText value="#{setting.name}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Description" width="30"
+						styleClass="breakWord" sortBy="description">
+						<h:outputText value="#{setting.description}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Value space" width="30"
+						styleClass="breakWord" sortBy="valueSpace">
+						<h:outputText value="#{setting.valueSpace}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Type" width="30" styleClass="breakWord"
+						sortBy="type">
+						<h:outputText value="#{setting.type}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Default value" width="30"
+						styleClass="breakWord" sortBy="value">
+						<h:outputText value="#{setting.value}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Id" width="30" styleClass="breakWord"
+						sortBy="id">
+						<h:outputText value="#{setting.id}" />
+					</p:column>
+					<p:column headerText="Mapped common term" width="30"
+						styleClass="breakWord" sortBy="mapping">
+						<h:outputText value="#{setting.mapping}" />
+					</p:column>
+					<p:column headerText="Exact matching" width="30"
+						styleClass="breakWord">
+						<p:selectBooleanCheckbox value="#{setting.exactMatching}"
+							disabled="true" />
+					</p:column>
+
+					<p:column headerText="Mapping comments" width="30"
+						styleClass="breakWord" sortBy="comments">
+						<h:outputText value="#{setting.comments}" width="30"
+							styleClass="breakWord" />
+					</p:column>
+					<p:column headerText="Setting constraints/limitations" width="30"
+						styleClass="breakWord" sortBy="constraints">
+						<h:outputText value="#{setting.constraints}" />
+					</p:column>
+					<p:column headerText="Can be Applied live" width="30"
+						styleClass="wrap">
+						<p:selectBooleanCheckbox value="#{setting.appliedLive}"
+							disabled="true" />
+					</p:column>
+					<p:column style="width:4%" headerText="Edit">
+						<p:commandButton id="selectButton"
+							update=":#{p:component('form')},:#{p:component('settingDialog')}"
+							oncomplete="settingDialog.show()" title="View"
+							icon="ui-icon-search" process="@this"
+							disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+							<f:setPropertyActionListener value="#{setting}"
+								target="#{viewSolutionsBean.selectedSetting}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:commandButton id="addNewSettingButton" value="Add new Setting"
+					icon="ui-icon-plus"
+					title="Add a new setting to application specific settings"
+					actionListener="#{editSolutionBean.addNewSetting}"
+					update=":#{p:component('addNewSettingDialog')},:#{p:component('relevantSettingsPanel')}"
+					oncomplete="addNewSettingDialog.show()"
+					disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+				<br />
+				<br />
+				<p:panel id="eastinPanel">
+					<f:facet name="header">
+						<a target="_blank"
+							title="EASTIN taxonomy is based on a two level hierarchy made
+						 up of Clusters and Features. Homogeneous Features are grouped together
+						  in the same Cluster. For example the Features “Windows”,“Linux”, etc.,
+						   are all grouped  in the Cluster “Operating System”
+					. Features can be of two types: Measures, that can have a numeric value
+					 or an interval specified (e.g. weight, length), and Attributes,
+					  that do not have a specified value (i.e. are Boolean features).
+					  User can select or complete values for existing attributes and measures and also
+						 propose new cluster items and clusters."
+							href="http://wiki.gpii.net/w/The_vocabulary_of_the_EASTIN_taxonomy">
+							EASTIN Taxonomy</a>
+					</f:facet>
+					<p:accordionPanel
+						value="#{viewSolutionsBean.selectedSolution.clustersToShowInView}"
+						var="clus" onTabShow="fixProposedItems()"
+						onTabChange="fixProposedItems()"
+						activeIndex="#{editSolutionBean.activeTabIndex}"
+						id="accordionPanel">
+						<p:ajax event="tabChange"
+							listener="#{viewSolutionsBean.onTabChange}" />
+						<p:tab titletip="#{clus.description}" title="#{clus.name}">
+							<p:selectManyButton value="#{clus.selectedProperties}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}"
+								rendered="#{not clus.singleSelection}"
+								styleClass="selectManyProperties">
+								<f:selectItems value="#{clus.attributesToShowInView}"
+									var="property" itemValue="#{property.name}"
+									itemLabel="#{property.name}"
+									itemDescription="#{property.proposedString}" />
+							</p:selectManyButton>
+							<h:dataTable var="divis" value="#{clus.measuresToShowInView}"
+								styleClass="proposedMeasures"
+								rendered="#{not clus.singleSelection}">
+								<h:column>
+									<h:outputText value="#{divis.name}: " title="#{divis.proposed}" />
+								</h:column>
+								<h:column>
+									<p:inputText style="width: 300px;" value="#{divis.value}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</h:column>
+							</h:dataTable>
+							<p:selectOneButton value="#{clus.selectedProperty}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}"
+								rendered="#{clus.singleSelection}"
+								styleClass="selectManyProperties">
+								<f:selectItems value="#{clus.attributesToShowInView}"
+									var="property" itemValue="#{property.name}"
+									itemLabel="#{property.name}"
+									itemDescription="#{property.proposedString}" />
+							</p:selectOneButton>
+							<h:dataTable var="divis" value="#{clus.measuresToShowInView}"
+								rendered="#{clus.singleSelection}" styleClass="proposedMeasures">
+								<h:column>
+									<h:outputText value="#{divis.name}: " title="#{divis.proposed}" />
+								</h:column>
+								<h:column>
+									<p:inputText style="width: 300px;" value="#{divis.value}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</h:column>
+							</h:dataTable>
+							<br />
+							<p:commandButton value="Show all" id="showMoreItems"
+								style="margin:0" update=":#{p:component('accordionPanel')}"
+								oncomplete="fixProposedItems()"
+								actionListener="#{viewSolutionsBean.showMoreClusterItems}"
+								title="Show more cluster items"
+								rendered="#{clus.hasToHideItems}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or (!clus.showItems or !clus.hasToHideItems)}" />
+							<p:commandButton value="Show less" id="hideItems"
+								style="margin:0" update=":#{p:component('accordionPanel')}"
+								oncomplete="fixProposedItems()"
+								actionListener="#{viewSolutionsBean.hideClusterItems}"
+								title="Hide cluster items" rendered="#{clus.hasToHideItems}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or (clus.showItems or !clus.hasToHideItems)}" />
+
+							<p:panelGrid style="margin-top:20px;width:100%">
+								<f:facet name="header">
+									<p:row>
+										<p:column colspan="4">Propose a new item for this group:</p:column>
+									</p:row>
+								</f:facet>
+
+								<p:row>
+									<p:column style="font-weight: bold;">Name*</p:column>
+									<p:column style="font-weight: bold;">Short description*</p:column>
+									<p:column style="font-weight: bold;">Item type</p:column>
+									<p:column style="font-weight: bold;">Select an existing proposal</p:column>
+								</p:row>
+
+								<p:row>
+									<p:column>
+										<p:inputText value="#{clus.itemProposalName}"
+											disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or clus.flag}" />
+									</p:column>
+									<p:column>
+										<p:inputText value="#{clus.itemProposalDescription}"
+											disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or clus.flag}" />
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{clus.itemProposalType}"
+											disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or clus.flag}">
+											<f:selectItem itemLabel="Attribute" itemValue="Attribute" />
+											<f:selectItem itemLabel="Measure" itemValue="Measure" />
+
+										</p:selectOneMenu>
+									</p:column>
+
+									<p:column>
+										<p:selectOneMenu value="#{clus.selectedProposedItem}"
+											disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+											<f:selectItems value="#{ontologyInstance.allProposedItems}" />
+											<f:converter converterId="eastinPropertyConverter" />
+											<p:ajax event="change"
+												update=":#{p:component('accordionPanel')}"
+												listener="#{viewSolutionsBean.proposedItemChangedListener}"
+												oncomplete="fixProposedItems()" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+
+								<f:facet name="footer">
+									<p:row>
+										<p:column colspan="4">
+											<p:commandButton value="Submit proposal" icon="ui-icon-check"
+												id="searchRelevantClusterItems" style="margin:0"
+												title="Submit proposed item"
+												disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}"
+												actionListener="#{viewSolutionsBean.searchRelevantETNAItems}"
+												update=":#{p:component('relatedItemsDialog')}" />
+											<p:blockUI block=":form" trigger="searchRelevantClusterItems">  
+												SEARCHING RELEVANT ITEMS
+												<br />
+												<p:graphicImage value="/loading.gif" />
+											</p:blockUI>
+										</p:column>
+									</p:row>
+								</f:facet>
+							</p:panelGrid>
+
+
+						</p:tab>
+
+					</p:accordionPanel>
+					<p:commandButton value="Show all" id="showAllButton"
+						actionListener="#{viewSolutionsBean.showMoreClusters}"
+						update=":#{p:component('accordionPanel')},:#{p:component('eastinPanel')}"
+						title="Show all EASTIN clusters"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin or !viewSolutionsBean.clustersShowFlag}" />
+					<p:commandButton value="Show less" id="showLessButton"
+						actionListener="#{viewSolutionsBean.hideClusters}"
+						update=":#{p:component('accordionPanel')},:#{p:component('eastinPanel')}"
+						title="Hide unused EASTIN clusters"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI ) and !userBean.admin or viewSolutionsBean.clustersShowFlag}" />
+					<br />
+					<p:commandButton value="Propose a new group of items"
+						disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}"
+						actionListener="#{viewSolutionsBean.showNewClusterDialog}"
+						title="Propose a new cluster with cluster items"
+						update=":#{p:component('newClusterDialog')}" />
+					<div align="right">
+						<h:outputText value="Fields marked with a star (*) are required" />
+					</div>
+				</p:panel>
+				<br />
+				<!-- 	<p:blockUI block="form" trigger="saveButton">  
+				APPLYING CHANGES<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI> -->
+				<p:commandButton id="editSolutionAccessInfoButton"
+					title="Edit and view access information for the application"
+					value="Edit/View Application Access Info"
+					update=":#{p:component('editAccessInfoDialog')}"
+					oncomplete="editAccessInfoDialog.show()"
+					rendered="#{viewSolutionsBean.selectedSolution.vendor==userBean.userURI or userBean.admin or !userBean.user}" />
+				<p:commandButton id="editSolutionAccessInfoButton2"
+					value="View Application Access Info"
+					update=":#{p:component('editAccessInfoDialog')}"
+					oncomplete="editAccessInfoDialog.show()"
+					rendered="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+				<br />
+				<p:commandLink id="prevBut" ajax="false"
+					actionListener="#{editSolutionBean.test}"
+					action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+					<h:graphicImage url="/previous.png"
+						styleClass="basicImageStyle valign-middle"
+						title="Go back to the previous page" />
+					<span style="margin-right: 20px"> Go to previous step </span>
+				</p:commandLink>
+				<p:commandLink id="saveButton"
+					actionListener="#{editSolutionBean.saveSolution}"
+					action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+					disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}"
+					update=":#{p:component('form')}">
+					<h:graphicImage url="/save.png" styleClass="basicImageStyle"
+						title="Apply changes" />
+				</p:commandLink>
+				<p:commandLink id="deleteButton" oncomplete="deleteDialog.show()"
+					disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+					<h:graphicImage url="/delete.png" styleClass="basicImageStyle"
+						title="Delete application" />
+				</p:commandLink>
+			</p:panel>
+
+			<p:dialog widgetVar="eastinDialog2" id="eastinDialog2" modal="true"
+				header="Eastin relevant applications" showEffect="clip"
+				hideEffect="fold" width="860" position="center,center"
+				styleClass="eastinDialog doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+
+				<p:dataTable id="eastinApplications2" var="app"
+					value="#{editSolutionBean.eastinApplications}"
+					rowKey="#{app.productCode}"
+					emptyMessage="#{editSolutionBean.dialogEmptyMessage}"
+					style="width:35px;">
+
+					<p:column headerText="Commercial name">
+						<h:outputText value="#{app.commercialName}" />
+					</p:column>
+					<p:column headerText="Database">
+						<h:outputText value="#{app.database}" />
+					</p:column>
+					<p:column headerText="Insert date">
+						<h:outputText value="#{app.insertDate}" />
+					</p:column>
+					<p:column headerText="Iso code">
+						<h:outputText value="#{app.isoCodePrimary.code}" />
+					</p:column>
+					<p:column headerText="Iso name">
+						<h:outputText value="#{app.isoCodePrimary.name}" />
+					</p:column>
+					<p:column headerText="Last update date">
+						<h:outputText value="#{app.lastUpdateDate}" />
+					</p:column>
+					<p:column headerText="Product code">
+						<h:outputText value="#{app.productCode}" />
+					</p:column>
+					<p:column headerText="Thumbnail">
+						<img src="#{app.thumbnailImageUrl}" class="thumbnail" />
+					</p:column>
+					<p:column headerText="Import to application">
+						<p:commandLink oncomplete="eastinDialog2.hide()"
+							update=":#{p:component('form')}">
+							<f:setPropertyActionListener value="#{app}"
+								target="#{editSolutionBean.selectedEastinApplication}" />
+							<h:graphicImage url="/fileimport.png"
+								styleClass="basicImageStyle" />
+						</p:commandLink>
+
+					</p:column>
+
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dialog widgetVar="settingDialog" id="settingDialog" modal="true"
+				header="Setting #{viewSolutionsBean.clonedSelectedSetting.name}"
+				resizable="false" showEffect="clip" hideEffect="fold"
+				position="center,center" dynamic="true">
+				<p:messages for="messages3" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Application specific setting name:*  " />
+					<p:inputText
+						value="#{viewSolutionsBean.clonedSelectedSetting.name}"
+						style="width: 300px;" autocomplete="off"
+						styleClass="restrictedInput">
+
+					</p:inputText>
+					<h:outputText value="Setting description:*  " />
+					<p:inputText
+						value="#{viewSolutionsBean.clonedSelectedSetting.description}"
+						style="width: 300px;" autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Setting value space:*  " />
+					<p:inputText
+						value="#{viewSolutionsBean.clonedSelectedSetting.valueSpace}"
+						style="width: 300px;" autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Setting type: *" />
+					<p:selectOneMenu
+						value="#{viewSolutionsBean.clonedSelectedSetting.type}">
+
+						<f:selectItems value="#{editSolutionBean.settingsTypes}" />
+					</p:selectOneMenu>
+					<h:outputText value="Setting default value:*  " />
+					<p:inputText
+						value="#{viewSolutionsBean.clonedSelectedSetting.value}"
+						style="width: 300px;" autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Setting id:  " />
+					<p:inputText value="#{viewSolutionsBean.clonedSelectedSetting.id}"
+						style="width: 300px;" autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Setting Mapping:  " />
+					<p:column headerText="Mapping">
+						<p:selectBooleanCheckbox
+							value="#{viewSolutionsBean.clonedSelectedSetting.hasMapping}">
+							<p:ajax
+								update=":#{p:component('mapMenu')},:#{p:component('mapBox')},:#{p:component('settingComments')},:#{p:component('proposeBut')},:#{p:component('okBut')}" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+					<h:outputText value="Mapped to the common term:  " />
+					<p:selectOneMenu value="#{editSolutionBean.selectedMapping}"
+						disabled="#{not viewSolutionsBean.clonedSelectedSetting.hasMapping}"
+						id="mapMenu">
+						<p:ajax update="settingComments,:#{p:component('okBut')}" />
+						<f:selectItems var="item" itemLabel="#{item.name}"
+							itemValue="#{item.name}" itemDescription="#{item.description}"
+							value="#{viewSolutionsBean.clonedSelectedSetting.sortedMappingsObjects}" />
+					</p:selectOneMenu>
+					<h:outputText value="Exact matching: " />
+					<p:selectBooleanCheckbox
+						value="#{viewSolutionsBean.clonedSelectedSetting.exactMatching}"
+						id="mapBox"
+						disabled="#{not viewSolutionsBean.clonedSelectedSetting.hasMapping}">
+						<p:ajax update="settingComments,:#{p:component('okBut')}" />
+					</p:selectBooleanCheckbox>
+					<h:outputText value="Mapping comments:  " />
+					<p:inputTextarea label="settingComments" id="settingComments"
+						style="width: 300px;" rows="2" cols="33"
+						value="#{viewSolutionsBean.clonedSelectedSetting.comments}"
+						disabled="#{viewSolutionsBean.clonedSelectedSetting.exactMatching or not viewSolutionsBean.clonedSelectedSetting.hasMapping}"
+						autocomplete="off">
+
+					</p:inputTextarea>
+					<h:outputText value="Setting constraints/limitations:  " />
+					<p:inputText
+						value="#{viewSolutionsBean.clonedSelectedSetting.constraints}"
+						style="width: 300px;" autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Setting can be applied live:  " />
+					<p:column headerText="Applied live">
+						<p:selectBooleanCheckbox
+							value="#{viewSolutionsBean.clonedSelectedSetting.appliedLive}">
+						</p:selectBooleanCheckbox>
+					</p:column>
+					<h:outputText
+						value="(deselect if needs restart of the application)" />
+					<h:outputText value="" />
+
+					<p:commandButton value="Propose new registry term" id="proposeBut"
+						actionListener="#{editSolutionBean.clearNewRegistryTerm}"
+						disabled="#{not viewSolutionsBean.clonedSelectedSetting.hasMapping}"
+						update=":#{p:component('settingDialog2')}"
+						oncomplete="settingDialog2.show()" />
+
+				</h:panelGrid>
+				<p:commandButton value="OK" id="okBut"
+					action="#{editSolutionBean.test2}"
+					update=":#{p:component('settings')}" />
+				<p:commandButton value="Delete Setting" id="delBut"
+					update=":#{p:component('settings')}"
+					actionListener="#{editSolutionBean.deleteSelectedSetting}"
+					oncomplete="settingDialog.hide()" />
+
+			</p:dialog>
+			<p:dialog widgetVar="settingDialog2" id="settingDialog2" modal="true"
+				header="New Registry Term" resizable="false" showEffect="clip"
+				hideEffect="fold" width="482" height="264" position="center,center"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()">
+				<p:messages for="messages2" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Registry term name:*  " />
+					<p:inputText label="registryTermName" id="registryTermName"
+						style="width: 300px;"
+						value="#{viewSolutionsBean.proposedRegistryTerm.name}"
+						autocomplete="off" styleClass="restrictedInput">
+
+					</p:inputText>
+					<h:outputText value="Registry term description:*  " />
+					<p:inputText label="registryTermDescription" style="width: 300px;"
+						id="registryTermDescription"
+						value="#{viewSolutionsBean.proposedRegistryTerm.description}"
+						autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Registry term value space:*  " />
+					<p:inputText label="registryTermValueSpace" style="width: 300px;"
+						id="registryTermValueSpace"
+						value="#{viewSolutionsBean.proposedRegistryTerm.valueSpace}"
+						autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Registry term type:  " />
+					<p:selectOneMenu
+						value="#{viewSolutionsBean.proposedRegistryTerm.type}"
+						id="registryTermType">
+						<f:selectItems value="#{manageRegistryBean.registryTypes}" />
+					</p:selectOneMenu>
+
+					<h:outputText value="Registry term default value:*  " />
+					<p:inputText label="registryTermDefaultValue" style="width: 300px;"
+						id="registryTermDefaultValue"
+						value="#{viewSolutionsBean.proposedRegistryTerm.defaultValue}"
+						autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Registry term id:  " />
+					<p:inputText label="registryTermId" style="width: 300px;"
+						id="registryTermId"
+						value="#{viewSolutionsBean.proposedRegistryTerm.id}"
+						autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Registry term notes:  " />
+					<p:inputText label="registryTermNotes" style="width: 300px;"
+						id="registryTermNotes"
+						value="#{viewSolutionsBean.proposedRegistryTerm.notes}"
+						autocomplete="off">
+
+					</p:inputText>
+				</h:panelGrid>
+				<p:commandButton value="OK" id="ok2But"
+					actionListener="#{editSolutionBean.addProposedTerm}"
+					update=":#{p:component('settings')},:#{p:component('settingDialog')}" />
+				<p:blockUI block="settingDialog2" trigger="ok2But">  
+				ADDING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog widgetVar="editAccessInfoDialog" id="editAccessInfoDialog"
+				modal="true" header="Application Access Info" showEffect="clip"
+				hideEffect="fold" position="center,center" dynamic="true">
+
+				<p:panel header="Application access information for Users"
+					rendered="#{userBean.user or viewSolutionsBean.selectedSolution.vendor==userBean.userURI}">
+
+					<h:panelGrid columns="3" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText value="Solution URL: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.URLForAccess}"
+							disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+						<p:commandButton value="Request EULA"
+							update=":#{p:component('requestEULADialog')}"
+							actionListener="#{editSolutionBean.newEULA}"
+							oncomplete="requestEULADialog.show()"
+							disabled="#{viewSolutionsBean.selectedSolution.vendor==userBean.userURI}" />
+
+						<h:outputText value="Solution Access Description: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.description}"
+							disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+						<br />
+						<h:outputText value="Is accessible to countries: " />
+						<p:selectManyMenu
+							value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.validForCountries}"
+							id="countries" style="width:150px;height:100px"
+							disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+							<f:selectItems value="#{ontologyInstance.countriesList}" />
+						</p:selectManyMenu>
+
+						<br />
+					</h:panelGrid>
+					<p:panel header="License">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Name: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.license.licenseName}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+							<h:outputText value="Description: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.license.licenseDescription}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+
+							<h:outputText value="Is proprietary: " />
+							<p:selectBooleanCheckbox
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.license.proprietary}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Commercial Cost Schema">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Cost: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.commercialCost}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+
+							</p:inputText>
+							<h:outputText value="Cost Currency: " />
+							<p:selectOneMenu
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.commercialCostCurrency}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+								<f:selectItems
+									value="#{ontologyInstance.commercialCostCurrency}" />
+							</p:selectOneMenu>
+							<h:outputText value="Cost Payment charge type: " />
+							<p:selectOneMenu
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.costPaymentChargeType}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+								<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:panel header="Trial Schema">
+							<h:panelGrid columns="3" columnClasses="label, value"
+								styleClass="grid">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Duration in days: " />
+									<p:spinner style="width: 150px;"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.trialSchema.durationInDays}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+									<h:outputText value="Duration in usages: " />
+									<p:spinner style="width: 150px;"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.trialSchema.durationInUsages}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+									<h:outputText value="Offers full functionality during trial: " />
+									<p:selectBooleanCheckbox
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.trialSchema.offersFullFunctionalityDuringTrial}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</h:panelGrid>
+								<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Limited Functionality Description: " />
+									<p:inputTextarea rows="5" cols="30" maxlength="1000"
+										autoResize="false"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.trialSchema.limitedFunctionalityDescription}"
+										disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel header="Default Discount Schemas">
+							<p:commandButton value="Add discount schema"
+								actionListener="#{editSolutionBean.addDiscountSchemaForUsers}"
+								update=":#{p:component('discounts3')}"
+								disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+							<p:panel id="discounts3">
+								<c:forEach
+									items="#{viewSolutionsBean.selectedSolution.accessInfoForUsers.commercialCostSchema.discountIfUsedWithOtherSolution}"
+									var="item" varStatus="status">
+									<p:panel header="Discount Schema  #{(status.index+1)}">
+										<h:panelGrid columns="2" columnClasses="label, value"
+											styleClass="grid">
+											<h:outputText value="Paired solution: " />
+											<p:selectOneMenu value="#{item.pairedSolution}"
+												disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+												<f:selectItems value="#{item.solutionsListAsStrings}" />
+												<f:converter converterId="solutionsConverter" />
+											</p:selectOneMenu>
+											<h:outputText value="Discount Reason: " />
+											<p:inputText style="width: 300px;" autocomplete="off"
+												value="#{item.discountReason}"
+												disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}" />
+											<h:outputText value="Discount (%): " />
+											<h:panelGrid columns="3">
+												<h:outputText id="output#{(status.index+1)}"
+													value="#{item.discount}%" />
+												<h:inputHidden id="txt#{(status.index+1)}"
+													value="#{item.discount}" />
+												<p:slider for="txt#{(status.index+1)}"
+													display="output#{(status.index+1)}" style="width:150px"
+													displayTemplate="{value}%"
+													disabled="#{(userBean.user or viewSolutionsBean.selectedSolution.vendor!=userBean.userURI) and !userBean.admin}">
+
+												</p:slider>
+											</h:panelGrid>
+										</h:panelGrid>
+									</p:panel>
+
+								</c:forEach>
+							</p:panel>
+						</p:panel>
+					</p:panel>
+				</p:panel>
+				<p:panel header="Application access information for Vendors"
+					rendered="#{userBean.vendor}">
+
+					<h:panelGrid columns="3" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText value="Solution URL: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.URLForAccess}"
+							disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+						<p:commandButton value="Request SLA"
+							update=":#{p:component('requestSLADialog')}"
+							actionListener="#{editSolutionBean.newSLA}"
+							oncomplete="requestSLADialog.show()"
+							disabled="#{viewSolutionsBean.selectedSolution.vendor==userBean.userURI}" />
+
+						<h:outputText value="Solution Access Description: " />
+						<p:inputText style="width: 300px;" autocomplete="off"
+							value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.description}"
+							disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+						<br />
+
+					</h:panelGrid>
+					<p:panel header="License">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Name: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.license.licenseName}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+							<h:outputText value="Description: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.license.licenseDescription}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+
+							<h:outputText value="Is proprietary: " />
+							<p:selectBooleanCheckbox
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.license.proprietary}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Commercial Cost Schema">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Cost: " />
+							<p:inputText style="width: 300px;" autocomplete="off"
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.commercialCost}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}">
+
+							</p:inputText>
+							<h:outputText value="Cost Currency: " />
+							<p:selectOneMenu
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.commercialCostCurrency}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}">
+								<f:selectItems
+									value="#{ontologyInstance.commercialCostCurrency}" />
+
+							</p:selectOneMenu>
+							<h:outputText value="Cost Payment charge type: " />
+							<p:selectOneMenu
+								value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.costPaymentChargeType}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}">
+								<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:panel header="Trial Schema">
+							<h:panelGrid columns="3" columnClasses="label, value"
+								styleClass="grid">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Duration in days: " />
+									<p:spinner style="width: 150px;"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.trialSchema.durationInDays}"
+										disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+									<h:outputText value="Duration in usages: " />
+									<p:spinner style="width: 150px;"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.trialSchema.durationInUsages}"
+										disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+									<h:outputText value="Offers full functionality during trial: " />
+									<p:selectBooleanCheckbox
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.trialSchema.offersFullFunctionalityDuringTrial}"
+										disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+								</h:panelGrid>
+								<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Limited Functionality Description: " />
+									<p:inputTextarea rows="5" cols="30" maxlength="1000"
+										autoResize="false"
+										value="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.trialSchema.limitedFunctionalityDescription}"
+										disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel header="Default Discount Schemas">
+							<p:commandButton value="Add discount schema"
+								actionListener="#{editSolutionBean.addDiscountSchemaForVendors}"
+								update=":#{p:component('discounts4')}"
+								disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+							<p:panel id="discounts4">
+								<c:forEach
+									items="#{viewSolutionsBean.selectedSolution.accessInfoForVendors.commercialCostSchema.discountIfUsedWithOtherSolution}"
+									var="item" varStatus="status">
+									<p:panel header="Discount Schema  #{(status.index+1)}">
+										<h:panelGrid columns="2" columnClasses="label, value"
+											styleClass="grid">
+											<h:outputText value="Paired solution: " />
+											<p:selectOneMenu value="#{item.pairedSolution}"
+												disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}">
+												<f:selectItems value="#{item.solutionsListAsStrings}" />
+												<f:converter converterId="solutionsConverter" />
+											</p:selectOneMenu>
+											<h:outputText value="Discount Reason: " />
+											<p:inputText style="width: 300px;" autocomplete="off"
+												value="#{item.discountReason}"
+												disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}" />
+											<h:outputText value="Discount (%): " />
+											<h:panelGrid columns="3">
+												<h:outputText id="outputa#{(status.index+1)}"
+													value="#{item.discount}%" />
+												<h:inputHidden id="txta#{(status.index+1)}"
+													value="#{item.discount}" />
+												<p:slider for="txta#{(status.index+1)}"
+													display="outputa#{(status.index+1)}" style="width:150px"
+													displayTemplate="{value}%"
+													disabled="#{viewSolutionsBean.selectedSolution.vendor!=userBean.userURI}">
+
+												</p:slider>
+											</h:panelGrid>
+										</h:panelGrid>
+									</p:panel>
+
+								</c:forEach>
+							</p:panel>
+						</p:panel>
+					</p:panel>
+				</p:panel>
+				<p:commandButton value="OK" id="ok535But"
+					oncomplete="editAccessInfoDialog.hide()" />
+			</p:dialog>
+
+
+
+
+			<p:dialog widgetVar="savedDialog" id="savedDialog" modal="true"
+				header="Application saved" resizable="false" closable="false"
+				showEffect="clip" hideEffect="fold" width="287"
+				position="center,center" dynamic="true"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()">
+				<p:blockUI block="savedDialog" trigger="ok5But">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:commandButton value="Continue editing" id="ok5But" ajax="false"
+					update=":#{p:component('form')}" oncomplete="savedDialog.hide()"
+					action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+				<p:commandButton value="View other solutions" id="edit5But"
+					ajax="false"
+					action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+			</p:dialog>
+
+			<p:dialog widgetVar="deleteDialog" id="deleteDialog"
+				header="Are you sure you want to delete the application?"
+				modal="true" resizable="false" showEffect="clip" hideEffect="fold"
+				width="324" position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<p:commandButton value="Delete" id="ok55But" ajax="false"
+					actionListener="#{editSolutionBean.deleteSolution}"
+					action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+					oncomplete="deleteDialog.hide()" />
+				<p:blockUI block="deleteDialog" trigger="ok55But">  
+				DELETING APPLICATION<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+
+
+			<!-- ============================================================================================= -->
+
+			<p:dialog widgetVar="requestEULADialog" id="requestEULADialog"
+				header="End User License Agreement Registration" modal="true"
+				width="900" height="600" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="EULA Vendor: " />
+					<h:outputText
+						value="#{viewSolutionsBean.selectedSolution.vendorName}" />
+					<h:outputText value="EULA is valid for countries: " />
+					<p:selectManyMenu
+						value="#{editSolutionBean.eula.validForCountries}"
+						style="width:150px;height:100px" id="countries5" disabled="true">
+						<f:selectItems value="#{ontologyInstance.countriesList}" />
+					</p:selectManyMenu>
+
+					<h:outputText value="EULA start Date: " />
+					<p:calendar value="#{editSolutionBean.eula.EULA_StartDate}"
+						disabled="true" />
+					<h:outputText value="EULA end Date: " />
+					<p:calendar value="#{editSolutionBean.eula.EULA_EndDate}"
+						disabled="true" />
+
+					<h:outputText value="EULA duration in usages: " />
+					<p:spinner style="width: 150px;"
+						value="#{editSolutionBean.eula.durationInUsages}" />
+					<h:outputText value="EULA Cost: " />
+					<p:inputText style="width: 300px;" autocomplete="off"
+						value="#{editSolutionBean.eula.EULA_cost}" disabled="true" />
+					<h:outputText value="EULA Cost Currency: " />
+					<p:selectOneMenu value="#{editSolutionBean.eula.EULA_costCurrency}"
+						disabled="true">
+						<f:selectItems value="#{ontologyInstance.commercialCostCurrency}" />
+					</p:selectOneMenu>
+					<h:outputText value="EULA cost payment charge type: " />
+					<p:selectOneMenu
+						value="#{editSolutionBean.eula.EULA_costPaymentChargeType}"
+						disabled="true">
+						<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+				<p:panel header="EULA Discount Schemas">
+
+					<p:commandButton value="Add discount schema"
+						actionListener="#{editSolutionBean.addDiscountSchemaForEULA}"
+						update=":#{p:component('discounts66')}" disabled="true" />
+					<p:panel id="discounts66">
+						<c:forEach items="#{editSolutionBean.eula.discountSchema}"
+							var="item" varStatus="status">
+							<p:panel header="Discount Schema  #{(status.index+1)}"
+								disabled="true">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Paired solution: " />
+									<p:selectOneMenu value="#{item.pairedSolution}" disabled="true">
+										<f:selectItems value="#{item.solutionsListAsStrings}" />
+										<f:converter converterId="solutionsConverter" />
+									</p:selectOneMenu>
+									<h:outputText value="Discount Reason: " />
+									<p:inputText style="width: 300px;" autocomplete="off"
+										value="#{item.discountReason}" disabled="true" />
+									<h:outputText value="Discount (%): " />
+									<h:panelGrid columns="3">
+										<h:outputText id="outputB6#{(status.index+1)}"
+											value="#{item.discount}%" />
+										<h:inputHidden id="txtB6#{(status.index+1)}"
+											value="#{item.discount}" />
+										<p:slider for="txtB6#{(status.index+1)}"
+											display="outputB6#{(status.index+1)}" style="width:150px"
+											displayTemplate="{value}%" disabled="true">
+
+										</p:slider>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:panel>
+
+						</c:forEach>
+					</p:panel>
+				</p:panel>
+
+				<p:commandButton value="Request" id="saveButton31"
+					actionListener="#{editSolutionBean.addNewEULA}"
+					oncomplete="requestEULADialog.hide()" />
+				<p:commandButton value="Cancel"
+					actionListener="#{editSolutionBean.cancelAddNewEULA}"
+					oncomplete="requestEULADialog.hide()" />
+				<p:blockUI block="form" trigger="saveButton31">  
+				APPLYING CHANGES<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+
+			<!-- ============================================================================================= -->
+
+
+			<p:dialog widgetVar="requestSLADialog" id="requestSLADialog"
+				modal="true" header="Solution Level Agreement Registration"
+				width="900" height="600" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="SLA Vendor: " />
+					<h:outputText value="#{userBean.vendorObj.vendorName}" />
+					<h:outputText value="SLA is valid for countries: " />
+					<p:selectManyMenu value="#{editSolutionBean.sla.validForCountries}"
+						style="width:150px;height:100px" id="countries2">
+						<f:selectItems value="#{ontologyInstance.countriesList}" />
+					</p:selectManyMenu>
+
+					<h:outputText value="SLA start Date: " />
+					<p:calendar value="#{editSolutionBean.sla.SLA_StartDate}" />
+					<h:outputText value="SLA end Date: " />
+					<p:calendar value="#{editSolutionBean.sla.SLA_EndDate}" />
+					<h:outputText value="SLA duration in users: " />
+					<p:spinner style="width: 150px;"
+						value="#{editSolutionBean.sla.durationInUsers}" />
+					<h:outputText value="SLA duration in usage: " />
+					<p:spinner style="width: 150px;"
+						value="#{editSolutionBean.sla.durationInUsages}" />
+					<h:outputText value="SLA Cost: " />
+					<p:inputText style="width: 300px;" autocomplete="off"
+						value="#{editSolutionBean.sla.SLA_Cost}" disabled="true" />
+					<h:outputText value="SLA Cost Currency: " />
+					<p:selectOneMenu value="#{editSolutionBean.sla.SLA_CostCurrency}"
+						disabled="true">
+						<f:selectItems value="#{ontologyInstance.commercialCostCurrency}" />
+					</p:selectOneMenu>
+					<h:outputText value="SLA cost payment charge type: " />
+					<p:selectOneMenu
+						value="#{editSolutionBean.sla.SLA_CostPaymentChargeType}"
+						disabled="true">
+						<f:selectItems value="#{ontologyInstance.costPaymentChargeType}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+				<p:panel header="SLA Discount Schemas">
+
+					<p:commandButton value="Add discount schema"
+						actionListener="#{editSolutionBean.addDiscountSchemaForSLA}"
+						update=":#{p:component('discounts6')}" disabled="true" />
+					<p:panel id="discounts6">
+						<c:forEach items="#{editSolutionBean.sla.discountSchema}"
+							var="item" varStatus="status">
+							<p:panel header="Discount Schema  #{(status.index+1)}"
+								disabled="true">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Paired solution: " />
+									<p:selectOneMenu value="#{item.pairedSolution}" disabled="true">
+										<f:selectItems value="#{item.solutionsListAsStrings}" />
+										<f:converter converterId="solutionsConverter" />
+									</p:selectOneMenu>
+									<h:outputText value="Discount Reason: " />
+									<p:inputText style="width: 300px;" autocomplete="off"
+										value="#{item.discountReason}" disabled="true" />
+									<h:outputText value="Discount (%): " />
+									<h:panelGrid columns="3">
+										<h:outputText id="outputB#{(status.index+1)}"
+											value="#{item.discount}%" />
+										<h:inputHidden id="txtB#{(status.index+1)}"
+											value="#{item.discount}" />
+										<p:slider for="txtB#{(status.index+1)}"
+											display="outputB#{(status.index+1)}" style="width:150px"
+											displayTemplate="{value}%" disabled="true">
+
+										</p:slider>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:panel>
+
+						</c:forEach>
+					</p:panel>
+
+
+				</p:panel>
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="SLA Status: " />
+					<p:selectOneMenu value="#{editSolutionBean.sla.hasStatus}"
+						disabled="true">
+						<f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+						<f:selectItem itemLabel="EXPIRED" itemValue="EXPIRED" />
+						<f:selectItem itemLabel="ENDED DUE TO OWNER"
+							itemValue="ENDED DUE TO OWNER" />
+						<f:selectItem itemLabel="ENDED DUE TO VENDOR"
+							itemValue="ENDED DUE TO VENDOR" />
+					</p:selectOneMenu>
+
+					<h:outputText value="Solution License: " />
+					<p:inputTextarea rows="5" cols="30" maxlength="1000"
+						autoResize="false"
+						value="#{editSolutionBean.sla.solutionLicense.licenseDescription}"
+						disabled="true" />
+				</h:panelGrid>
+				<p:commandButton value="Register"
+					actionListener="#{editSolutionBean.addNewSLA}"
+					oncomplete="requestSLADialog.hide()" />
+				<p:commandButton value="Cancel"
+					actionListener="#{editSolutionBean.cancelAddNewSLA}"
+					oncomplete="requestSLADialog.hide()" />
+
+			</p:dialog>
+
+			<p:dialog widgetVar="relatedItemsDialog" id="relatedItemsDialog"
+				modal="true" header="Related items" resizable="false"
+				showEffect="clip" hideEffect="fold" position="center,center"
+				dynamic="true" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<h:outputText
+					value='The following items where found in the "vocabulary" that might be related to your proposal' />
+				<p:dataTable id="relevantItems" var="item"
+					value="#{viewSolutionsBean.proposedClusterItemsMatches}"
+					rowKey="ind" emptyMessage="No relevant items found">
+
+					<p:column headerText="Cluster">
+						<h:outputText value="#{item.belongsToCluster}" />
+					</p:column>
+					<p:column headerText="Item">
+						<h:outputText value="#{item.name}" />
+					</p:column>
+					<p:column headerText=" ">
+						<p:commandButton
+							value="My proposal is a synonym (alias to this item)"
+							action="#{viewSolutionsBean.selectProposedItem}"
+							update=":#{p:component('form')},:#{p:component('relatedItemsDialog')}">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{viewSolutionsBean.relevantItem}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:commandButton
+					value="None of the above are relevant. Submit as a new proposal"
+					actionListener="#{viewSolutionsBean.addClusterItemProposal}"
+					oncomplete="relatedItemsDialog.hide();fixProposedItems()"
+					update=":#{p:component('form')}" />
+			</p:dialog>
+
+
+			<p:dialog widgetVar="clusterSubmittedDialog"
+				id="clusterSubmittedDialog" modal="true" header="Success"
+				resizable="false" showEffect="clip" hideEffect="fold"
+				position="center,center">
+
+				<h:outputText
+					value="Thank you for your proposal. We will analyze it and provide a feedback as soon as possible. You can continue inserting data." />
+				<br />
+				<p:commandButton value="OK"
+					update=":#{p:component('accordionPanel')}"
+					oncomplete="clusterSubmittedDialog.hide(),newClusterDialog.hide()" />
+			</p:dialog>
+
+
+
+			<p:dialog widgetVar="newClusterDialog" id="newClusterDialog"
+				modal="true" header="Propose a new group of items" showEffect="clip"
+				hideEffect="fold" position="center,center" resizable="false">
+
+				<p:messages id="ProposalMessage" showDetail="true" autoUpdate="true"
+					closable="true" />
+
+				<p:panelGrid style="width:100%" id="grid">
+					<p:row>
+						<p:column style="font-weight: bold;">Name*</p:column>
+						<p:column style="font-weight: bold;">Short description*</p:column>
+						<p:column style="font-weight: bold;">Select an existing group</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:inputText value="#{viewSolutionsBean.proposedCluster.name}"
+								disabled="#{viewSolutionsBean.proposedClusterFlag}" />
+						</p:column>
+
+						<p:column>
+							<p:inputText
+								value="#{viewSolutionsBean.proposedCluster.description}"
+								disabled="#{viewSolutionsBean.proposedClusterFlag}" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu
+								value="#{viewSolutionsBean.selectedProposedCluster}">
+
+								<f:selectItems
+									value="#{ontologyInstance.proposedEASTINProperties}" />
+
+								<p:ajax event="change"
+									update=":#{p:component('grid')},:#{p:component('items')},:#{p:component('importProposal')},:#{p:component('submitProposal')}"
+									listener="#{viewSolutionsBean.selectedProposedClusterChangedListener}" />
+								<f:converter converterId="etnaClusterConverter" />
+							</p:selectOneMenu>
+						</p:column>
+
+					</p:row>
+				</p:panelGrid>
+
+				<p:panel header="Items in the group" id="items"
+					style="margin-top:10px">
+
+					<c:forEach
+						items="#{viewSolutionsBean.proposedCluster.allproperties}"
+						var="item" varStatus="status">
+
+						<p:panelGrid style="width:100%;margin-bottom:5px">
+
+							<f:facet name="header">
+								<p:row>
+									<p:column colspan="3">
+										<h:outputText value="Item #{(status.index+1)}" />
+									</p:column>
+								</p:row>
+							</f:facet>
+
+							<p:row>
+								<p:column style="font-weight: bold;">Name*</p:column>
+								<p:column style="font-weight: bold;">Short description*</p:column>
+								<p:column style="font-weight: bold;">Item type</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column>
+									<p:inputText value="#{item.name}"
+										disabled="#{viewSolutionsBean.proposedClusterFlag}" />
+								</p:column>
+
+								<p:column>
+									<p:inputText value="#{item.definition}"
+										disabled="#{viewSolutionsBean.proposedClusterFlag}" />
+								</p:column>
+								<p:column>
+									<p:selectOneMenu value="#{item.type}"
+										disabled="#{viewSolutionsBean.proposedClusterFlag}">
+										<f:selectItem itemLabel="Attribute" itemValue="Attribute" />
+										<f:selectItem itemLabel="Measure" itemValue="Measure" />
+
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+
+							<f:facet name="footer">
+								<p:row>
+									<p:column colspan="3">
+										<p:commandButton value="Remove item"
+											title="Remove cluster item"
+											rendered="#{viewSolutionsBean.proposedCluster.allproperties.size() > 1}"
+											disabled="#{!viewSolutionsBean.disableImportButton or viewSolutionsBean.proposedClusterFlag}"
+											action="#{viewSolutionsBean.removeItemFromCluster}"
+											update="items" icon="ui-icon-close">
+
+											<f:setPropertyActionListener value="#{item}"
+												target="#{viewSolutionsBean.proposedItemToRemove}" />
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</f:facet>
+
+						</p:panelGrid>
+
+					</c:forEach>
+
+					<hr />
+
+					<p:commandButton value="Add another item"
+						title="Add another cluster item"
+						actionListener="#{viewSolutionsBean.addItemToCluster}"
+						update="items"
+						disabled="#{!viewSolutionsBean.disableImportButton or viewSolutionsBean.proposedClusterFlag}"
+						icon="ui-icon-plus" />
+				</p:panel>
+				<p:commandButton value="Submit proposal" id="submitProposal"
+					disabled="#{viewSolutionsBean.proposedClusterFlag}"
+					actionListener="#{viewSolutionsBean.submitNewCluster}"
+					title="Submit proposed cluster" icon="ui-icon-check"
+					update=":#{p:component('accordionPanel')}" />
+				<p:commandButton value="Import proposal"
+					title="Import the selected proposed cluster"
+					icon="ui-icon-circle-arrow-s"
+					disabled="#{viewSolutionsBean.disableImportButton}"
+					id="importProposal" style="margin:0"
+					update=":#{p:component('form')}"
+					actionListener="#{viewSolutionsBean.importProposal}" />
+				<p:blockUI block="form" trigger="submitProposal">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog widgetVar="changeCategoryDialog" id="changeCategoryDialog"
+				modal="true" header="Change category" resizable="true"
+				showEffect="clip" hideEffect="fold" position="center,center"
+				width="860" dynamic="true" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+
+
+				<p:scrollPanel>
+					<h:outputText value="Select a category:" />
+
+					<p:tree id="treeSingle222" value="#{editSolutionBean.root}"
+						var="node" selectionMode="single" orientation="horizontal"
+						selection="#{editSolutionBean.selectedNode}" style="width:775px;">
+						<p:treeNode>
+							<h:outputText value="#{node}" />
+						</p:treeNode>
+						<p:ajax event="select"
+							update=":#{p:component('approveBut55')},:#{p:component('treeSingle222')}"
+							listener="#{editSolutionBean.onNodeSelect}" />
+					</p:tree>
+
+					<p:commandButton value="Select" id="approveBut55"
+						oncomplete="changeCategoryDialog.hide()"
+						disabled="#{empty editSolutionBean.selectedCategory}"
+						actionListener="#{editSolutionBean.changeCategory}"
+						update=":#{p:component('form')}" />
+					<p:commandButton value="Cancel" id="cancelChangesBut55"
+						oncomplete="changeCategoryDialog.hide()"
+						actionListener="#{editSolutionBean.cancelChangeCategory}"
+						update=":#{p:component('form')}" />
+					<br />
+					<br />
+				</p:scrollPanel>
+			</p:dialog>
+
+			<!--  	<script type="text/javascript">
+				$(function() {
+					$(".doPositionDialog").removeAttr('style');
+				});
+			</script>-->
+		</h:form>
+
+
+		<h:form id="secondForm">
+
+			<p:dialog widgetVar="addNewSettingDialog" id="addNewSettingDialog"
+				modal="true" header="New Setting" resizable="false"
+				showEffect="clip" hideEffect="fold" width="1000" height="400"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<p:messages for="gridOfSettingMessage" showDetail="true"
+					autoUpdate="true" closable="true" ajax="false" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid" id="gridOfSetting" widgetVar="gridOfSetting">
+					<h:outputText value="Application specific setting name:*  " />
+					<p:inputText id="SettingName" label="SettingName"
+						value="#{editSolutionBean.newSetting.name}" style="width: 300px;">
+
+					</p:inputText>
+					<h:outputText value="Setting description:*  " />
+					<p:inputText value="#{editSolutionBean.newSetting.description}"
+						style="width: 300px;">
+
+					</p:inputText>
+					<h:outputText value="Setting value space:*  " />
+					<p:inputText value="#{editSolutionBean.newSetting.valueSpace}"
+						style="width: 300px;">
+
+					</p:inputText>
+					<h:outputText value="Setting type:* " />
+					<p:selectOneMenu value="#{editSolutionBean.newSetting.type}">
+						<f:selectItems value="#{editSolutionBean.settingsTypes}" />
+					</p:selectOneMenu>
+
+
+					<h:outputText value="Default value:*  " />
+					<p:inputText value="#{editSolutionBean.newSetting.value}"
+						style="width: 300px;">
+
+					</p:inputText>
+					<h:outputText value="Id:  " />
+					<p:inputText value="#{editSolutionBean.newSetting.id}"
+						style="width: 300px;">
+
+					</p:inputText>
+					<h:outputText value="Constraints/limitations:  " />
+					<p:inputText value="#{editSolutionBean.newSetting.constraints}"
+						style="width: 300px;" id="constraints">
+
+					</p:inputText>
+					<h:outputText value="Applied live:  " />
+					<p:selectBooleanCheckbox
+						value="#{editSolutionBean.newSetting.appliedLive}"
+						disabled="false" />
+					<h:outputText
+						value="(deselect if needs restart of the application)" />
+					<p:watermark for="constraints"
+						value="e.g. MagnifierPosition=fullScreen requires AERO Design Windows 7 to be ON" />
+
+				</h:panelGrid>
+
+
+				<p:commandButton value="Add setting" id="okBut7"
+					actionListener="#{editSolutionBean.addNewSetting2}"
+					update=":#{p:component('settings')}"
+					title="Add setting to application specific settings" />
+
+				<p:commandButton value="Search relevant setting"
+					id="SearchRelevantSetting" rendered="false"
+					actionListener="#{editSolutionBean.searchForRelevantSettings}"
+					update=":#{p:component('relevantSettingsPanel')}"
+					title="Search relevant application settings (name required)" />
+
+
+
+				<p:panel id="relevantSettingsPanel" rendered="false"
+					widgetVar="relevantSettingsPanel" style="margin-top:10px">
+					<f:facet name="header">
+						<h:outputText value="Existing settings with similar name"
+							id="noRelevantSetts" />
+					</f:facet>
+					<p:dataTable id="relevantSettings" widgetVar="relevantSettings"
+						var="sett" value="#{editSolutionBean.relevantSettings}"
+						rowKey="#{sett.currentURI}"
+						selection="#{editSolutionBean.selectedRelevantSetting}"
+						selectionMode="single" scrollable="true" scrollHeight="150"
+						width="85%" emptyMessage="No relevant settings found">
+						<p:ajax event="rowSelect"
+							listener="#{editSolutionBean.onRowSelect}"
+							update=":#{p:component('editButSett')}" />
+						<p:column headerText="Setting name" width="80" styleClass="wrap">  
+            			#{sett.name}  
+        			</p:column>
+						<p:column headerText="Setting description" width="80"
+							styleClass="wrap">  
+            			#{sett.description}  
+        			</p:column>
+						<p:column headerText="Setting value space" width="80"
+							styleClass="wrap">  
+            			#{sett.valueSpace}  
+        			</p:column>
+						<p:column headerText="Setting type" width="80" styleClass="wrap">  
+            			#{sett.type}  
+        			</p:column>
+						<p:column headerText="Setting default value" width="80"
+							styleClass="wrap">  
+            			#{sett.value}  
+        			</p:column>
+						<p:column headerText="Setting id" width="80" styleClass="wrap">  
+            			#{sett.id}  
+        			</p:column>
+						<p:column headerText="Setting constraints/limitations" width="80"
+							styleClass="wrap">  
+            			#{sett.constraints}  
+        			</p:column>
+
+					</p:dataTable>
+					<p:commandButton value="Edit setting" id="editButSett"
+						disabled="#{editSolutionBean.showEditInDialog}"
+						actionListener="#{editSolutionBean.useExistingSetting}"
+						update=":#{p:component('gridOfSetting')}" />
+				</p:panel>
+			</p:dialog>
+		</h:form>
+
+	</h:body>
+</f:view>

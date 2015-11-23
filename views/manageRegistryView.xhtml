@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form id="form">
+			<p:commandLink process="@this" immediate="true"
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" 
+				title="Go to initial menu"/>
+			</p:commandLink>
+			<br />
+			<br />
+			<p:commandButton id="addNewTerm" value="Add new registry term"
+				actionListener="#{manageRegistryBean.addNewRegistryTerm}"
+				update=":#{p:component('addNewRegistryTermDialog')}"
+				oncomplete="addNewRegistryTermDialog.show()"
+				disabled="#{!userBean.admin}"
+				title="Introduce a new registry term by adding metadata (name, description etc.) 
+				and add it to the registry of common terms." />
+			<br />
+			<p:commandButton id="downloadLink" value="Export registry terms"
+				title="Export registry terms in a JSON format, which contains information 
+			    related to name, description, status (accepted, proposed) etc. of each term."
+				ajax="false"
+				actionListener="#{fileDownloadController.exportRegistryTerms}">
+			</p:commandButton>
+			<br />
+			<p:commandButton id="synchronization"
+				title="Synchronize automatically the registry of common terms
+			     of the Cloud4all SEMA ontological framework with the Unified Listing."
+				value="Synchronize registry terms"
+				actionListener="#{utils.synchronize}"
+				update=":#{p:component('syncDialog')}" disabled="#{!userBean.admin}"
+				oncomplete="syncDialog.show()">
+			</p:commandButton>
+			<p:blockUI block="form" trigger="synchronization">  
+					LOADING<br />
+				<p:graphicImage value="/loading.gif" />
+			</p:blockUI>
+
+			<p:panel header="Registry terms">
+				<p:dataTable id="registry" var="registry"
+					value="#{ontologyInstance.registryTerms}" rowKey="#{registry.name}"
+					emptyMessage="No registry terms found" scrollable="true"
+					scrollHeight="300" width="85%" resizableColumns="true">
+
+					<p:column headerText="Registry term name" width="100"
+						styleClass="wrap" sortBy="name">
+						<h:outputText value="#{registry.name}" 
+							rendered="#{not empty registry.name}" />
+						<h:outputText value="undefined name"
+							rendered="#{empty registry.name}" />
+					</p:column>
+					<p:column headerText="Registry term description" width="100"
+						styleClass="wrap" sortBy="description">
+						<h:outputText value="#{registry.description}" />
+					</p:column>
+					<p:column headerText="Registry term value space" width="100"
+						styleClass="wrap" sortBy="valueSpace">
+						<h:outputText value="#{registry.valueSpace}" />
+					</p:column>
+					<p:column headerText="Registry term type" width="100"
+						styleClass="wrap" sortBy="type">
+						<h:outputText value="#{registry.type}" />
+					</p:column>
+					<p:column headerText="Registry term default value" width="100"
+						styleClass="wrap" sortBy="defaultValue">
+						<h:outputText value="#{registry.defaultValue}" />
+					</p:column>
+					<p:column headerText="Registry term id" width="100"
+						styleClass="wrap" sortBy="id">
+						<h:outputText value="#{registry.id}" />
+					</p:column>
+					<p:column headerText="Registry term notes" width="100"
+						styleClass="wrap" sortBy="notes">
+						<h:outputText value="#{registry.notes}" />
+					</p:column>
+					<p:column headerText="Registry term alias" styleClass="wrap">
+						<ui:repeat value="#{registry.alias}" var="string" varStatus="loop">
+    #{string}#{not loop.last ? ', ' : ''}
+</ui:repeat>
+
+					</p:column>
+					<p:column headerText="Edit" style="width:4%">
+						<p:commandButton id="selectButton"
+							update=":#{p:component('registryDialog')}"
+							oncomplete="registryDialog.show()" title="View"
+							action="#{manageRegistryBean.openRegistryDialog}"
+							icon="ui-icon-search" disabled="#{!userBean.admin}">
+							<f:setPropertyActionListener value="#{registry}"
+								target="#{manageRegistryBean.selectedRegistryTerm}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+			<br />
+			<br />
+
+			<p:panel header="Proposed Registry terms">
+				<p:dataTable id="registry2" var="registry2"
+					value="#{ontologyInstance.proposedRegistryTerms}"
+					rowKey="#{registry2.name}"
+					emptyMessage="No proposed registry terms found" scrollable="true"
+					scrollHeight="300" width="85%" resizableColumns="true">
+
+					<p:column headerText="Registry term name" width="100"
+						styleClass="wrap" sortBy="name">
+						<h:outputText value="#{registry2.name}" 
+							rendered="#{not empty registry2.name}" />
+						<h:outputText value="undefined name"
+							rendered="#{empty registry2.name}" />
+					</p:column>
+					<p:column headerText="Registry term description" width="100"
+						styleClass="wrap" sortBy="description">
+						<h:outputText value="#{registry2.description}" />
+					</p:column>
+					<p:column headerText="Registry term value space" width="100"
+						styleClass="wrap" sortBy="valueSpace">
+						<h:outputText value="#{registry2.valueSpace}" />
+					</p:column>
+					<p:column headerText="Registry term type" width="100"
+						styleClass="wrap" sortBy="type">
+						<h:outputText value="#{registry2.type}" />
+					</p:column>
+					<p:column headerText="Registry term default value" width="100"
+						styleClass="wrap" sortBy="defaultValue">
+						<h:outputText value="#{registry2.defaultValue}" />
+					</p:column>
+					<p:column headerText="Registry term id" width="100"
+						styleClass="wrap" sortBy="id">
+						<h:outputText value="#{registry2.id}" />
+					</p:column>
+					<p:column headerText="Registry term notes" width="100"
+						styleClass="wrap" sortBy="notes">
+						<h:outputText value="#{registry2.notes}" />
+					</p:column>
+					<p:column headerText="Registry term alias" styleClass="wrap">
+						<ui:repeat value="#{registry2.alias}" var="string"
+							varStatus="loop">
+						    #{string}#{not loop.last ? ', ' : ''}
+						</ui:repeat>
+
+					</p:column>
+					<p:column style="width:4%" headerText="Edit">
+						<p:commandButton id="selectButton2"
+							update=":#{p:component('registryDialog2')}"
+							oncomplete="registryDialog2.show()" title="View"
+							action="#{manageRegistryBean.openProposedRegistryDialog}"
+							icon="ui-icon-search" disabled="#{!userBean.admin}">
+							<f:setPropertyActionListener value="#{registry2}"
+								target="#{manageRegistryBean.selectedProposedRegistryTerm}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				
+			</p:panel>
+			
+			<p:dialog id="addNewRegistryTermDialog" header="New registry term"
+					modal="true" widgetVar="addNewRegistryTermDialog" resizable="false"
+					width="500" showEffect="clip" hideEffect="fold"
+					styleClass="doPositionDialog" onShow="fixDialogPosition()">
+					<p:messages for="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:panelGrid columns="2" columnClasses="label, value"
+						styleClass="grid">
+						<h:outputText value="Registry term name*: " />
+						<p:inputText value="#{manageRegistryBean.newRegistryTerm.name}"
+							autocomplete="off" style="width: 300px;"
+							styleClass="restrictedInput">
+
+						</p:inputText>
+						<h:outputText value="Registry term description*: " />
+						<p:inputText
+							value="#{manageRegistryBean.newRegistryTerm.description}"
+							autocomplete="off" style="width: 300px;">
+
+						</p:inputText>
+						<h:outputText value="Registry term value space*: " />
+						<p:inputText
+							value="#{manageRegistryBean.newRegistryTerm.valueSpace}"
+							autocomplete="off" style="width: 300px;">
+
+						</p:inputText>
+						<h:outputText value="Registry term type: " />
+						<p:selectOneMenu
+							value="#{manageRegistryBean.newRegistryTerm.type}">
+							<f:selectItems value="#{manageRegistryBean.registryTypes}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Registry term default value*: " />
+						<p:inputText
+							value="#{manageRegistryBean.newRegistryTerm.defaultValue}"
+							autocomplete="off" style="width: 300px;">
+
+						</p:inputText>
+						<h:outputText value="Registry term id: " />
+						<p:inputText value="#{manageRegistryBean.newRegistryTerm.id}"
+							autocomplete="off" style="width: 300px;">
+						</p:inputText>
+						<h:outputText value="Registry term notes: " />
+						<p:inputText value="#{manageRegistryBean.newRegistryTerm.notes}"
+							autocomplete="off" style="width: 300px;">
+						</p:inputText>
+						<h:outputText value="Registry term alias: " />
+						<p:selectCheckboxMenu
+							value="#{manageRegistryBean.newRegistryTerm.alias}"
+							label="Select alias" filter="true" filterText="Filter"
+							filterMatchMode="startsWith" panelStyle="width:220px">
+							<f:selectItems value="#{manageRegistryBean.allRegistryTerms}" />
+						</p:selectCheckboxMenu>
+					</h:panelGrid>
+					<p:blockUI block="addNewRegistryTermDialog" trigger="ok9But">  
+					ADDING REGISTRY TERM<br />
+						<p:graphicImage value="/loading.gif" />
+					</p:blockUI>
+					<p:commandButton value="Add" id="ok9But"
+						update=":#{p:component('registry')}"
+						actionListener="#{manageRegistryBean.addRegistryTerm}" />
+				</p:dialog>
+			
+			<p:dialog widgetVar="syncDialog" id="syncDialog" modal="true"
+				header="Syncronization of terms" resizable="false" closable="false"
+				showEffect="clip" hideEffect="fold" width="300"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<p:blockUI block="syncDialog" trigger="ok5But">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<h:panelGrid columns="2" columnClasses="label,value"
+					styleClass="grid" rendered="#{ontologyInstance.numberOfWebServiceTerms!=''}">
+					<p:column headerText="terms" width="100" styleClass="wrap">
+						<h:outputText value="Number of terms inserted: " />
+					</p:column>
+					<h:outputText value="#{ontologyInstance.numberOfWebServiceTerms}" />
+					<p:column headerText="proposedterms" width="100" styleClass="wrap">
+						<h:outputText value="Number of proposed terms inserted: " />
+					</p:column>
+					<h:outputText value="#{ontologyInstance.numberOfWebServiceProposedTerms}" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" columnClasses="label"
+					styleClass="grid" rendered="#{ontologyInstance.numberOfWebServiceTerms==''}">
+					<h:outputText value="The service is not available.Please try later." />
+				</h:panelGrid>
+				
+				<p:commandButton value="OK" id="ok5But" ajax="false"
+					oncomplete="syncDialog.hide()" position="center,center" />
+			</p:dialog>
+
+			<p:dialog id="registryDialog"
+				header="Registry term #{manageRegistryBean.selectedRegistryTerm.name}"
+				modal="true" widgetVar="registryDialog" resizable="false"
+				width="500" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<p:messages for="messages2" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Registry term name*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.name}"
+						autocomplete="off" styleClass="restrictedInput">
+					</p:inputText>
+					<h:outputText value="Registry term description*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.description}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term value space*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.valueSpace}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term type: " />
+					<p:selectOneMenu
+						value="#{manageRegistryBean.selectedRegistryTermClone.type}">
+						<f:selectItems value="#{manageRegistryBean.registryTypes}" />
+					</p:selectOneMenu>
+					<h:outputText value="Registry term default value*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.defaultValue}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term id: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.id}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry notes: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedRegistryTermClone.notes}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term alias: " />
+					<p:selectCheckboxMenu
+						value="#{manageRegistryBean.selectedRegistryTermClone.alias}"
+						label="Select alias" filter="true" filterText="Filter"
+						filterMatchMode="startsWith" panelStyle="width:220px">
+						<f:selectItems value="#{manageRegistryBean.allRegistryTerms}" />
+					</p:selectCheckboxMenu>
+				</h:panelGrid>
+				<p:blockUI block="registryDialog" trigger="delBut">  
+				DELETING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="registryDialog" trigger="okBut">  
+				SAVING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:commandButton value="Save" id="okBut"
+					update=":#{p:component('registry')}"
+					action="#{manageRegistryBean.saveRegistryTerm}" />
+				<p:commandButton value="Delete" id="delBut"
+					update=":#{p:component('registry')}"
+					actionListener="#{manageRegistryBean.deleteRegistryTerm}"
+					oncomplete="registryDialog.hide()" />
+			</p:dialog>
+
+
+			<p:dialog id="registryDialog2"
+				header="Proposed Registry term #{manageRegistryBean.selectedProposedRegistryTermClone.name}"
+				modal="true" widgetVar="registryDialog2" resizable="false"
+				width="500" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<p:messages for="messages3" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Registry term name*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.name}"
+						autocomplete="off" styleClass="restrictedInput">
+					</p:inputText>
+					<h:outputText value="Registry term description*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.description}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term value space*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.valueSpace}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term type: " />
+					<p:selectOneMenu
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.type}">
+						<f:selectItems value="#{manageRegistryBean.registryTypes}" />
+					</p:selectOneMenu>
+					<h:outputText value="Registry term default value*: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.defaultValue}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term id: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.id}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term notes: " />
+					<p:inputText style="width: 300px;"
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.notes}"
+						autocomplete="off">
+					</p:inputText>
+					<h:outputText value="Registry term alias: " />
+					<p:selectCheckboxMenu
+						value="#{manageRegistryBean.selectedProposedRegistryTermClone.alias}"
+						label="Select alias" filter="true" filterText="Filter"
+						filterMatchMode="startsWith" panelStyle="width:220px">
+						<f:selectItems value="#{manageRegistryBean.allRegistryTerms}" />
+					</p:selectCheckboxMenu>
+				</h:panelGrid>
+				<p:commandButton value="Save" id="ok2But"
+					update=":#{p:component('registry2')}"
+					actionListener="#{manageRegistryBean.saveRegistryTerm2}" />
+				<p:commandButton value="Delete" id="del2But"
+					update=":#{p:component('registry2')}"
+					actionListener="#{manageRegistryBean.deleteRegistryTerm2}"
+					oncomplete="registryDialog2.hide()" />
+				<p:commandButton value="Accept this registry term" id="acceptBut"
+					update=":#{p:component('registry2')},:#{p:component('registry')}"
+					actionListener="#{manageRegistryBean.acceptProposedRegistryTerm}"
+					oncomplete="registryDialog2.hide()" />
+				<p:blockUI block="registryDialog2" trigger="acceptBut">  
+				ACCEPTING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="registryDialog2" trigger="ok2But">  
+				SAVING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="registryDialog2" trigger="del2But">  
+				DELETING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>

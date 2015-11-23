@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form>
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+			<p:panel widgetVar="panelwv" id="resultPanel"
+				header="Ontology Matchings">
+				<h:outputText value="Matching ontology concepts: " />
+				<p:selectOneMenu id="combo"
+					value="#{myBean.selectedOntologyMatching}" effect="fade">
+					<f:selectItems value="#{myBean.ontologyMatchings}"
+						itemLabel="#{myBean.ontologyMatchings}" />
+					<f:ajax render="@form" />
+				</p:selectOneMenu>
+				<BR />
+				<p:commandButton value="Select another concept" ajax="true"
+					oncomplete="dlg2.show();">
+				</p:commandButton>
+				<BR />
+				<p:dialog id="modalDialog" header="Cloud ontology applications"
+					widgetVar="dlg2" modal="true" height="600" position="center">
+
+					<p:commandButton ajax="false" value="Select">
+						<f:setPropertyActionListener value="#{myBean.selectedNode}"
+							target="#{myBean.selectedOntologyMatching}" />
+					</p:commandButton>
+
+					<p:tree id="treeSingle" value="#{myBean.root}" var="node"
+						selectionMode="single" selection="#{myBean.selectedNode}"
+						style="width:1000px;">
+						<p:treeNode>
+							<h:outputText value="#{node}" />
+						</p:treeNode>
+					</p:tree>
+				</p:dialog>
+				<BR />
+				<h:outputText value="Selected concept: " />
+				<h:outputText value="#{myBean.selectedOntologyMatching}"
+					id="display" />
+				<BR />
+				<p:commandButton
+					action="/views/addSolutionview.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+					ajax="false" value="Add application">
+					<f:setPropertyActionListener
+						value="#{myBean.selectedOntologyMatching}"
+						target="#{myBean.selectedOntologyConcept2}" />
+				</p:commandButton>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>

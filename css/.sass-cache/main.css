@@ -1,0 +1,15 @@
+.ui-datatable tbody td.wrap {
+  white-space: normal; }
+
+.ui-dialog .ui-dialog-content {
+  max-height: 500px!important; }
+
+.eastinDialog .ui-dialog-content {
+  min-width: 645px!important; }
+
+.proposedItem {
+  background-color: #F0AD4E!important; }
+
+.proposedItem.ui-state-active {
+  background-color: #39B3D7!important; }
+

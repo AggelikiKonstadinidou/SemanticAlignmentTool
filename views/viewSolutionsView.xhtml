@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form id="form">
+			<p:commandLink process="@this" immediate="true"
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" 
+				title ="Go to initial menu"/>
+			</p:commandLink>
+			<br />
+			<br />
+			<p:panel header="View Applications">
+				<f:facet name="header">
+					<h:outputText value="View Applications" />
+					<h:graphicImage url="/info16.png" styleClass="basicImageStyle"
+						title="Select a solution for editing/viewing
+						    by either selecting a category of the tree categorization or 
+						    searching the preferred category name.Both ways will show a 
+						    list of registered solutions for the preferred category.
+						    Direct search of an application is also available. After selecting 
+						    application, user can move on to edit/view solution." />
+				</f:facet>
+
+
+				<p:panel
+					header="Browse Applications according to ISO9999 categorization"
+					id="pan1">
+					<p:tree id="treeSingle" value="#{viewSolutionsBean.root}"
+						var="node" selectionMode="single" orientation="horizontal"
+						selection="#{viewSolutionsBean.selectedNode}" style="width:775px;">
+						<p:ajax event="select"
+							listener="#{viewSolutionsBean.onNodeSelect}"
+							update=":#{p:component('solutions')},:#{p:component('nextBut')},:#{p:component('form')}" />
+						<p:treeNode>
+							<h:outputText value="#{node}" />
+						</p:treeNode>
+
+					</p:tree>
+					<p:blockUI block="form" trigger="treeSingle">  
+				LOADING APPLICATIONS<br />
+						<p:graphicImage value="/loading.gif" />
+					</p:blockUI>
+
+				</p:panel>
+				<p:panel header="Search Applications">
+
+					<h:form>
+						<h:panelGrid columns="3" columnClasses="label, value, but"
+							styleClass="grid">
+							<h:outputText value="Search by Application category:" />
+							<p:inputText label="searchName" id="searchName"
+								style="width: 300px;"
+								value="#{viewSolutionsBean.searchApplicationName}">
+							</p:inputText>
+							<p:commandButton value="Search" id="searchBut"
+								actionListener="#{viewSolutionsBean.searchResults}"
+								update=":#{p:component('pan1')},:#{p:component('solutions')}" />
+
+							<p:blockUI block=":#{p:component('form')}" trigger="searchBut">  
+							SEARCHING BY TYPE<br />
+								<p:graphicImage value="/loading.gif" />
+							</p:blockUI>
+						</h:panelGrid>
+					</h:form>
+					<br />
+
+					
+						<h:panelGrid columns="3" columnClasses="label, value, but"
+							styleClass="grid">
+							<h:outputText value="Search by Application name:" />
+							<p:inputText label="searchSolName" id="searchSolName"
+								style="width: 300px;"
+								value="#{viewSolutionsBean.searchbyApplicationName}">
+							</p:inputText>
+							<p:commandButton value="Search" id="searchBut2"
+								actionListener="#{viewSolutionsBean.searchResultsByName}"
+								update=":#{p:component('pan1')},:#{p:component('solutions')}" />
+							<p:blockUI block=":#{p:component('form')}" trigger="searchBut2">  
+							SEARCHING BY NAME<br />
+								<p:graphicImage value="/loading.gif" />
+							</p:blockUI>
+						</h:panelGrid>
+					
+
+
+				</p:panel>
+				<p:scrollPanel id="solutions" mode="native">
+					<p:panel header="Applications"
+						rendered="#{viewSolutionsBean.showSolutionsPanel}">
+						<p:dataTable var="solution" value="#{viewSolutionsBean.solutions}"
+							rowKey="#{solution.ontologyURI}"
+							selection="#{viewSolutionsBean.selectedSolution}"
+							selectionMode="single" emptyMessage="No applications found"
+							scrollable="true" scrollHeight="300" width="85%">
+							<p:ajax event="rowSelect"
+								listener="#{viewSolutionsBean.onRowSelect}"
+								update=":form:nextBut" />
+							<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}"
+								update=":form:nextBut" />
+							<p:column headerText="Application" width="100" styleClass="wrap"
+								sortBy="name">
+								<h:outputText value="#{solution.name}" id="name" />
+								<p:tooltip for="name">
+									<h:panelGrid columns="2" columnClasses="label, value"
+										styleClass="grid">
+										<h:outputText value="Application score: " />
+										<h:outputText
+											value="#{solution.reputation.overallReputationScore}" />
+										<h:outputText value="Application usage: " />
+										<h:outputText
+											value="#{solution.usageStatistics.usagePercentageInCategory}%" />
+										<h:outputText value="Application rating: " />
+										<h:outputText
+											value="#{solution.usageStatistics.solutionUserFeedback.averageRating}" />
+
+									</h:panelGrid>
+								</p:tooltip>
+
+							</p:column>
+							<p:column headerText="ISO9999 Category" width="100"
+								styleClass="breakWord" sortBy="ontologyCategory">
+								<h:outputText value="#{solution.ontologyCategory}" width="100"
+									styleClass="breakWord" />
+							</p:column>
+							<p:column headerText="Description" width="100"
+								styleClass="breakWord" sortBy="description">
+								<h:outputText value="#{solution.description}" width="100"
+									styleClass="breakWord" />
+							</p:column>
+							<p:column headerText="Unified Listing ID" width="100"
+								styleClass="breakWord" sortBy="id">
+								<h:outputText value="#{solution.id}" width="100"
+									styleClass="breakWord" />
+							</p:column>
+							<p:column headerText="Vendor" width="100" styleClass="breakWord"
+								sortBy="vendorName">
+								<h:outputText id="vendor" value="#{solution.vendorName}"
+									width="100" styleClass="breakWord" />
+
+								<p:tooltip for="vendor">
+									<h:panelGrid columns="2" columnClasses="label, value"
+										styleClass="grid">
+										<h:outputText value="Vendor reputation score: " />
+										<h:outputText value="#{solution.vendorReputationScore}" />
+										<h:outputText value="Vendor number of users: " />
+										<h:outputText value="#{solution.numberOfUsers}" />
+
+
+									</h:panelGrid>
+								</p:tooltip>
+
+							</p:column>
+
+							<p:column headerText="Constraints\limitations" width="100"
+								styleClass="breakWord">
+								<h:outputText value="#{solution.constraints}" width="100"
+									styleClass="breakWord" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:scrollPanel>
+				<div align="right">
+					<p:commandLink id="prevBut" ajax="false"
+						action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+						<h:graphicImage url="/previous.png"
+							styleClass="basicImageStyle valign-middle"
+							title="Go back to initial menu" />
+						<span style="margin-right: 20px"> Go to previous step </span>
+					</p:commandLink>
+					<p:commandLink id="nextBut" ajax="false"
+						disabled="#{viewSolutionsBean.butDisabled}"
+						actionListener="#{viewSolutionsBean.test}" process="@this"
+						action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+						<span> Go to next step </span>
+						<h:graphicImage url="/next.png" styleClass="basicImageStyle valign-middle"
+							title="Go forward to the next page" />
+					</p:commandLink>
+				</div>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>

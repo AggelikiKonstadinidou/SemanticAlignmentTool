@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<factory/>
+	<converter>
+		<converter-id>solutionsConverter</converter-id>
+		<converter-class>org.cloud4All.SolutionConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>eastinPropertyConverter</converter-id>
+		<converter-class>org.cloud4All.EASTINPropertyConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>etnaClusterConverter</converter-id>
+		<converter-class>org.cloud4All.ETNAClusterConverter</converter-class>
+	</converter>
+	<lifecycle>
+		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
+	</lifecycle>
+</faces-config>

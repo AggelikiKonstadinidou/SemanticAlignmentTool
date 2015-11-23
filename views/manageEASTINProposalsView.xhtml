@@ -1,0 +1,547 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form id="form">
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				process="@this" immediate="true">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" 
+				title= "Go to initial menu"/>
+			</p:commandLink>
+
+			<br />
+			<br />
+			<p:panel>
+
+				<p:dataTable id="proposals" var="prop"
+					value="#{ontologyInstance.proposedEASTINProperties}"
+					emptyMessage="No proposed taxonomy groups found">
+
+					<f:facet name="header">
+						Proposed taxonomy groups
+				    </f:facet>
+
+					<p:column headerText="Name" style="width:24%">
+						<h:outputText value="#{prop.name}" />
+					</p:column>
+					<p:column headerText="Description" style="width:24%">
+						<h:outputText value="#{prop.description}" />
+					</p:column>
+					<p:column headerText="Proponent name (email)" style="width:24%">
+						<h:outputText
+							value="#{prop.proponentName} (#{prop.proponentEmail})"
+							rendered="#{not empty prop.proponentName}" />
+					</p:column>
+					<p:column headerText="Proposed for product" style="width:24%">
+						<h:outputText value="#{prop.allProposalsString}" />
+						<h:outputText value=" (ID = '#{prop.proposedForProductID}')"
+							rendered="#{not empty prop.proposedForProductID}" />
+					</p:column>
+					<p:column headerText="Action" style="width:24%">
+						<p:commandButton id="editButton" update=":form" process="@this"
+							oncomplete="PF('editClusterDialog').show()" icon="ui-icon-search"
+							title="Edit">
+							<f:setPropertyActionListener value="#{prop}"
+								target="#{manageEASTINProposalsBean.selectedCluster}" />
+						</p:commandButton>
+
+
+					</p:column>
+				</p:dataTable>
+
+
+
+				<p:dataTable id="itemProposals" var="prop" rowKey="#{prop.name}"
+					value="#{ontologyInstance.allProposedItems}"
+					style="margin-top:20px"
+					emptyMessage="No proposed taxonomy items found">
+
+					<f:facet name="header">
+						Proposed taxonomy items
+				    </f:facet>
+
+					<p:column headerText="Name" style="width:24%">
+						<h:outputText value="#{prop.name}" />
+					</p:column>
+					<p:column headerText="Description" style="width:24%">
+						<h:outputText value="#{prop.definition}" />
+					</p:column>
+					<p:column headerText="Type" style="width:24%">
+						<h:outputText value="#{prop.type}" />
+					</p:column>
+					<p:column headerText="Group" style="width:24%">
+						<h:outputText value="#{prop.belongsToCluster}" />
+					</p:column>
+					<p:column headerText="Proponent name (email)" style="width:24%">
+						<h:outputText
+							value="#{prop.proponentName} (#{prop.proponentEmail})"
+							rendered="#{not empty prop.proponentName}" />
+					</p:column>
+					<p:column headerText="Proposed for product" style="width:24%">
+						<h:outputText value="#{prop.allSolutionsString}"
+							rendered="#{not empty prop.allSolutionsString}" />
+						<h:outputText value="(ID = '#{prop.refersToSolutionID}')"
+							rendered="#{not empty prop.refersToSolutionID}" />
+					</p:column>
+
+					<p:column headerText="Action" style="width:24%">
+						<p:commandButton id="editItemButton" update=":form"
+							process="@this" oncomplete="PF('editItemDialog').show()"
+							icon="ui-icon-search" title="Edit">
+							<f:setPropertyActionListener value="#{prop}"
+								target="#{manageEASTINProposalsBean.selectedEASTINItem}" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+
+
+
+				<p:dataTable id="categoryPproposals" var="prop"
+					value="#{ontologyInstance.proposedApplicationCategories}"
+					emptyMessage="No proposed application types found">
+
+					<f:facet name="header">
+						Proposed application types
+				    </f:facet>
+
+					<p:column headerText="Name" style="width:24%">
+						<h:outputText value="#{prop.name}" />
+					</p:column>
+					<p:column headerText="Description" style="width:24%">
+						<h:outputText value="#{prop.description}" />
+					</p:column>
+					<p:column headerText="Belongs to Category" style="width:24%">
+						<h:outputText value="#{prop.parent}" />
+					</p:column>
+					<p:column headerText="Proponent name (email)" style="width:24%">
+						<h:outputText
+							value="#{prop.proponentName} (#{prop.proponentEmail})"
+							rendered="#{not empty prop.proponentName}" />
+					</p:column>
+					<p:column headerText="Proposed for product" style="width:24%">
+						<h:outputText value="#{prop.all_solutions_string}" />
+					</p:column>
+
+
+					<p:column headerText="Action" style="width:24%">
+						<p:commandButton id="editButton3" update=":form" process="@this"
+							oncomplete="PF('editCategoryDialog').show()"
+							icon="ui-icon-search" title="Edit">
+							<f:setPropertyActionListener value="#{prop}"
+								target="#{manageEASTINProposalsBean.selectedProposedApplicationCategory}" />
+						</p:commandButton>
+
+
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<p:dialog id="editClusterDialog" modal="true" header="Edit cluster"
+				widgetVar="editClusterDialog" resizable="false" width="600"
+				showEffect="clip" hideEffect="fold" position="center,center"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()"
+				dynamic="true">
+				<p:ajax event="close" update="form" />
+				<p:messages id="ProposalMessage" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" styleClass="grid">
+					<h:outputText value="Name of the group" />
+					<h:outputText value="Short description of the group" />
+					<p:inputText style="width: 200px;"
+						value="#{manageEASTINProposalsBean.selectedClusterClone.name}" />
+					<p:inputText style="width: 300px;"
+						value="#{manageEASTINProposalsBean.selectedClusterClone.description}" />
+				</h:panelGrid>
+				<p:panel header="Items in the group" id="dialogItems">
+
+					<p:panel>
+						<c:forEach
+							items="#{manageEASTINProposalsBean.selectedClusterClone.allproperties}"
+							var="item" varStatus="status">
+							<p:panel header="Item  #{(status.index+1)}">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Name " />
+									<p:inputText style="width: 200px;" autocomplete="off"
+										value="#{item.name}" />
+									<h:outputText value="Short description " />
+									<p:inputText style="width: 300px;" autocomplete="off"
+										value="#{item.definition}" />
+									<h:outputText value="Item type " />
+									<p:selectOneMenu value="#{item.type}">
+										<f:selectItem itemLabel="Attribute" itemValue="Attribute" />
+										<f:selectItem itemLabel="Measure" itemValue="Measure" />
+
+									</p:selectOneMenu>
+
+									<p:commandButton value="Remove item"
+										action="#{manageEASTINProposalsBean.removeItem}"
+										update=":#{p:component('dialogItems')}">
+										<f:setPropertyActionListener value="#{item}"
+											target="#{manageEASTINProposalsBean.selectedItem}" />
+
+									</p:commandButton>
+								</h:panelGrid>
+							</p:panel>
+
+						</c:forEach>
+					</p:panel>
+					<p:commandButton value="Add item"
+						actionListener="#{manageEASTINProposalsBean.addItemToCluster}"
+						update=":#{p:component('dialogItems')}" />
+				</p:panel>
+				<p:commandButton value="Apply changes" id="applyChangesBut"
+					actionListener="#{manageEASTINProposalsBean.applyChanges}" />
+				<p:commandButton value="Cancel" id="cancelChangesBut"
+					oncomplete="editClusterDialog.hide()"
+					update=":#{p:component('form')}" />
+				<br />
+				<p:commandButton value="Approve cluster" id="approveBut"
+					oncomplete="sendClusterApprovalEmail.show()"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="Reject cluster" id="deleteBut"
+					oncomplete="sendClusterRejectEmail.show()"
+					actionListener="#{manageEASTINProposalsBean.clearRejectReason}"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="editClusterDialog" trigger="applyChangesBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="editClusterDialog" trigger="deleteBut">  
+				DELETING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<!-- <p:blockUI block="editClusterDialog" trigger="deleteBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI> -->
+				<p:blockUI block="editClusterDialog" trigger="approveBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+
+
+			<p:dialog id="sendClusterRejectEmail" modal="true"
+				header="Inform proponent" widgetVar="sendClusterRejectEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Please explain the reason for rejecting the taxonomy group" />
+				<br />
+				<p:inputTextarea rows="6" cols="33"
+					value="#{manageEASTINProposalsBean.rejectReason}" />
+				<br />
+				<p:commandButton value="OK" id="rejectClusterBut2"
+					actionListener="#{manageEASTINProposalsBean.deleteCluster}"
+					oncomplete="sendClusterRejectEmail.hide()"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendClusterRejectEmail"
+					trigger="rejectClusterBut2">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+
+
+			<p:dialog id="sendClusterApprovalEmail" modal="true"
+				header="Inform proponent?" widgetVar="sendClusterApprovalEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Do you want to inform proponent by email notification?" />
+				<br />
+				<p:commandButton value="Yes" id="yesBut1"
+					oncomplete="sendClusterApprovalEmail.hide()"
+					actionListener="#{manageEASTINProposalsBean.acceptClusterWithEmail}"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="No" id="noBut1"
+					oncomplete="sendClusterApprovalEmail.hide()"
+					actionListener="#{manageEASTINProposalsBean.acceptCluster}"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendClusterApprovalEmail" trigger="noBut1">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="sendClusterApprovalEmail" trigger="yesBut1">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog id="editItemDialog" modal="true" header="Edit item"
+				widgetVar="editItemDialog" resizable="false" width="600"
+				showEffect="clip" hideEffect="fold" position="center,center"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()"
+				dynamic="true">
+
+				<p:ajax event="close" update="form" />
+
+				<p:messages id="ProposalItemMessage" showDetail="true"
+					autoUpdate="true" closable="true" />
+				<h:panelGrid columns="2" styleClass="grid">
+					<h:outputText value="Name of the item" />
+					<h:outputText value="Short description of the item" />
+
+					<p:inputText style="width: 200px;"
+						value="#{manageEASTINProposalsBean.selectedEASTINItemClone.name}" />
+					<p:inputText style="width: 300px;"
+						value="#{manageEASTINProposalsBean.selectedEASTINItemClone.definition}" />
+					<h:outputText value="EASTIN category" />
+					<!-- <p:inputText style="width: 300px;"
+						value="#{manageEASTINProposalsBean.selectedEASTINItemClone.belongsToCluster}"
+						disabled="true" />
+						 -->
+					<p:selectOneMenu
+						value="#{manageEASTINProposalsBean.selectedEASTINItemClone.belongsToCluster}">
+
+						<f:selectItems value="#{ontologyInstance.etnaCluster}" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu
+						value="#{manageEASTINProposalsBean.selectedEASTINItemClone.type}">
+						<f:selectItem itemLabel="Attribute" itemValue="Attribute" />
+						<f:selectItem itemLabel="Measure" itemValue="Measure" />
+
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+
+				<p:commandButton value="Apply changes" id="applyItemChangesBut"
+					actionListener="#{manageEASTINProposalsBean.applyItemChanges}" />
+				<p:commandButton value="Approve item" id="approveItemBut"
+					process="@this" oncomplete="sendItemApprovalEmail.show()"
+					update=":#{p:component('form')}" />
+				<br />
+				<p:commandButton value="Reject item" id="rejectItemBut"
+					oncomplete="sendItemRejectEmail.show()"
+					actionListener="#{manageEASTINProposalsBean.clearRejectReason}"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="Cancel" id="cancelItemChangesBut"
+					oncomplete="editItemDialog.hide()" update=":#{p:component('form')}" />
+				<p:blockUI block="editItemDialog" trigger="rejectItemBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="editItemDialog" trigger="applyItemChangesBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+			<p:dialog id="sendItemRejectEmail" modal="true"
+				header="Inform proponent" widgetVar="sendItemRejectEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Please explain the reason for rejecting the item:" />
+				<br />
+				<p:inputTextarea rows="6" cols="33"
+					value="#{manageEASTINProposalsBean.rejectReason}" />
+				<br />
+				<p:commandButton value="OK" id="rejectItemBut2"
+					actionListener="#{manageEASTINProposalsBean.rejectItem}"
+					oncomplete="sendItemRejectEmail.hide()"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendItemRejectEmail" trigger="rejectItemBut2">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog id="sendItemApprovalEmail" modal="true"
+				header="Inform proponent?" widgetVar="sendItemApprovalEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Do you want to inform proponent by email notification?" />
+				<br />
+				<p:commandButton value="Yes" id="yesBut2" process="@this"
+					oncomplete="sendItemApprovalEmail.hide()"
+					actionListener="#{manageEASTINProposalsBean.approveItemWithEmail}"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="No" id="noBut2" process="@this"
+					oncomplete="sendItemApprovalEmail.hide()"
+					actionListener="#{manageEASTINProposalsBean.approveItem}"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendItemApprovalEmail" trigger="yesBut2">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="sendItemApprovalEmail" trigger="noBut2">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+
+			<p:dialog id="editCategoryDialog" modal="true"
+				header="Edit application type" widgetVar="editCategoryDialog"
+				resizable="false" width="600" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+
+				<p:ajax event="close" update="form" />
+
+				<p:messages id="ProposalMessage3" showDetail="true"
+					autoUpdate="true" closable="true" />
+
+				<p:panelGrid>
+					<p:row>
+						<p:column style="font-weight: bold;">Name of the type</p:column>
+						<p:column style="font-weight: bold;">Short description of the type</p:column>
+						<p:column style="font-weight: bold;">Belongs to category</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:inputText
+								value="#{manageEASTINProposalsBean.selectedProposedApplicationCategoryClone.name}"
+								styleClass="restrictedInput" />
+						</p:column>
+						<p:column>
+							<p:inputText
+								value="#{manageEASTINProposalsBean.selectedProposedApplicationCategoryClone.description}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{manageEASTINProposalsBean.selectedProposedApplicationCategoryClone.parent}"
+								id="parentCat" />
+							<p:commandButton value="Change" id="selectParentBut"
+								oncomplete="selectParentDialog.show()"
+								action="#{manageEASTINProposalsBean.createParentOntologyTree}"
+								update=":#{p:component('treeSingle22')}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:commandButton value="Apply changes" id="applyChangesBut3"
+					actionListener="#{manageEASTINProposalsBean.applyChangesForCategory}" />
+				<p:commandButton value="Cancel" id="cancelChangesBut3"
+					oncomplete="editCategoryDialog.hide()"
+					update=":#{p:component('form')}" />
+				<br />
+				<p:commandButton value="Approve category" id="approveBut3"
+					oncomplete="sendCategoryApprovalEmail.show()"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="Reject category" id="deleteBut3"
+					oncomplete="sendCategoryRejectEmail.show()"
+					actionListener="#{manageEASTINProposalsBean.clearRejectReason}"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="editCategoryDialog" trigger="applyChangesBut3">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="editCategoryDialog" trigger="deleteBut3">  
+				DELETING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<!-- <p:blockUI block="editClusterDialog" trigger="deleteBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI> -->
+				<p:blockUI block="editCategoryDialog" trigger="approveBut3">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+			<p:dialog id="sendCategoryRejectEmail" modal="true"
+				header="Inform proponent" widgetVar="sendCategoryRejectEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Please explain the reason for rejecting the application type:" />
+				<br />
+				<p:inputTextarea rows="6" cols="33"
+					value="#{manageEASTINProposalsBean.rejectReason}" />
+				<br />
+				<p:commandButton value="OK" id="rejectCategoryBut2"
+					actionListener="#{manageEASTINProposalsBean.deleteCategory}"
+					oncomplete="sendCategoryRejectEmail.hide()"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendCategoryRejectEmail"
+					trigger="rejectCategoryBut2">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog id="sendCategoryApprovalEmail" modal="true"
+				header="Inform proponent?" widgetVar="sendCategoryApprovalEmail"
+				resizable="false" width="300" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<h:outputText
+					value="Do you want to inform proponent by email notification?" />
+				<br />
+				<p:commandButton value="Yes" id="yesBut11"
+					oncomplete="sendCategoryApprovalEmail.hide()"
+					actionListener="#{manageEASTINProposalsBean.acceptCategoryWithEmail}"
+					update=":#{p:component('form')}" />
+				<p:commandButton value="No" id="noBut11"
+					oncomplete="sendCategoryApprovalEmail.hide()"
+					action="#{manageEASTINProposalsBean.acceptCategory}"
+					update=":#{p:component('form')}" />
+				<p:blockUI block="sendCategoryApprovalEmail" trigger="noBut11">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="sendCategoryApprovalEmail" trigger="yesBut11">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+
+			<p:dialog id="selectParentDialog" modal="true"
+				header="Select parent category" widgetVar="selectParentDialog"
+				resizable="true" width="800" showEffect="clip" hideEffect="fold"
+				position="center,center" styleClass="doPositionDialog"
+				onShow="fixDialogPosition()" dynamic="true">
+				<p:messages id="categoryMessage" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<p:scrollPanel>
+					<h:outputText value="To be added as 'child' of the node:" />
+
+					<p:tree id="treeSingle22" value="#{manageEASTINProposalsBean.root}"
+						var="node" selectionMode="single" orientation="horizontal"
+						selection="#{manageEASTINProposalsBean.selectedParentNode}"
+						style="width:775px;">
+						<p:treeNode>
+							<h:outputText value="#{node}" />
+						</p:treeNode>
+						<p:ajax event="select"
+							update=":#{p:component('approveBut55')},:#{p:component('treeSingle22')}"
+							listener="#{manageEASTINProposalsBean.onNodeSelect}" />
+					</p:tree>
+
+					<p:commandButton value="OK" id="approveBut55"
+						oncomplete="selectParentDialog.hide()"
+						actionListener="#{manageEASTINProposalsBean.changeCategory}"
+						update=":#{p:component('selectParentDialog')},:#{p:component('parentCat')}" />
+					<p:commandButton value="Cancel" id="cancelChangesBut55"
+						oncomplete="selectParentDialog.hide()" />
+					<p:blockUI block="selectParentDialog" trigger="approveBut55">  
+				LOADING<br />
+						<p:graphicImage value="/loading.gif" />
+					</p:blockUI>
+					<br />
+					<br />
+				</p:scrollPanel>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>

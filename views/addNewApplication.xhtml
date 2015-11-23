@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body id="form">
+
+
+		<h:form id="test">
+			<p:commandLink process="@this" immediate="true"
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" 
+				title="Go to initial menu"/>
+			</p:commandLink>
+			<br />
+			<br />
+			<p:panel>
+				<f:facet name="header">
+					<h:outputText value="Step 1: Select application category " />
+					<h:graphicImage url="/info16.png" styleClass="basicImageStyle"
+						title="Select a relevant category for the solution.User can either select directly a category from the tree-list categorization based on the ISO 9999 standard or search for the most relevant category through the Search Tab. He can also propose a new category in case proposal fits better to the solution than the existing categories. Once the user selects category, he can move on to the next step by pressing the corresponding enabled button." />
+				</f:facet>
+
+				<p:panel id="pan">
+				<f:facet name="header">
+					<h:outputText value="Select/Search Application category based on the ISO 9999 standard"
+						title="" />
+				</f:facet>
+					<h:outputText value="Select the category of the application" />
+
+					<p:tree id="treeSingle" value="#{step1Bean.root}" var="node"
+						selectionMode="single" orientation="horizontal"
+						selection="#{step1Bean.selectedNode}" style="width:775px;">
+						<p:treeNode>
+							<h:outputText value="#{node}" />
+						</p:treeNode>
+						<p:ajax event="select"
+							update=":#{p:component('nextBut')},:#{p:component('test')}"
+							listener="#{step1Bean.onNodeSelect}" />
+					</p:tree>
+
+
+					<h:outputText value="or search application category:" />
+					<p:inputText label="searchName" id="searchName"
+						value="#{step1Bean.searchApplicationName}">
+
+					</p:inputText>
+					<p:commandButton value="Search" id="searchBut"
+						title="Search for category by name"
+						action="#{step1Bean.searchResults}"
+						update=":#{p:component('pan')},:#{p:component('nextBut')}" />
+
+					<p:dataTable id="searchResults"
+						rendered="#{step1Bean.resultsRendered}"
+						value="#{step1Bean.searchResults}" var="res" rowKey="#{res.name}"
+						emptyMessage="No results found">
+						<f:facet name="header">  
+				            Results
+				        </f:facet>
+						<p:column headerText="Name" style="width:50px">
+							<h:outputText value="#{res.name}" />
+						</p:column>
+						<p:column headerText="Description" style="width:50px">
+							<h:outputText value="#{res.description}" />
+						</p:column>
+						<p:column headerText="Select" style="width:50px">
+							<p:commandButton
+								update=":#{p:component('pan')},:#{p:component('nextBut')}"
+								process="@this" icon="ui-icon-search"
+								action="#{step1Bean.onRowSelect}">
+								<f:setPropertyActionListener value="#{res}"
+									target="#{step1Bean.selectedResult}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<!--  -->
+					<!--  rendered="#{step1Bean.resultsRendered}"-->
+					
+
+
+					<p:dialog id="selectParentDialog" modal="true"
+						header="Select category" widgetVar="selectParentDialog"
+						resizable="true" width="800" showEffect="clip" hideEffect="fold"
+						position="center,center" styleClass="doPositionDialog"
+						onShow="fixDialogPosition()" dynamic="true">
+						<p:scrollPanel>
+
+							<h:outputText value="To be added as 'child' of the node:" />
+
+							<p:tree id="treeSingle22" value="#{step1Bean.parentRoot}"
+								var="node" selectionMode="single" orientation="horizontal"
+								selection="#{step1Bean.selectedParentNode}" style="width:775px;">
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+								<p:ajax event="select"
+									update=":#{p:component('approveBut55')},:#{p:component('treeSingle22')}"
+									listener="#{step1Bean.onParentNodeSelect}" />
+							</p:tree>
+
+							<p:commandButton value="OK" id="approveBut55"
+								oncomplete="selectParentDialog.hide()"
+								disabled="#{empty step1Bean.selectedParentCategory}"
+								actionListener="#{step1Bean.acceptParentCategory}"
+								update=":#{p:component('proposalPanel')}" />
+							<p:commandButton value="Cancel" id="cancelChangesBut55"
+								oncomplete="selectParentDialog.hide()"
+								actionListener="#{step1Bean.resetSelection}"
+								update=":#{p:component('form')},:#{p:component('selectParentDialog')}" />
+							<p:blockUI block="selectParentDialog" trigger="approveBut55">  
+				LOADING<br />
+								<p:graphicImage value="/loading.gif" />
+							</p:blockUI>
+							<br />
+							<br />
+						</p:scrollPanel>
+					</p:dialog>
+
+					<p:dialog widgetVar="proposalSubmittedDialog"
+						id="proposalSubmittedDialog" modal="true" header="Success"
+						resizable="false" closable="false" showEffect="clip"
+						hideEffect="fold" position="center,center">
+
+						<h:outputText
+							value="Thank you for your proposal. We will analyze it and provide a feedback as soon as possible. Click on next to continue." />
+						<br />
+						<p:commandButton value="Next" id="proposalNextBut" ajax="false"
+							actionListener="#{step1Bean.test2}"
+							action="/views/step2View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+					</p:dialog>
+
+				</p:panel>
+				<p:panelGrid 
+					
+						style="margin-top:20px;width:100%" id="proposalPanel">
+						<f:facet name="header">
+							<p:row>
+								<p:column colspan="4">Propose a new category:</p:column>
+							</p:row>
+						</f:facet>
+
+						<p:row>
+							<p:column style="font-weight: bold;">Name*</p:column>
+							<p:column style="font-weight: bold;">Short description*</p:column>
+							<p:column style="font-weight: bold;">To be added as 'child' of the node*</p:column>
+							<p:column style="font-weight: bold;">Select an existing proposal</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:inputText id="name" value="#{step1Bean.proposedName}"
+									styleClass="restrictedInputNoNumbers"
+									disabled ="#{step1Bean.proposed}" />
+							</p:column>
+							<p:column>
+								<p:inputText id="description"
+									value="#{step1Bean.proposedDescription}" 
+									disabled ="#{step1Bean.proposed}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{step1Bean.proposedCategoryParent}" />
+								<p:commandButton value="Select" id="selectParentBut"
+									oncomplete="selectParentDialog.show()"
+									action="#{step1Bean.createParentOntologyTree}"
+									update=":#{p:component('selectParentDialog')}" 
+									disabled ="#{step1Bean.proposed}" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="selectProposedCategory"
+									value="#{step1Bean.selectedProposedCategory}">
+									<f:selectItem itemLabel="None" itemValue="" />
+									<f:selectItems
+										value="#{ontologyInstance.proposedApplicationCategories}" />
+									<p:ajax event="change" update=":#{p:component('test')}"
+										listener="#{step1Bean.proposedCategoryChangedListener}" />
+
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+
+						<f:facet name="footer">
+							<p:row>
+								<p:column colspan="4">
+									<p:commandButton value="Submit proposal" icon="ui-icon-check"
+									    title="Submit proposed application category"
+										style="margin:0" id="submitProposal"
+										actionListener="#{step1Bean.submitProposal}"
+										update=":#{p:component('test')}" 
+										disabled ="#{step1Bean.proposed}"/>
+								</p:column>
+							</p:row>
+						</f:facet>
+					</p:panelGrid>
+				<p:blockUI block="test" trigger="searchBut">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:blockUI block="test" trigger="submitProposal">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<h:panelGrid columns="2" columnClasses="label,value"
+					styleClass="grid">
+					<p:column headerText="Appname" width="100" styleClass="wrap">
+						<h:outputText value="Solution type: " id="solType"
+							title="Select the type of the solution" />
+					</p:column>
+					<p:selectOneMenu value="#{step1Bean.typeOfSolution}" id="typeOfSol">
+						<f:selectItem id="hardware" itemLabel="Hardware" itemValue="Hardware" />
+						<f:selectItem id="software" itemLabel="Software" itemValue="Software"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<div align="right">
+						<p:commandLink actionListener="#{step1Bean.test}" id="prevBut"
+							ajax="false" style="align: right"
+							action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+							<h:graphicImage url="/previous.png" styleClass="basicImageStyle valign-middle"
+								title="Go back to the previous page" />
+							<span style="margin-right: 20px"> Go to previous step </span>
+						</p:commandLink>
+						<p:commandLink id="nextBut" ajax="false"
+							binding="#{step1Bean.button}" style="align: right"
+							disabled="#{step1Bean.formCompleted}"
+							action="/views/step2View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+							actionListener="#{step1Bean.test2}">
+							<span> Go to next step </span>
+							<h:graphicImage url="/next.png" styleClass="basicImageStyle valign-middle"
+								title="Go forward to the next page" />
+						</p:commandLink>
+					</div>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>

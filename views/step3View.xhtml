@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head></h:head>
+
+	<h:body>
+
+		<h:form id="form">
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+
+			<p:panel id="step3">
+				<f:facet name="header">
+					<h:outputText value="Step 3: Add application specific settings" />
+					<h:graphicImage url="/info16.png" styleClass="basicImageStyle"
+						title="Introduce the application-unique
+						 settings for the corresponding application. Add
+						  relevant metadata (setting name, description, value space, id etc) for each setting
+						  and add the setting to the solution settings. After finishing the introduction,
+						   user moves on to the alignment of the settings against registry terms or saves his application without 
+						   moving to the alignment." />
+				</f:facet>
+				<br />
+				<p:accordionPanel activeIndex="-1" id="tab">
+					<p:tab title="Add application specific setting"
+						titletip="Add an application specific setting by completing relevant metadata">
+						<p:messages for="messages" closable="true" />
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+							<h:outputText value="Setting Name:* " />
+							<p:inputText label="SettingName" required="false"
+								id="SettingName" value="#{step3Bean.newSetting.name}"
+								style="width: 300px;">
+							</p:inputText>
+
+							<h:outputText value="Setting Description:* " />
+							<p:inputText label="SettingDescription" required="false"
+								id="SettingDescription" style="width: 300px;"
+								value="#{step3Bean.newSetting.description}">
+							</p:inputText>
+
+							<h:outputText value="Setting value space:* " />
+							<p:inputText label="SettingValueSpace" required="false"
+								style="width: 300px;" id="SettingValueSpace"
+								value="#{step3Bean.newSetting.valueSpace}">
+							</p:inputText>
+
+							<h:outputText value="Setting type:* " />
+							<p:selectOneMenu value="#{step3Bean.newSetting.type}">
+								<f:selectItems value="#{step3Bean.settingsTypes}" />
+							</p:selectOneMenu>
+
+
+							<h:outputText value="Setting default value:* " />
+							<p:inputText label="SettingValue" required="false"
+								style="width: 300px;" id="SettingValue"
+								value="#{step3Bean.newSetting.value}">
+							</p:inputText>
+							<h:outputText value="Setting id: " />
+							<p:inputText label="SettingIdValue" required="false"
+								style="width: 300px;" id="SettingId"
+								value="#{step3Bean.newSetting.id}">
+
+							</p:inputText>
+							<h:outputText value="Settings constraints/limitations: " />
+
+							<p:inputText label="SettingConstraints" required="false"
+								style="width: 300px;" id="SettingConstraints"
+								value="#{step3Bean.newSetting.constraints}">
+							</p:inputText>
+
+							<h:outputText value="Setting can be applied live: " />
+							<p:selectBooleanCheckbox
+								value="#{step3Bean.newSetting.appliedLive}" disabled="false" />
+							<h:outputText
+								value="(deselect if needs restart of the application)" />
+
+
+
+						</h:panelGrid>
+						<!-- 	<p:watermark for="SettingConstraints"
+							value="e.g. MagnifierPosition=fullScreen requires AERO Design Windows 7 to be ON" />
+					 -->
+						<p:commandButton value="Add setting" id="addBut"
+							title="Add setting to the application specific settings"
+							actionListener="#{step3Bean.addNewSetting}"
+							update=":#{p:component('settings')},:#{p:component('tab')}" />
+						<p:commandButton value="Search relevant setting"
+							id="SearchRelevantSetting" rendered="false"
+							actionListener="#{step3Bean.searchForRelevantSettings}"
+							update=":#{p:component('relevantSettingsPanel')}"
+							title="Search relevant application settings (name required)" />
+
+
+						<p:panel id="relevantSettingsPanel" rendered="false"
+							widgetVar="relevantSettingsPanel" style="margin-top:10px">
+							<f:facet name="header">
+								<h:outputText value="Existing settings with similar name"
+									id="options1" />
+							</f:facet>
+							<p:dataTable id="relevantSettings" var="sett"
+								value="#{step3Bean.relevantSettings}"
+								rowKey="#{sett.currentURI}"
+								selection="#{step3Bean.selectedRelevantSetting}"
+								selectionMode="single" scrollable="true" scrollHeight="150"
+								width="85%" emptyMessage="No relevant settings found">
+								<p:ajax event="rowSelect" listener="#{step3Bean.onRowSelect}"
+									update=":#{p:component('editButSett')}" />
+
+								<p:column headerText="Setting name">
+									<h:outputText value="#{sett.name}" />
+								</p:column>
+								<p:column headerText="Setting description">
+									<h:outputText value="#{sett.description}" />
+								</p:column>
+								<p:column headerText="Setting value space">
+									<h:outputText value="#{sett.valueSpace}" />
+								</p:column>
+								<p:column headerText="Setting type">
+									<h:outputText value="#{sett.type}" />
+								</p:column>
+								<p:column headerText="Setting default value">
+									<h:outputText value="#{sett.value}" />
+								</p:column>
+								<p:column headerText="Setting id">
+									<h:outputText value="#{sett.id}" />
+								</p:column>
+								<p:column headerText="Setting constraints/limitations">
+									<h:outputText value="#{sett.constraints}" />
+								</p:column>
+								<p:column headerText="Setting applied live">
+									<h:outputText value="#{sett.appliedLive}" />
+								</p:column>
+
+							</p:dataTable>
+							<p:commandButton value="Edit setting" id="editButSett"
+								ajax="false" disabled="#{step3Bean.showEditInDialog}"
+								update=":#{p:component('tab')}"
+								actionListener="#{step3Bean.useExistingSetting}" />
+						</p:panel>
+
+					</p:tab>
+					
+
+				</p:accordionPanel>
+				<br />
+				<p:dataTable id="settings" var="setting"
+					value="#{step3Bean.settings}" rowKey="#{setting.name}"
+					emptyMessage="No settings inserted" scrollable="true"
+					scrollHeight="300" width="85%" resizableColumns="true">
+					<f:facet name="header">  
+			            Application specific settings
+			        </f:facet>
+					<p:column headerText="Setting name" width="100" styleClass="wrap">  
+            			#{setting.name}  
+        			</p:column>
+					<p:column headerText="Setting description" width="100"
+						styleClass="wrap">  
+            			#{setting.description}  
+        			</p:column>
+					<p:column headerText="Setting value space" width="100"
+						styleClass="wrap">  
+            			#{setting.valueSpace}  
+        			</p:column>
+					<p:column headerText="Setting type" width="100" styleClass="wrap">  
+            			#{setting.type}  
+        			</p:column>
+					<p:column headerText="Setting default value" width="100"
+						styleClass="wrap">  
+            			#{setting.value}  
+        			</p:column>
+					<p:column headerText="Setting id" width="100" styleClass="wrap">  
+            			#{setting.id}  
+        			</p:column>
+					<p:column headerText="Setting constraints/limitations" width="100"
+						styleClass="wrap">  
+            			#{setting.constraints}  
+        			</p:column>
+        			<p:column headerText="Setting can be applied live" width="100"
+						styleClass="wrap">  
+            			<p:selectBooleanCheckbox value="#{setting.appliedLive}"
+							disabled="true" />  
+        			</p:column>
+
+					<p:column style="width:4%" headerText="Edit">
+						<p:commandButton id="selectButton"
+							update=":#{p:component('dialog')}"
+							oncomplete="deleteDialog.show()" title="View"
+							icon="ui-icon-search">
+							<f:setPropertyActionListener value="#{setting}"
+								target="#{step3Bean.selectedSetting}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<br />
+				<p:commandLink id="saveButton"
+					actionListener="#{step3Bean.saveAlignment}"
+					oncomplete="savedDialog.show()">
+					<h:graphicImage url="/save.png" styleClass="basicImageStyle"
+						title="Save application" />
+				</p:commandLink>
+				<p:blockUI block="form" trigger="saveButton">  
+				SAVING APPLICATION<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<div align="right">
+					<p:commandLink id="prevBut" ajax="false"
+						action="/views/step2View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+						<h:graphicImage url="/previous.png" styleClass="basicImageStyle valign-middle"
+							title="Go back to the previous page" />
+						<span style="margin-right: 20px"> Go to previous step </span>
+					</p:commandLink>
+					<p:commandLink id="nextBut" ajax="false"
+						actionListener="#{step3Bean.loadSettings}"
+						action="/views/step4View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+						<span> Go to next step </span>
+						<h:graphicImage url="/next.png" styleClass="basicImageStyle valign-middle"
+							title="Go forward to the next page" />
+					</p:commandLink>
+				</div>
+				<div align="right">
+					<h:outputText value="Fields marked with a star (*) are required" />
+				</div>
+			</p:panel>
+
+			<p:dialog widgetVar="savedDialog" id="savedDialog" modal="true"
+				header="Application saved" resizable="false" closable="false"
+				showEffect="clip" hideEffect="fold" width="287"
+				position="center,center" dynamic="true"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()">
+				<p:blockUI block="savedDialog" trigger="ok5But">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:commandButton value="Continue editing" id="ok5But" ajax="false"
+					actionListener="#{step3Bean.saved}"
+					action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+					oncomplete="savedDialog.hide()" />
+				<p:commandButton value="View other solutions" id="edit5But"
+					ajax="false"
+					action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+			</p:dialog>
+
+			<p:dialog widgetVar="deleteDialog" id="dialog" modal="true"
+				header="Setting" resizable="false" showEffect="clip"
+				hideEffect="fold" position="center,center">
+				<p:messages for="messages2" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Name:* " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.name}"
+						style="width: 250px;" autocomplete="off"
+						styleClass="restrictedInput">
+						<p:ajax event="keyup"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:inputText>
+					<h:outputText value="Description:* " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.description}"
+						style="width: 250px;" autocomplete="off">
+						<p:ajax event="keyup"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:inputText>
+					<h:outputText value="Value space:* " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.valueSpace}"
+						style="width: 250px;" autocomplete="off">
+						<p:ajax event="keyup"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:inputText>
+					<h:outputText value="Type:* " />
+					<p:selectOneMenu value="#{step3Bean.clonedSelectedSetting.type}">
+						<f:selectItems value="#{step3Bean.settingsTypes}" />
+						<p:ajax event="change"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:selectOneMenu>
+
+					<h:outputText value="Default value:* " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.value}"
+						style="width: 250px;" autocomplete="off">
+						<p:ajax event="keyup"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:inputText>
+					<h:outputText value="Id: " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.id}"
+						style="width: 250px;" autocomplete="off">
+
+					</p:inputText>
+					<h:outputText value="Constraints/limitations: " />
+					<p:inputText value="#{step3Bean.clonedSelectedSetting.constraints}"
+						style="width: 250px;" autocomplete="off">
+						<p:ajax event="keyup"
+							update=":#{p:component('closeBut')},:#{p:component('deleteBut')}"
+							listener="#{step3Bean.onKeyRelease2}" />
+					</p:inputText>
+					<h:outputText value="Can be Applied live: " />
+					<p:selectBooleanCheckbox value="#{step3Bean.clonedSelectedSetting.appliedLive}"
+							disabled="false" />
+							
+					<h:outputText value="(deselect if needs restart of the application)" />
+					<h:outputText value="" />
+					
+					<p:commandButton value="Delete setting" id="deleteBut"
+						action="#{step3Bean.deleteSelectedSetting}"
+						disabled="#{step3Bean.formCompleted3}"
+						update=":#{p:component('form')},:#{p:component('dialog')}" />
+					<p:commandButton value="OK" id="closeBut"
+						action="#{step3Bean.checkIfSelectedSettingHasEmptyValues}"
+						update=":#{p:component('settings')}" />
+				</h:panelGrid>
+			</p:dialog>
+
+		</h:form>
+
+
+
+
+	</h:body>
+</f:view>

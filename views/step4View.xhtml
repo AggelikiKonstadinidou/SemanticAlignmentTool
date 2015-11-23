@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head></h:head>
+	
+	<h:body>
+
+		<h:form id="form">
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+			<p:panel>
+			<f:facet name="header">
+					<h:outputText
+						value="Step 4: Application specific settings alignment" />
+					<h:graphicImage url="/info16.png" styleClass="basicImageStyle"
+						title="Align the inserted application-unique settings against semantically
+						 corresponding concepts in the registry of common terms.
+						  Edit and save each one of the desired alignment operations, that the system proposes or
+						  propose new terms, which can be viewed in the administrative panel of the registry of common terms. 
+						  After finishing alignment, user moves to the final step of saving his registration." />
+				</f:facet>
+				<p:scrollPanel header="Align application specific settings to common terms" mode="native">
+				
+					<p:dataTable id="settings" var="setting"
+						value="#{step4Bean.settings}" rowKey="#{setting.name}"
+						binding="#{step4Bean.dataTable}"
+						scrollable="true"
+						emptyMessage="No settings found" scrollHeight="300" width="85%">
+						
+						<f:facet name="header">  
+				            Align application specific settings to common terms
+				        </f:facet>
+
+						<p:column headerText="Name" width="30" styleClass="breakWord">
+							<h:outputText value="#{setting.name}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Description" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.description}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Value space" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.valueSpace}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Type" width="30" styleClass="breakWord">
+							<h:outputText value="#{setting.type}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Default value" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.value}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Id" width="30" styleClass="breakWord">
+							<h:outputText value="#{setting.id}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Mapped common term" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.mapping}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Exact matching" width="30"
+							styleClass="breakWord">
+							<p:selectBooleanCheckbox value="#{setting.exactMatching}"
+								disabled="true" />
+						</p:column>
+						<p:column headerText="Mapping comments" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.comments}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Setting constraints/limitations" width="30"
+							styleClass="breakWord">
+							<h:outputText value="#{setting.constraints}" width="30"
+								styleClass="breakWord" />
+						</p:column>
+						<p:column headerText="Setting can be applied live" width="30"
+							styleClass="breakWord">
+							<p:selectBooleanCheckbox value="#{setting.appliedLive}"
+								disabled="true" />
+						</p:column>
+						<p:column style="width:4%" headerText="Edit">
+							<p:commandButton id="selectButton"
+								update=":#{p:component('form')}"
+								oncomplete="settingDialog.show()" title="View" listener="#{step4Bean.onRowSelect}"
+								icon="ui-icon-search">
+								<f:setPropertyActionListener value="#{setting}"
+									target="#{step4Bean.selectedSetting}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+				</p:scrollPanel>
+				<p:commandLink id="prevBut" ajax="false"
+					actionListener="#{step4Bean.test}"
+					action="/views/step3View.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+					<h:graphicImage url="/previous.png" styleClass="basicImageStyle valign-middle"
+						title="Go back to the previous page" />
+					<span style="margin-right: 20px"> Go to previous step </span>
+				</p:commandLink>
+				<p:commandLink id="saveButton"
+					actionListener="#{step4Bean.saveAlignment}"
+					oncomplete="savedDialog.show()">
+					<h:graphicImage url="/save.png" styleClass="basicImageStyle"
+						title="Save application" />
+				</p:commandLink>
+				<p:blockUI block="form" trigger="saveButton">  
+				SAVING APPLICATION<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+
+			</p:panel>
+			<p:dialog
+				widgetVar="settingDialog"
+				id="settingDialog"
+				modal="true"
+				header="Setting #{step4Bean.selectedSetting.name}"
+				resizable="false"
+				showEffect="clip"
+				hideEffect="fold"
+				position="center,center"
+				dynamic="true">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Application specific setting name:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.name}" />
+					<h:outputText value="Setting description:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.description}" />
+					<h:outputText value="Setting value space:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.valueSpace}" />
+					<h:outputText value="Setting type:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.type}" />
+					<h:outputText value="Default value:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.value}" />
+					<h:outputText value="Id:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.id}" />
+					<h:outputText value="Mapping:  " />
+					<p:selectBooleanCheckbox
+						value="#{step4Bean.selectedSetting.hasMapping}">
+						<p:ajax update=":#{p:component('mapMenu')},:#{p:component('mapBox')},:#{p:component('settingComments')},:#{p:component('proposeBut')}" />
+					</p:selectBooleanCheckbox>
+					<h:outputText value="(select to change the automatic alignment)" />
+						<br />
+					<h:outputText value="Mapped to the common term:  " />
+					<p:selectOneMenu value="#{step4Bean.selectedSetting.mapping}" disabled="#{not step4Bean.selectedSetting.hasMapping}" id="mapMenu">
+						<f:selectItems var="item" itemLabel="#{item.name}"
+							itemValue="#{item.name}" itemDescription="#{item.description}"
+							value="#{step4Bean.selectedSetting.sortedMappingsObjects}" />
+					</p:selectOneMenu>
+					<h:outputText value="Exact matching: " />
+					<p:selectBooleanCheckbox id="mapBox"
+						value="#{step4Bean.selectedSetting.exactMatching}" disabled="#{not step4Bean.selectedSetting.hasMapping}">
+						<p:ajax update="settingComments" listener="#{step4Bean.clearComment}"/>
+					</p:selectBooleanCheckbox>
+					<h:outputText value="Comments (if there is not exact matching):  " />
+					
+					<p:inputTextarea rows="2" cols="33" label="settingComments" id="settingComments"
+						style="width: 300px;" 
+						disabled="#{step4Bean.selectedSetting.exactMatching or not step4Bean.selectedSetting.hasMapping}"
+						value="#{step4Bean.selectedSetting.comments}">
+						</p:inputTextarea>
+					<h:outputText value="Constraints/limitations:  " />
+					<h:outputText value="#{step4Bean.selectedSetting.constraints}" />
+					<h:outputText value="Setting can be Applied live:  " />
+					<p:selectBooleanCheckbox
+						value="#{step4Bean.selectedSetting.appliedLive}"
+						disabled="false">
+					</p:selectBooleanCheckbox>
+					<h:outputText value="(deselect if needs restart of the application)" />
+				</h:panelGrid>
+
+
+				<p:commandButton value="Propose new registry term" id="proposeBut" disabled="#{not step4Bean.selectedSetting.hasMapping}"
+					actionListener="#{step4Bean.proposeNewSetting}" update=":#{p:component('settingDialog2')}"
+					oncomplete="settingDialog2.show()" />
+				<p:commandButton value="OK" id="okBut"
+					update=":#{p:component('settings')}"
+					actionListener="#{step4Bean.mpee}"
+					oncomplete="settingDialog.hide()" />
+
+			</p:dialog>
+			<p:dialog
+				widgetVar="settingDialog2"
+				id="settingDialog2"
+				modal="true"
+				header="New Registry Term"
+				resizable="false"
+				showEffect="clip"
+				hideEffect="fold"
+				position="center,center"
+				width="480"
+				styleClass="doPositionDialog"
+				onShow="fixDialogPosition()">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<h:outputText value="Registry term name:*  " />
+					<p:inputText label="registryTermName" id="registryTermName"
+						style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.name}" styleClass="restrictedInput">
+						
+					</p:inputText>
+					<h:outputText value="Registry term description:*  " />
+					<p:inputText label="registryTermDescription"
+						id="registryTermDescription" style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.description}">
+						
+					</p:inputText>
+					<h:outputText value="Registry term value space:*  " />
+					<p:inputText label="registryTermValueSpace"
+						id="registryTermValueSpace" style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.valueSpace}">
+						
+					</p:inputText>
+					<h:outputText value="Registry term type:  " />
+					<p:selectOneMenu value="#{step4Bean.proposedRegistryTerm.type}" id="registryTermType">
+						<f:selectItems value="#{manageRegistryBean.registryTypes}" />
+					</p:selectOneMenu>
+					
+					<h:outputText value="Registry term default value:*  " />
+					<p:inputText label="registryTermDefaultValue"
+						id="registryTermDefaultValue" style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.defaultValue}">
+						
+					</p:inputText>
+					<h:outputText value="Registry term id:  " />
+					<p:inputText label="registryTermId"
+						id="registryTermId" style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.id}">
+						
+					</p:inputText>
+					<h:outputText value="Registry term notes:  " />
+					<p:inputText label="registryTermNotes"
+						id="registryTermNotes" style="width: 300px;" autocomplete="off"
+						value="#{step4Bean.proposedRegistryTerm.notes}">
+						
+					</p:inputText>
+				</h:panelGrid>
+				<p:commandButton value="OK" id="ok2But"
+					actionListener="#{step4Bean.addProposedTerm}"
+					
+					update=":#{p:component('mapMenu')}"
+					 />
+				<p:blockUI block="settingDialog2" trigger="ok2But">  
+				ADDING REGISTRY TERM<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+			</p:dialog>
+			<p:dialog widgetVar="savedDialog" id="savedDialog" modal="true"
+				header="Application saved" resizable="false" closable="false"
+				showEffect="clip" hideEffect="fold" width="287"
+				position="center,center" dynamic="true"
+				styleClass="doPositionDialog" onShow="fixDialogPosition()">
+				<p:blockUI block="savedDialog" trigger="ok5But">  
+				LOADING<br />
+					<p:graphicImage value="/loading.gif" />
+				</p:blockUI>
+				<p:commandButton value="Continue editing" id="ok5But" ajax="false"
+					actionListener="#{step4Bean.saved}"
+					action="/views/editSolutionView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+					oncomplete="savedDialog.hide()" />
+				<p:commandButton value="View other solutions" id="edit5But"
+					ajax="false"
+					action="/views/viewSolutionsView.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal" />
+			</p:dialog>
+		</h:form>
+
+	</h:body>
+</f:view>

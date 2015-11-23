@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form>
+			<p:commandLink
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal">
+				<h:graphicImage url="/Home.png" styleClass="basicImageStyle" />
+			</p:commandLink>
+			<br />
+			<br />
+			<h:outputLabel for="solutionName" value="Name of application "
+				style="font-weight:bold" />
+			<p:inputText id="solutionName" value="#{myBean.solutionName}" style="width: 300px;"/>
+			<BR />
+			<h:outputLabel for="description" value="Description: "
+				style="font-weight:bold" />
+			<p:inputText id="description" value="#{myBean.solutionDescription}" style="width: 300px;"/>
+			<BR />
+			<h:outputLabel for="platform" value="Platform: "
+				style="font-weight:bold" />
+			<p:selectOneMenu id="combo" value="#{myBean.selectedPlatform}"
+				effect="fade">
+				<f:selectItems value="#{myBean.platforms}"
+					itemLabel="#{myBean.platforms}" />
+			</p:selectOneMenu>
+			<BR />
+			<h:outputLabel for="device" value="Device: " style="font-weight:bold" />
+			<p:selectOneMenu id="combo2" value="#{myBean.selectedDevice}"
+				effect="fade">
+				<f:selectItems value="#{myBean.devices}"
+					itemLabel="#{myBean.devices}" />
+			</p:selectOneMenu>
+			<BR />
+
+
+			<p:commandButton value="Add setting" ajax="true"
+				oncomplete="dlg2.show();">
+			</p:commandButton>
+			<BR />
+			<p:dialog id="modalDialog" header="Cloud ontology applications" 
+				widgetVar="dlg2" modal="true" height="600" position="center,center">
+				<p:panel>
+					<h:outputLabel value="Property name: " style="font-weight:bold" />
+					<p:inputText id="settingName" value="#{myBean.settingName}" style="width: 300px;"/>
+					<BR />
+					<p:commandButton value="Align property" ajax="true"
+						actionListener="#{myBean.findSettingMatchings}"
+						oncomplete="pan.show();" update="display">
+
+					</p:commandButton>
+					<p:panel widgetVar="pan" visible="false" closable="true"
+						toggleable="true" id="display">
+						<BR />
+						<h:outputLabel value="Mapped to: " style="font-weight:bold" />
+						<p:selectOneMenu id="combo3"
+							value="#{myBean.selectedSettingMapping}" effect="fade">
+							<f:selectItems value="#{myBean.settingNameMappings}"
+								itemLabel="#{myBean.settingNameMappings}" />
+						</p:selectOneMenu>
+						<BR />
+						<h:outputLabel value="Value: " style="font-weight:bold" />
+						<p:inputText id="settingValue" value="#{myBean.settingValue}" style="width: 300px;"/>
+						<BR />
+						<p:commandButton value="Add new property to registry" ajax="true"
+							actionListener="#{myBean.addNewPropertyToRegistry}">
+
+						</p:commandButton>
+					</p:panel>
+
+				</p:panel>
+			</p:dialog>
+
+
+
+
+		</h:form>
+	</h:body>
+</f:view>

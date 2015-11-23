@@ -1,0 +1,35 @@
+.ui-datatable tbody td.wrap {
+	white-space: normal;
+}
+
+.ui-dialog .ui-dialog-content {
+	max-height: 500px !important;
+}
+
+.eastinDialog .ui-dialog-content {
+	min-width: 645px !important;
+}
+
+.proposedItem {
+	background-color: #F0AD4E !important;
+}
+
+.proposedItem.ui-state-active {
+	background-color: #39B3D7 !important;
+}
+
+.proposedLegend {
+	color: #F0AD4E !important;
+	font-weight: bold;
+}
+
+.breakWord {
+	word-wrap: break-word;
+}
+
+.ui-datatable img.thumbnail,
+.grid img.thumbnail {
+	max-width: 150px !important;
+}
+
+.valign-middle {vertical-align: middle;}

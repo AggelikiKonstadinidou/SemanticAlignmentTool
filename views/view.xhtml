@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+	
+		<h:form>
+            
+			<h:outputLabel for="name"
+				value="Welcome to the Cloud4all Semantic Alignment Tool (version 1.7)"
+				style="font-size: 25px; font-weight:bold" />
+			<br />
+			<br />
+			<font size="2">
+			 <a target="_blank" href="http://160.40.50.183/cloud4all/SatManual.pdf">Get semantic alignment tool manual.</a>
+			</font>
+			<br />
+			<br />
+			<p>
+				<font size="2"> This version has been integrated with the
+					latest ontological semantic framework v1.7 that can be accessed by
+					the following url: <a target="_blank" href="http://160.40.50.183/cloud4all">http://160.40.50.183/cloud4all</a>
+				</font>
+			</p>
+			<br />
+			<p>
+				<font size="2"> The Tool can be used by Vendors/service
+					providers, etc. that they would like to include their applications
+					and their customizable settings in the Cloud4all/GPII architecture,
+					as well as by Developers /designers and interested users to have
+					access on the customizable settings of the supported applications.
+				</font>
+			</p>
+
+			<p>
+				<font size="2"> More specifically, the tool can support users
+					for performing syntactic and semantic analysis of their solutions'
+					settings as well as a semi-automatic categorization of
+					solutions/settings that are stored in the semantic Framework of
+					content and solutions ontology. Thus, the tool can assist
+					users/vendors/service providers to help visualising annotated
+					content presented in the ontology as well as for improving existing
+					annotation structures and instances (e.g. a service provider has
+					the intention to semantically align its service in order to be
+					provided through the Cloud infrastructure). </font>
+			</p>
+
+			<br />
+			<p>
+				<font size="2"> The Semantic alignment Tool can provide to the
+					users some of the following functionalities:
+					<ul>
+						<li>Giving access to the ontological data of the Cloud4all
+							semantic framework (stored data for ICT solutions and their
+							settings)</li>
+						<li>Searching (by a free text and /or by categorization
+							lists) for solutions, settings, etc, that are stored in the
+							solutions ontology</li>
+						<li>Adding a new solution/setting to the solutions ontology
+							(without previous experience in cloud4all terms)</li>
+						<li>Proposing a new term in the common terms registry</li>
+					</ul>
+				</font>
+			</p>
+			
+			<br />
+			<br />
+			<p:commandButton
+			    rendered="#{userBean.user or userBean.admin or userBean.vendor}"
+				action="/views/initialMenu.xhtml?javax.portlet.faces.PortletMode=view&amp;javax.portlet.faces.WindowState=normal"
+				ajax="false" value="Next">
+			</p:commandButton>
+
+		</h:form>
+	</h:body>
+</f:view>
