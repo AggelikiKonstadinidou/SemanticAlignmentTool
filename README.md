@@ -15,7 +15,7 @@ The Semantic Alignment Tool is a portlet using the [Liferay Platform] (http://ww
 
 6)	Visit http://localhost:8080 and access Liferay portal. This page will show basic configuration page and needs to fill information like Portal Name, Default Language, Admin First Name, Admin Last Name, Admin Email (default is test@liferay.com). Use the default option for the database and click on Finish Configuration in order to store your changes. Once you’ve configured it successfully, click Go to My Portal. Accept the terms by clicking on I Agree. Enter your password that will be used for logging into your Portal later on and click on save.
 
-7)	By this step you should have installed Liferay Portal, run and access it through http://localhost:8080 entering your mail and password to log into your Dashboard. Once you log into your Dashboard, click on Add button and a new panel will be viewed and set of tabs are shown. Select More and expand the Sample node. Drag Rule Editor into your dashboard and refresh the page. By the end of this step you should be able to see and test Rule Editor.
+7)	By this step you should have installed Liferay Portal, run and access it through http://localhost:8080 entering your mail and password to log into your Dashboard. Once you log into your Dashboard, click on Add button and a new panel will be viewed and set of tabs are shown. Select More and expand the Sample node. Drag Semantic Alignment Tool into your dashboard and refresh the page. By the end of this step you should be able to see and test Semantic Alignment Tool.
 
 ## Funding Acknowledgement
 
